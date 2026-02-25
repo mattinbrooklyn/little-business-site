@@ -576,58 +576,51 @@ font-size: inherit;
       var closeBtn = document.getElementById('lb-modal-close');
       var dismissed = false;
       var section = document.getElementById('C');
-      var emailEl = document.getElementById('Contact'); // the email element in the center
-      if (!section || !emailEl) return;
+      if (!section) return;
 
-      // Instead of using #C progress, we track the email element's position.
-      // The modal starts entering once the email is centered AND the user
-      // has scrolled an additional 'triggerPx' pixels past that point.
-      var triggerPx = 200;  // px of extra scroll after email is locked before modal starts
-      var travelPx  = 300;  // px of scroll over which modal travels to center
+      // We record the scrollY at which the modal should start appearing.
+      // This is set the first time the user scrolls into the section,
+      // capturing the real Webflow-rendered position dynamically.
+      var modalTriggerY = null;
+      var travelPx = 300; // px of scroll over which modal travels to center
 
       function update() {
         if (dismissed) return;
 
-        var emailRect = emailEl.getBoundingClientRect();
+        var sectionRect = section.getBoundingClientRect();
         var vh = window.innerHeight;
         var cardH = card.offsetHeight;
-
-        // emailCenterOffset: how far the email center is from the viewport center.
-        // negative = email is above center, 0 = centered, positive = below center.
-        // When email is locked in place (sticky), this stays constant.
-        // We use the #C section scroll progress to drive the modal instead,
-        // but anchored to when email appears centered (emailRect.top ≈ vh/2).
-        var emailMid = emailRect.top + emailRect.height / 2;
-        var vpMid = vh / 2;
-        // extraScroll: how many px the user has scrolled PAST the email being centered.
-        // When email is centered, emailMid ≈ vpMid. As user scrolls further,
-        // the sticky inner section doesn't move but #C's rect.top keeps decreasing.
-        var sectionRect = section.getBoundingClientRect();
-        var sectionH = section.offsetHeight;
-        var scrolled = vh - sectionRect.top;
-        // Find the scroll amount at which email is centered:
-        // (computed once would be ideal, but email position is stable once sticky)
-        var emailCenteredAt = vh / 2 - emailRect.height / 2; // rect.top when centered
-
-        // Extra scroll past the email being centered:
-        var extraScroll = emailMid - vpMid < 50
-          ? Math.max(0, scrolled - (sectionH * 0.4)) // past ~40% of section
-          : 0;
-
         var centeredBottom = (vh - cardH) / 2;
         var hiddenBottom = -cardH - 40;
 
-        if (extraScroll <= 0) {
+        // Section is in view when sectionRect.top < vh
+        var inView = sectionRect.top < vh && sectionRect.bottom > 0;
+
+        if (!inView) {
+          // Outside section — hide modal, reset trigger for next entry
+          modalTriggerY = null;
           card.style.bottom = hiddenBottom + 'px';
           card.classList.remove('lb-interactive');
-        } else if (extraScroll < triggerPx) {
+          return;
+        }
+
+        // Once section is in view, capture trigger point on first scroll past it.
+        // We want the modal to appear after ~60% of the section has scrolled past.
+        if (modalTriggerY === null) {
+          var sectionTop = sectionRect.top + window.scrollY;
+          var sectionH = section.offsetHeight;
+          modalTriggerY = sectionTop + sectionH * 0.6;
+        }
+
+        var extra = window.scrollY - modalTriggerY;
+
+        if (extra < 0) {
           card.style.bottom = hiddenBottom + 'px';
           card.classList.remove('lb-interactive');
         } else {
-          var t = Math.min(1, (extraScroll - triggerPx) / travelPx);
+          var t = Math.min(1, extra / travelPx);
           var eased = 1 - Math.pow(1 - t, 3);
-          var bottom = hiddenBottom + (centeredBottom - hiddenBottom) * eased;
-          card.style.bottom = bottom + 'px';
+          card.style.bottom = (hiddenBottom + (centeredBottom - hiddenBottom) * eased) + 'px';
           if (t > 0) card.classList.add('lb-interactive');
           else card.classList.remove('lb-interactive');
         }
@@ -639,12 +632,11 @@ font-size: inherit;
         card.classList.remove('lb-interactive');
       });
 
-      // Contact nav: let Webflow handle the scroll naturally to #Contact-Close,
-      // just reset dismissed so modal can appear on subsequent scrolling.
       document.querySelectorAll('a[href="#Contact"]').forEach(function (link) {
         link.addEventListener('click', function (e) {
           e.preventDefault();
           dismissed = false;
+          modalTriggerY = null; // reset so it recalculates on next scroll
           var contactClose = document.getElementById('Contact-Close');
           var target = contactClose || section;
           target.scrollIntoView({ behavior: 'smooth' });
