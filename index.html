@@ -624,10 +624,9 @@ font-size: inherit;
           e.preventDefault();
           dismissed = false;
           var sectionTop = section.getBoundingClientRect().top + window.scrollY;
-          // Land just past the top of #C so the sticky inner panel is pinned at the
-          // top of the viewport. A small extra offset (vh * 0.05) ensures it's clean.
-          var targetScroll = sectionTop + window.innerHeight * 0.05;
-          window.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
+          // Scroll to exactly the top of #C — the sticky inner panel will be pinned
+          // at the top of the viewport, full CTA visible, modal not yet triggered.
+          window.scrollTo({ top: sectionTop, behavior: 'smooth' });
         });
       });
 
