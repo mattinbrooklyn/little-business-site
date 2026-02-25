@@ -490,21 +490,20 @@ font-size: inherit;
   <style>
     #lb-modal-card {
       position: fixed;
-      bottom: -400px;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(0);
       width: min(480px, calc(100vw - 40px));
       background: #f7f0cb;
       border: 2px solid #000;
       border-radius: .66em;
       padding: 1.4em 1em;
       box-sizing: border-box;
-      transition: bottom 0.5s cubic-bezier(0.22, 1, 0.36, 1);
       z-index: 9999;
       pointer-events: none;
+      /* parked well below screen, no CSS transition — JS drives position */
+      bottom: -600px;
     }
-    #lb-modal-card.lb-visible {
-      bottom: 32px;
+    #lb-modal-card.lb-interactive {
       pointer-events: auto;
     }
     #lb-modal-close {
@@ -575,24 +574,59 @@ font-size: inherit;
 
       closeBtn.addEventListener('click', function () {
         dismissed = true;
-        card.classList.remove('lb-visible');
+        card.style.bottom = '-600px';
+        card.classList.remove('lb-interactive');
       });
 
-      var target = document.getElementById('C');
-      if (target && 'IntersectionObserver' in window) {
-        var observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (!dismissed) {
-              if (entry.isIntersecting) {
-                card.classList.add('lb-visible');
-              } else {
-                card.classList.remove('lb-visible');
-              }
-            }
-          });
-        }, { threshold: 0.2 });
-        observer.observe(target);
+      var section = document.getElementById('C');
+      if (!section) return;
+
+      function update() {
+        if (dismissed) return;
+
+        var rect = section.getBoundingClientRect();
+        var sectionH = section.offsetHeight;
+        var vh = window.innerHeight;
+
+        // How far we've scrolled into the section (0 = top of section at bottom of viewport, 1 = section fully scrolled)
+        // rect.top goes from vh (section just entering) down to vh - sectionH (section fully scrolled)
+        // scrolled = how many px past the top of the section entering the viewport
+        var scrolled = vh - rect.top;           // px scrolled into section
+        var total = sectionH;                   // total scrollable distance of section
+        var progress = scrolled / total;        // 0→1 across entire section
+
+        // The sticky section has margin-top: 20em and the email is centered.
+        // Email locks in at roughly progress ~0.35 (after the section slides up fully).
+        // We want modal to start entering at ~0.55 and be centered by ~0.75.
+        var startP = 0.55;
+        var endP = 0.75;
+
+        var cardH = card.offsetHeight;
+        var centeredBottom = (vh - cardH) / 2;  // bottom value that centers the card
+        var hiddenBottom = -cardH - 40;          // fully off-screen below
+
+        if (progress < startP) {
+          // Not yet — keep hidden
+          card.style.bottom = hiddenBottom + 'px';
+          card.classList.remove('lb-interactive');
+        } else if (progress >= startP && progress <= endP) {
+          // Sliding in: map [startP, endP] → [hiddenBottom, centeredBottom]
+          var t = (progress - startP) / (endP - startP);
+          // ease out cubic
+          var eased = 1 - Math.pow(1 - t, 3);
+          var bottom = hiddenBottom + (centeredBottom - hiddenBottom) * eased;
+          card.style.bottom = bottom + 'px';
+          card.classList.add('lb-interactive');
+        } else {
+          // Past endP — hold at center
+          card.style.bottom = centeredBottom + 'px';
+          card.classList.add('lb-interactive');
+        }
       }
+
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+      update();
     })();
   </script>
 
