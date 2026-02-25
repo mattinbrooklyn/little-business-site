@@ -594,6 +594,8 @@ font-size: inherit;
         var centeredBottom = (vh - cardH) / 2;
         var hiddenBottom = -cardH - 40;
 
+        if (progress >= startP) console.log('LB MODAL', { progress: +progress.toFixed(3), scrollY: window.scrollY, rectTop: +rect.top.toFixed(0), sectionH: sectionH, vh: vh });
+
         if (progress < startP) {
           card.style.bottom = hiddenBottom + 'px';
           card.classList.remove('lb-interactive');
