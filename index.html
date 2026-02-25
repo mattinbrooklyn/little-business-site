@@ -628,14 +628,11 @@ font-size: inherit;
           var sectionTop = section.getBoundingClientRect().top + window.scrollY;
           var sectionH = section.offsetHeight;
           var vh = window.innerHeight;
-          var targetProgress = startP - 0.05;
-          // progress = (vh - rect.top) / sectionH
-          // rect.top = sectionTop - scrollY  →  scrollY = sectionTop - rect.top
-          // We want: progress = targetProgress → vh - rect.top = targetProgress * sectionH
-          //                                   → rect.top = vh - targetProgress * sectionH
-          //                                   → scrollY = sectionTop - (vh - targetProgress * sectionH)
-          var targetScroll = sectionTop - (vh - targetProgress * sectionH);
-          console.log('LB DEBUG', { sectionTop: sectionTop, sectionH: sectionH, vh: vh, targetProgress: targetProgress, targetScroll: targetScroll, currentScrollY: window.scrollY });
+          // Modal triggers at startP into the section. Scroll to 20% before that point.
+          // scrollY at trigger = sectionTop + startP * sectionH - vh
+          // We want to land 20% of sectionH before that.
+          var triggerScroll = sectionTop + startP * sectionH - vh;
+          var targetScroll = triggerScroll - sectionH * 0.2;
           window.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
         });
       });
