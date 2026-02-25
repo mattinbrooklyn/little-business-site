@@ -575,23 +575,27 @@ font-size: inherit;
       var card = document.getElementById('lb-modal-card');
       var closeBtn = document.getElementById('lb-modal-close');
       var dismissed = false;
+      var navScrolling = false;
+      var navScrollTimer = null;
       var section = document.getElementById('C');
       if (!section) return;
 
-      // Thresholds shared between update() and the nav click handler
       var startP = 0.55;
       var endP = 0.75;
 
       function update() {
-        if (dismissed) return;
+        // Don't show modal during a nav-initiated scroll
+        if (dismissed || navScrolling) {
+          card.style.bottom = (-card.offsetHeight - 40) + 'px';
+          card.classList.remove('lb-interactive');
+          return;
+        }
 
         var rect = section.getBoundingClientRect();
         var sectionH = section.offsetHeight;
         var vh = window.innerHeight;
-
-        // scrolled = how many px of the section have passed the top of the viewport
         var scrolled = vh - rect.top;
-        var progress = scrolled / sectionH; // 0→1 across entire section
+        var progress = scrolled / sectionH;
 
         var cardH = card.offsetHeight;
         var centeredBottom = (vh - cardH) / 2;
@@ -617,18 +621,27 @@ font-size: inherit;
         card.classList.remove('lb-interactive');
       });
 
-      // Intercept Contact nav links.
-      // Scroll to the exact position where progress = startP - 0.05 (just before modal enters).
-      // Formula: scrollY = sectionTop + (startP - 0.05) * sectionH - vh
-      // This is derived directly from the same progress formula used in update().
       document.querySelectorAll('a[href="#Contact"]').forEach(function (link) {
         link.addEventListener('click', function (e) {
           e.preventDefault();
           dismissed = false;
-          // Scroll to half a viewport above the start of #C.
-          // The CTA section will be visible but modal cannot have triggered yet.
+          // Suppress modal during scroll animation, re-enable once scroll settles
+          navScrolling = true;
+          if (navScrollTimer) clearTimeout(navScrollTimer);
+
           var sectionTop = section.getBoundingClientRect().top + window.scrollY;
-          window.scrollTo({ top: Math.max(0, sectionTop - window.innerHeight * 0.5), behavior: 'smooth' });
+          var sectionH = section.offsetHeight;
+          var vh = window.innerHeight;
+          // Land at exactly progress=0 — the very start of the section entering the viewport
+          // scrollY = sectionTop - vh  puts rect.top = vh, scrolled = 0, progress = 0
+          var targetScroll = sectionTop - vh;
+          window.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
+
+          // Re-enable modal after scroll animation completes (~800ms)
+          navScrollTimer = setTimeout(function () {
+            navScrolling = false;
+            update();
+          }, 800);
         });
       });
 
