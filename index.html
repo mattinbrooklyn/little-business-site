@@ -581,8 +581,8 @@ font-size: inherit;
           if (!section) return;
           var sectionTop = section.getBoundingClientRect().top + window.scrollY;
           var sectionH = section.offsetHeight;
-          // Scroll to 50% through the section — email settled, modal not yet appearing
-          var targetScroll = sectionTop + sectionH * 0.5 - window.innerHeight;
+          // Scroll to 15% through the section — section is sticky but email not yet on screen
+          var targetScroll = sectionTop + sectionH * 0.15 - window.innerHeight;
           window.scrollTo({ top: targetScroll, behavior: 'smooth' });
         });
       });
