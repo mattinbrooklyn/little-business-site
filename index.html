@@ -621,7 +621,9 @@ font-size: inherit;
           var sectionTop = section.getBoundingClientRect().top + window.scrollY;
           // Jump instantly (no smooth scroll) to progress=0 — modal can't fire mid-animation.
           // User then scrolls naturally to trigger the modal.
-          window.scrollTo({ top: Math.max(0, sectionTop - window.innerHeight), behavior: 'instant' });
+          // Subtract 3 viewports to ensure we land well before the modal trigger zone,
+          // regardless of how Webflow's scroll animations shift element positions.
+          window.scrollTo({ top: Math.max(0, sectionTop - window.innerHeight * 3), behavior: 'instant' });
         });
       });
 
