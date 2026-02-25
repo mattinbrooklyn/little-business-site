@@ -578,6 +578,10 @@ font-size: inherit;
       var section = document.getElementById('C');
       if (!section) return;
 
+      // Thresholds shared between update() and the nav click handler
+      var startP = 0.55;
+      var endP = 0.75;
+
       function update() {
         if (dismissed) return;
 
@@ -588,10 +592,6 @@ font-size: inherit;
         // scrolled = how many px of the section have passed the top of the viewport
         var scrolled = vh - rect.top;
         var progress = scrolled / sectionH; // 0→1 across entire section
-
-        // Start entering at ~55%, centered by ~75%
-        var startP = 0.55;
-        var endP = 0.75;
 
         var cardH = card.offsetHeight;
         var centeredBottom = (vh - cardH) / 2;
@@ -617,16 +617,19 @@ font-size: inherit;
         card.classList.remove('lb-interactive');
       });
 
-      // Intercept Contact nav links — scroll to just before email enters (~15% through #C)
+      // Intercept Contact nav links — scroll to just before the modal starts appearing.
+      // Uses (startP - 0.1) so it's always in sync with the modal trigger point.
       document.querySelectorAll('a[href="#Contact"]').forEach(function (link) {
         link.addEventListener('click', function (e) {
           e.preventDefault();
-          // Re-enable modal in case it was dismissed, since user is navigating intentionally
           dismissed = false;
           var sectionTop = section.getBoundingClientRect().top + window.scrollY;
           var sectionH = section.offsetHeight;
-          var targetScroll = sectionTop + sectionH * 0.15 - window.innerHeight;
-          window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+          // Land at (startP - 0.1) = 0.45 of progress through the section.
+          // progress = (vh - rect.top) / sectionH, and when section is sticky rect.top ~= 0,
+          // so scrolled = vh, meaning we need: window.scrollY = sectionTop + (startP - 0.1) * sectionH - vh
+          var targetScroll = sectionTop + (startP - 0.1) * sectionH - window.innerHeight;
+          window.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
         });
       });
 
