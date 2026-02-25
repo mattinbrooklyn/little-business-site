@@ -625,15 +625,10 @@ font-size: inherit;
         link.addEventListener('click', function (e) {
           e.preventDefault();
           dismissed = false;
+          // Scroll to half a viewport above the start of #C.
+          // The CTA section will be visible but modal cannot have triggered yet.
           var sectionTop = section.getBoundingClientRect().top + window.scrollY;
-          var sectionH = section.offsetHeight;
-          var vh = window.innerHeight;
-          // Modal triggers at startP into the section. Scroll to 20% before that point.
-          // scrollY at trigger = sectionTop + startP * sectionH - vh
-          // We want to land 20% of sectionH before that.
-          var triggerScroll = sectionTop + startP * sectionH - vh;
-          var targetScroll = triggerScroll - sectionH * 0.2;
-          window.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
+          window.scrollTo({ top: Math.max(0, sectionTop - window.innerHeight * 0.5), behavior: 'smooth' });
         });
       });
 
