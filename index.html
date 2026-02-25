@@ -635,6 +635,7 @@ font-size: inherit;
           //                                   → rect.top = vh - targetProgress * sectionH
           //                                   → scrollY = sectionTop - (vh - targetProgress * sectionH)
           var targetScroll = sectionTop - (vh - targetProgress * sectionH);
+          console.log('LB DEBUG', { sectionTop: sectionTop, sectionH: sectionH, vh: vh, targetProgress: targetProgress, targetScroll: targetScroll, currentScrollY: window.scrollY });
           window.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
         });
       });
