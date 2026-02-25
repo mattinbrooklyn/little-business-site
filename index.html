@@ -536,20 +536,24 @@ font-size: inherit;
       border-radius: 4px 0 0 4px;
       padding: 10px 14px;
       font-size: 14px;
-      font-family: inherit;
+      font-family: "TeX Gyre Heros Condensed", sans-serif;
+      text-transform: uppercase;
       background: transparent;
       outline: none;
       -webkit-appearance: none;
     }
     #lb-modal-email::placeholder {
       color: #666;
+      font-family: "TeX Gyre Heros Condensed", sans-serif;
+      text-transform: uppercase;
     }
     #lb-modal-submit {
       border: 1px solid #000;
       border-radius: 0 4px 4px 0;
       padding: 10px 20px;
       font-size: 14px;
-      font-family: inherit;
+      font-family: "TeX Gyre Heros Condensed", sans-serif;
+      text-transform: uppercase;
       background: #000;
       color: #f7f0cb;
       cursor: pointer;
@@ -559,12 +563,31 @@ font-size: inherit;
 
   <div id="lb-modal-card" role="dialog" aria-modal="true" aria-label="Keep in touch">
     <button id="lb-modal-close" aria-label="Close">&#x2715;</button>
-    <h2 id="lb-modal-heading">Let's keep in touch</h2>
+    <h2 id="lb-modal-heading">Want to keep in touch?</h2>
     <div id="lb-modal-form">
       <input id="lb-modal-email" type="email" placeholder="your email">
       <button id="lb-modal-submit" type="button">Submit</button>
     </div>
   </div>
+
+  <script>
+    (function () {
+      // Intercept Contact nav links and scroll to the right position in #C
+      // (email locked in, just before the modal enters at progress ~0.55)
+      document.querySelectorAll('a[href="#Contact"]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          var section = document.getElementById('C');
+          if (!section) return;
+          var sectionTop = section.getBoundingClientRect().top + window.scrollY;
+          var sectionH = section.offsetHeight;
+          // Scroll to 50% through the section — email settled, modal not yet appearing
+          var targetScroll = sectionTop + sectionH * 0.5 - window.innerHeight;
+          window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+        });
+      });
+    })();
+  </script>
 
   <script>
     (function () {
