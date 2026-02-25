@@ -617,16 +617,25 @@ font-size: inherit;
         card.classList.remove('lb-interactive');
       });
 
-      // Intercept Contact nav links — scroll to just after #C becomes sticky so the
-      // full CTA page is visible (heading, email, "Let's talk.") with no modal yet.
+      // Intercept Contact nav links.
+      // Scroll to the exact position where progress = startP - 0.05 (just before modal enters).
+      // Formula: scrollY = sectionTop + (startP - 0.05) * sectionH - vh
+      // This is derived directly from the same progress formula used in update().
       document.querySelectorAll('a[href="#Contact"]').forEach(function (link) {
         link.addEventListener('click', function (e) {
           e.preventDefault();
           dismissed = false;
           var sectionTop = section.getBoundingClientRect().top + window.scrollY;
-          // Scroll to exactly the top of #C — the sticky inner panel will be pinned
-          // at the top of the viewport, full CTA visible, modal not yet triggered.
-          window.scrollTo({ top: sectionTop, behavior: 'smooth' });
+          var sectionH = section.offsetHeight;
+          var vh = window.innerHeight;
+          var targetProgress = startP - 0.05;
+          // progress = (vh - rect.top) / sectionH
+          // rect.top = sectionTop - scrollY  →  scrollY = sectionTop - rect.top
+          // We want: progress = targetProgress → vh - rect.top = targetProgress * sectionH
+          //                                   → rect.top = vh - targetProgress * sectionH
+          //                                   → scrollY = sectionTop - (vh - targetProgress * sectionH)
+          var targetScroll = sectionTop - (vh - targetProgress * sectionH);
+          window.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
         });
       });
 
