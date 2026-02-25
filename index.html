@@ -575,8 +575,6 @@ font-size: inherit;
       var card = document.getElementById('lb-modal-card');
       var closeBtn = document.getElementById('lb-modal-close');
       var dismissed = false;
-      var navScrolling = false;
-      var navScrollTimer = null;
       var section = document.getElementById('C');
       if (!section) return;
 
@@ -584,12 +582,7 @@ font-size: inherit;
       var endP = 0.75;
 
       function update() {
-        // Don't show modal during a nav-initiated scroll
-        if (dismissed || navScrolling) {
-          card.style.bottom = (-card.offsetHeight - 40) + 'px';
-          card.classList.remove('lb-interactive');
-          return;
-        }
+        if (dismissed) return;
 
         var rect = section.getBoundingClientRect();
         var sectionH = section.offsetHeight;
@@ -625,23 +618,10 @@ font-size: inherit;
         link.addEventListener('click', function (e) {
           e.preventDefault();
           dismissed = false;
-          // Suppress modal during scroll animation, re-enable once scroll settles
-          navScrolling = true;
-          if (navScrollTimer) clearTimeout(navScrollTimer);
-
           var sectionTop = section.getBoundingClientRect().top + window.scrollY;
-          var sectionH = section.offsetHeight;
-          var vh = window.innerHeight;
-          // Land at exactly progress=0 — the very start of the section entering the viewport
-          // scrollY = sectionTop - vh  puts rect.top = vh, scrolled = 0, progress = 0
-          var targetScroll = sectionTop - vh;
-          window.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
-
-          // Re-enable modal after scroll animation completes (~800ms)
-          navScrollTimer = setTimeout(function () {
-            navScrolling = false;
-            update();
-          }, 800);
+          // Jump instantly (no smooth scroll) to progress=0 — modal can't fire mid-animation.
+          // User then scrolls naturally to trigger the modal.
+          window.scrollTo({ top: Math.max(0, sectionTop - window.innerHeight), behavior: 'instant' });
         });
       });
 
