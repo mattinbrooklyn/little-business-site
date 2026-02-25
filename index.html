@@ -617,18 +617,16 @@ font-size: inherit;
         card.classList.remove('lb-interactive');
       });
 
-      // Intercept Contact nav links — scroll to just before the modal starts appearing.
-      // Uses (startP - 0.1) so it's always in sync with the modal trigger point.
+      // Intercept Contact nav links — scroll to just after #C becomes sticky so the
+      // full CTA page is visible (heading, email, "Let's talk.") with no modal yet.
       document.querySelectorAll('a[href="#Contact"]').forEach(function (link) {
         link.addEventListener('click', function (e) {
           e.preventDefault();
           dismissed = false;
           var sectionTop = section.getBoundingClientRect().top + window.scrollY;
-          var sectionH = section.offsetHeight;
-          // Land at (startP - 0.1) = 0.45 of progress through the section.
-          // progress = (vh - rect.top) / sectionH, and when section is sticky rect.top ~= 0,
-          // so scrolled = vh, meaning we need: window.scrollY = sectionTop + (startP - 0.1) * sectionH - vh
-          var targetScroll = sectionTop + (startP - 0.1) * sectionH - window.innerHeight;
+          // Land just past the top of #C so the sticky inner panel is pinned at the
+          // top of the viewport. A small extra offset (vh * 0.05) ensures it's clean.
+          var targetScroll = sectionTop + window.innerHeight * 0.05;
           window.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
         });
       });
