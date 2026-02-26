@@ -462,14 +462,14 @@ font-size: inherit;
       </div>
     </div>
     <div id="about-section" class="sticky-section-wrapper about">
-      <div class="section sticky-section">
+      <div class="section sticky-section about-section-bg">
         <div class="container full-screen-height about">
           <div class="about-label-col">
             <div class="about-label">About</div>
           </div>
           <div class="about-content-col">
             <img src="images/Matt_Headshot.jpg" alt="Matt Little" class="about-photo">
-            <p class="paragraph-regular about-bio">Matt Little is an operationally inclined Libra who brings a pragmatic lens to creative challenges. Holding undergraduate and Master&#x27;s degrees from Indiana&#x27;s Kelley School of Business, Matt&#x27;s expertise spans business management, marketing, process engineering, data analytics, logistics, and production. He has extensive experience in operations and business development across the media and advertising industries at organizations including BuzzFeed, Man Repeller, and Atlas Obscura.</p>
+            <p class="about-bio">Matt Little is an operationally inclined Libra who brings a pragmatic lens to creative challenges. Holding undergraduate and Master&#x27;s degrees from Indiana&#x27;s Kelley School of Business, Matt&#x27;s expertise spans business management, marketing, process engineering, data analytics, logistics, and production. He has extensive experience in operations and business development across the media and advertising industries at organizations including BuzzFeed, Man Repeller, and Atlas Obscura.</p>
           </div>
         </div>
       </div>
@@ -500,7 +500,6 @@ font-size: inherit;
       <div class="section-3-bg opacity-0"></div>
       <div class="section-4-bg opacity-0"></div>
       <div class="section-5-bg opacity-0"></div>
-      <div class="about-bg opacity-0"></div>
     </div>
   </div>
   <!-- Newsletter popup modal -->
@@ -701,7 +700,6 @@ font-size: inherit;
     (function () {
       var photo = document.querySelector('.about-photo');
       var bio = document.querySelector('.about-bio');
-      var aboutBg = document.querySelector('.about-bg');
       var aboutSection = document.getElementById('about-section');
       if (!photo || !bio || !aboutSection) return;
 
@@ -711,9 +709,6 @@ font-size: inherit;
           if (entry.isIntersecting) {
             photo.classList.add('is-visible');
             bio.classList.add('is-visible');
-            if (aboutBg) {
-              aboutBg.classList.remove('opacity-0');
-            }
             observer.unobserve(entry.target);
           }
         });
