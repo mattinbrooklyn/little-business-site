@@ -213,10 +213,9 @@ ul {
 .about-label {
   margin-top: 0;
   margin-bottom: 0;
-  font-family: ITC Garamond Std, sans-serif;
+  font-family: Larish Alte, sans-serif;
   font-size: 16.53em;
-  font-weight: 400;
-  font-style: normal;
+  font-weight: 600;
   line-height: 1;
   color: #000;
 }
@@ -264,6 +263,12 @@ ul {
   opacity: 0;
   transition: opacity .4s ease;
   pointer-events: none;
+}
+
+.about-bg-nav {
+  position: absolute;
+  inset: 0%;
+  height: 100%;
 }
 
 .about-bg.is-active {
