@@ -351,8 +351,12 @@ ul {
   min-height: 250vh;
 }
 
-.sticky-section-wrapper.intro, .sticky-section-wrapper.packages {
+.sticky-section-wrapper.intro {
   min-height: 400vh;
+}
+
+.sticky-section-wrapper.packages {
+  min-height: 150vh;
 }
 
 .sticky-section-wrapper.points {
