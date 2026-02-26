@@ -428,8 +428,6 @@ ul {
 
 .post-intro-wrapper {
   flex-flow: column;
-  padding-top: 5em;
-  padding-bottom: 5em;
   display: flex;
 }
 
