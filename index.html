@@ -346,7 +346,6 @@ font-size: inherit;
             <div class="section-3-bg opacity-0 clip-nav"></div>
             <div class="section-4-bg opacity-0 clip-nav"></div>
             <div class="section-5-bg opacity-0 clip-nav"></div>
-            <div class="about-bg opacity-0 clip-nav"></div>
           </div>
         </div>
       </div>
@@ -501,9 +500,9 @@ font-size: inherit;
       <div class="section-3-bg opacity-0"></div>
       <div class="section-4-bg opacity-0"></div>
       <div class="section-5-bg opacity-0"></div>
-      <div class="about-bg opacity-0"></div>
     </div>
   </div>
+  <div id="about-bg-el" class="about-bg"></div>
   <!-- Newsletter popup modal -->
   <style>
     #lb-modal-card {
@@ -702,7 +701,7 @@ font-size: inherit;
     (function () {
       var contentCol = document.querySelector('.about-content-col');
       var aboutSection = document.getElementById('about-section');
-      var aboutBgs = document.querySelectorAll('.about-bg');
+      var aboutBg = document.getElementById('about-bg-el');
       if (!contentCol || !aboutSection) return;
 
       function update() {
@@ -715,11 +714,11 @@ font-size: inherit;
         if (active) {
           contentCol.classList.add('is-visible');
           contentCol.classList.remove('is-hidden');
-          aboutBgs.forEach(function(bg) { bg.classList.remove('opacity-0'); });
+          if (aboutBg) aboutBg.classList.add('is-active');
         } else {
           contentCol.classList.remove('is-visible');
           contentCol.classList.add('is-hidden');
-          aboutBgs.forEach(function(bg) { bg.classList.add('opacity-0'); });
+          if (aboutBg) aboutBg.classList.remove('is-active');
         }
       }
 
