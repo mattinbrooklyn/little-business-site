@@ -202,31 +202,32 @@ ul {
 
 .about-label-col {
   flex: 0 0 auto;
-  width: 12em;
   align-self: flex-start;
-  padding-top: .1em;
+  padding-top: .05em;
 }
 
 .about-label {
-  font-family: TeX Gyre Heros Condensed, sans-serif;
-  font-size: 1em;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 1.13;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: Larish Alte, sans-serif;
+  font-size: 6em;
+  font-weight: 600;
+  line-height: .91;
+  color: var(--about-background);
 }
 
 .about-content-col {
-  flex: 1;
+  flex: 0 0 auto;
+  width: 32em;
   display: flex;
   flex-direction: column;
-  gap: 2em;
+  gap: 1.5em;
 }
 
 .about-photo {
   width: 20em;
   border-radius: .66em;
   display: block;
-  overflow: hidden;
   transform: translateX(100%);
   opacity: 0;
   transition: transform .8s cubic-bezier(.16, 1, .3, 1), opacity .8s ease;
@@ -238,6 +239,11 @@ ul {
 }
 
 .about-bio {
+  font-family: Neue Haas Grotesk Display, Arial, sans-serif;
+  font-size: 1.1em;
+  line-height: 1.4;
+  margin-top: 0;
+  margin-bottom: 0;
   opacity: 0;
   transition: opacity .8s ease .4s;
 }
@@ -246,13 +252,8 @@ ul {
   opacity: 1;
 }
 
-.about-bg {
-  z-index: -1;
+.about-section-bg {
   background-color: var(--about-background);
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  inset: 0%;
 }
 
 .container.hero {
