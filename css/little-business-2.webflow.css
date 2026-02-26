@@ -209,16 +209,16 @@ ul {
   margin-top: 0;
   margin-bottom: 0;
   font-family: ITC Garamond Std, sans-serif;
-  font-size: 4.8em;
+  font-size: 16.53em;
   font-weight: 400;
   font-style: normal;
-  line-height: 1.1;
+  line-height: 1;
   color: #000;
 }
 
 .about-content-col {
   flex: 0 0 auto;
-  width: 38%;
+  width: 20%;
   display: flex;
   flex-direction: column;
   gap: 1.2em;
