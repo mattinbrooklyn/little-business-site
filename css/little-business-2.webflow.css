@@ -428,7 +428,8 @@ ul {
 
 .post-intro-wrapper {
   flex-flow: column;
-  padding-top: 4em;
+  padding-top: 6em;
+  padding-bottom: 6em;
   display: flex;
 }
 
@@ -1066,12 +1067,10 @@ ul {
 
 .post-intro-item-wrap.is-last {
   border-bottom-style: solid;
-  padding-bottom: 6em;
 }
 
 .post-intro-item-wrap.is-first {
   border-top: 2px solid #000;
-  padding-top: 6em;
 }
 
 .intro-parent-wrapper {
