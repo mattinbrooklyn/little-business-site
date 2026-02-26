@@ -346,6 +346,7 @@ font-size: inherit;
             <div class="section-3-bg opacity-0 clip-nav"></div>
             <div class="section-4-bg opacity-0 clip-nav"></div>
             <div class="section-5-bg opacity-0 clip-nav"></div>
+            <div class="about-bg opacity-0 clip-nav"></div>
           </div>
         </div>
       </div>
@@ -462,7 +463,7 @@ font-size: inherit;
       </div>
     </div>
     <div id="about-section" class="sticky-section-wrapper about">
-      <div class="section sticky-section about-section-bg">
+      <div class="section sticky-section">
         <div class="container full-screen-height about">
           <div class="about-label-col">
             <div class="about-label">About</div>
@@ -500,6 +501,7 @@ font-size: inherit;
       <div class="section-3-bg opacity-0"></div>
       <div class="section-4-bg opacity-0"></div>
       <div class="section-5-bg opacity-0"></div>
+      <div class="about-bg opacity-0"></div>
     </div>
   </div>
   <!-- Newsletter popup modal -->
@@ -700,22 +702,24 @@ font-size: inherit;
     (function () {
       var contentCol = document.querySelector('.about-content-col');
       var aboutSection = document.getElementById('about-section');
+      var aboutBgs = document.querySelectorAll('.about-bg');
       if (!contentCol || !aboutSection) return;
 
       function update() {
         var rect = aboutSection.getBoundingClientRect();
         var vh = window.innerHeight;
-        // Section is "active" when it's at least 20% into the viewport
-        // and hasn't scrolled more than 80% out the top
         var entering = rect.top < vh * 0.8;
         var exiting = rect.bottom < vh * 0.2;
+        var active = entering && !exiting;
 
-        if (entering && !exiting) {
+        if (active) {
           contentCol.classList.add('is-visible');
           contentCol.classList.remove('is-hidden');
+          aboutBgs.forEach(function(bg) { bg.classList.remove('opacity-0'); });
         } else {
           contentCol.classList.remove('is-visible');
           contentCol.classList.add('is-hidden');
+          aboutBgs.forEach(function(bg) { bg.classList.add('opacity-0'); });
         }
       }
 
