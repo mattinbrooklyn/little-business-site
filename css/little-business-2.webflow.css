@@ -195,8 +195,13 @@ ul {
   align-items: center;
   padding-top: 8em;
   padding-bottom: 8em;
-  overflow: hidden;
+  position: relative;
+  z-index: 1;
   display: flex;
+}
+
+.sticky-section-wrapper.about {
+  overflow: hidden;
 }
 
 .about-label-col {
