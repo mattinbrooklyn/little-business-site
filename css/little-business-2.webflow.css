@@ -202,6 +202,9 @@ ul {
 
 .sticky-section-wrapper.about {
   min-height: 150vh;
+}
+
+.sticky-section-wrapper.about .sticky-section {
   overflow: hidden;
 }
 
