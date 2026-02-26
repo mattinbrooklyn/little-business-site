@@ -1061,15 +1061,17 @@ ul {
   grid-row-gap: .5em;
   border-bottom: 2px solid #000;
   flex-flow: column;
-  padding: 6em 3em;
+  padding: 2em 3em;
 }
 
 .post-intro-item-wrap.is-last {
   border-bottom-style: solid;
+  padding-bottom: 6em;
 }
 
 .post-intro-item-wrap.is-first {
   border-top: 2px solid #000;
+  padding-top: 6em;
 }
 
 .intro-parent-wrapper {
