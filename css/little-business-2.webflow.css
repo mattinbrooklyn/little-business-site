@@ -266,6 +266,12 @@ ul {
   pointer-events: none;
 }
 
+.about-bg-nav {
+  position: absolute;
+  inset: 0%;
+  height: 100%;
+}
+
 .about-bg.is-active {
   opacity: 1;
 }

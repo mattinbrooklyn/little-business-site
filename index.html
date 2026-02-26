@@ -347,6 +347,7 @@ font-size: inherit;
             <div class="section-4-bg opacity-0 clip-nav"></div>
             <div class="section-5-bg opacity-0 clip-nav"></div>
           </div>
+          <div id="about-bg-nav" class="about-bg about-bg-nav"></div>
         </div>
       </div>
     </div>
@@ -702,6 +703,7 @@ font-size: inherit;
       var contentCol = document.querySelector('.about-content-col');
       var aboutSection = document.getElementById('about-section');
       var aboutBg = document.getElementById('about-bg-el');
+      var aboutBgNav = document.getElementById('about-bg-nav');
       if (!contentCol || !aboutSection) return;
 
       function update() {
@@ -715,10 +717,12 @@ font-size: inherit;
           contentCol.classList.add('is-visible');
           contentCol.classList.remove('is-hidden');
           if (aboutBg) aboutBg.classList.add('is-active');
+          if (aboutBgNav) aboutBgNav.classList.add('is-active');
         } else {
           contentCol.classList.remove('is-visible');
           contentCol.classList.add('is-hidden');
           if (aboutBg) aboutBg.classList.remove('is-active');
+          if (aboutBgNav) aboutBgNav.classList.remove('is-active');
         }
       }
 
