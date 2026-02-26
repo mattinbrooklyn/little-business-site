@@ -152,6 +152,8 @@ ul {
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
+  padding-top: 0;
+  padding-bottom: 0;
   padding-left: 0;
   padding-right: 0;
   height: 100vh;
@@ -356,7 +358,7 @@ ul {
 }
 
 .sticky-section-wrapper.packages {
-  min-height: 150vh;
+  min-height: 110vh;
 }
 
 .sticky-section-wrapper.points {
