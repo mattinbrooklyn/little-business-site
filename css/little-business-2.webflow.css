@@ -428,6 +428,8 @@ ul {
 
 .post-intro-wrapper {
   flex-flow: column;
+  justify-content: space-evenly;
+  flex: 1;
   display: flex;
 }
 
