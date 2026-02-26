@@ -154,6 +154,8 @@ ul {
   align-items: stretch;
   padding-left: 0;
   padding-right: 0;
+  height: 100vh;
+  min-height: unset;
   display: flex;
 }
 
