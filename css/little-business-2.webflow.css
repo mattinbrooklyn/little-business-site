@@ -209,10 +209,10 @@ ul {
   margin-top: 0;
   margin-bottom: 0;
   font-family: ITC Garamond Std, sans-serif;
-  font-size: 10em;
+  font-size: 4.8em;
   font-weight: 400;
-  font-style: italic;
-  line-height: .9;
+  font-style: normal;
+  line-height: 1.1;
   color: #000;
 }
 
