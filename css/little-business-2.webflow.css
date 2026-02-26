@@ -209,16 +209,16 @@ ul {
   margin-top: 0;
   margin-bottom: 0;
   font-family: ITC Garamond Std, sans-serif;
-  font-size: 4.8em;
+  font-size: 16.53em;
   font-weight: 400;
   font-style: normal;
-  line-height: 1.1;
+  line-height: 1;
   color: #000;
 }
 
 .about-content-col {
   flex: 0 0 auto;
-  width: 38%;
+  width: 20%;
   display: flex;
   flex-direction: column;
   gap: 1.2em;
@@ -241,15 +241,26 @@ ul {
 }
 
 .about-bio {
-  font-family: Neue Haas Grotesk Display, Arial, sans-serif;
-  font-size: .99em;
-  line-height: 1.3;
+  font-family: ITC Garamond Std, sans-serif;
+  font-size: 4.8em;
+  font-weight: 400;
+  line-height: 1.1;
   margin-top: 0;
   margin-bottom: 0;
 }
 
-.about-section-bg {
+.about-bg {
+  z-index: -1;
   background-color: var(--about-background);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  inset: 0%;
+  transition: opacity .4s ease;
+}
+
+.about-bg.opacity-0 {
+  opacity: 0;
 }
 
 .container.hero {
