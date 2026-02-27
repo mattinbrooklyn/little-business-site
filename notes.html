@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Notes — Little Business</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/little-business-2.webflow.css" rel="stylesheet" type="text/css">
+  <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
+  <link href="images/webclip.png" rel="apple-touch-icon">
+  <style>
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    a, .w-nav-link {
+      color: inherit;
+      text-decoration: inherit;
+      font-size: inherit;
+    }
+    .w-webflow-badge { display: none !important; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--section-4-background, #f7f0cb);
+      min-height: 100vh;
+    }
+
+    /* ---- Nav (static, not fixed, so page scrolls naturally) ---- */
+    .notes-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 1.32em;
+      background: transparent;
+    }
+    .notes-nav-left {
+      display: flex;
+      flex-direction: column;
+      gap: .5em;
+    }
+    .notes-nav-link {
+      text-transform: uppercase;
+      font-family: TeX Gyre Heros Condensed, sans-serif;
+      font-size: .99em;
+      line-height: 1.13;
+      display: block;
+      color: #000;
+      text-decoration: none;
+    }
+    .notes-nav-link.is-current {
+      font-style: italic;
+    }
+    .notes-nav-right {
+      text-align: right;
+    }
+
+    /* ---- Page content ---- */
+    .notes-page {
+      min-height: 100vh;
+      padding: 12em 3em 6em;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .notes-heading {
+      font-family: ITC Garamond Std, sans-serif;
+      font-size: 6.61em;
+      font-weight: 400;
+      line-height: .9;
+      margin: 0 0 1em 0;
+      color: #000;
+    }
+
+    .notes-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .notes-item {
+      border-top: 2px solid #000;
+      padding: 1em 0;
+      display: flex;
+      flex-direction: column;
+      gap: .3em;
+    }
+
+    .notes-item:last-child {
+      border-bottom: 2px solid #000;
+    }
+
+    .notes-item-date {
+      font-family: TeX Gyre Heros Condensed, sans-serif;
+      font-size: 1em;
+      color: #000;
+      opacity: 0.6;
+      line-height: 1.1;
+    }
+
+    .notes-item-link {
+      font-family: ITC Garamond Std, sans-serif;
+      font-size: 3.2em;
+      font-weight: 400;
+      line-height: 1;
+      color: #000;
+      text-decoration: none;
+    }
+
+    .notes-item-link:hover {
+      text-decoration: underline;
+    }
+
+    .notes-status {
+      font-family: TeX Gyre Heros Condensed, sans-serif;
+      font-size: 1.6em;
+      color: #000;
+      opacity: 0.6;
+    }
+
+    @media screen and (max-width: 767px) {
+      body { font-size: 2vw; }
+      .notes-heading { font-size: 4em; }
+      .notes-item-link { font-size: 2.2em; }
+    }
+
+    @media screen and (max-width: 479px) {
+      body { font-size: 3.5vw; }
+      .notes-page { padding: 8em 1.5em 4em; }
+      .notes-heading { font-size: 3em; }
+      .notes-item-link { font-size: 1.8em; }
+      .notes-nav { padding: .76em; }
+    }
+  </style>
+</head>
+<body style="font-size: 1vw;">
+
+  <!-- Nav -->
+  <div class="notes-nav">
+    <div class="notes-nav-left">
+      <a href="index.html#capabilities" class="notes-nav-link">CAPABILITIES</a>
+      <a href="index.html#about-section" class="notes-nav-link">About</a>
+      <a href="notes.html" class="notes-nav-link is-current">Notes</a>
+    </div>
+    <div class="notes-nav-right">
+      <a href="index.html#Contact" class="notes-nav-link">Contact</a>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="notes-page">
+    <h1 class="notes-heading">Notes</h1>
+    <p class="notes-status" id="notes-status">Loading...</p>
+    <ul class="notes-list" id="notes-list"></ul>
+  </div>
+
+  <script>
+    (function () {
+      var status = document.getElementById('notes-status');
+      var list = document.getElementById('notes-list');
+
+      function formatDate(dateStr) {
+        if (!dateStr) return '';
+        var d = new Date(dateStr);
+        return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      }
+
+      fetch('https://api.buttondown.email/v1/emails?status=sent', {
+        headers: {
+          'Authorization': 'Token 0ce51b9d-cafe-4728-80a4-880ee408f0de'
+        }
+      })
+      .then(function(res) {
+        if (!res.ok) throw new Error('API error: ' + res.status);
+        return res.json();
+      })
+      .then(function(data) {
+        status.style.display = 'none';
+        var emails = data.results || data;
+        if (!emails || emails.length === 0) {
+          status.style.display = '';
+          status.textContent = 'No notes yet.';
+          return;
+        }
+        emails.forEach(function(email) {
+          var li = document.createElement('li');
+          li.className = 'notes-item';
+
+          var date = document.createElement('div');
+          date.className = 'notes-item-date';
+          date.textContent = formatDate(email.publish_date || email.creation_date);
+
+          var link = document.createElement('a');
+          link.className = 'notes-item-link';
+          link.href = email.absolute_url || ('https://buttondown.email/littlebusiness/archive/' + email.slug);
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = email.subject;
+
+          li.appendChild(date);
+          li.appendChild(link);
+          list.appendChild(li);
+        });
+      })
+      .catch(function(err) {
+        status.textContent = 'Couldn\'t load notes right now. Try again later.';
+        console.error(err);
+      });
+    })();
+  </script>
+
+</body>
+</html>
