@@ -14,22 +14,23 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
+      -webkit-tap-highlight-color: transparent;
     }
-    a, .w-nav-link {
-      color: inherit;
-      text-decoration: inherit;
-      font-size: inherit;
-    }
+    a { color: inherit; text-decoration: inherit; font-size: inherit; }
     .w-webflow-badge { display: none !important; }
 
     html, body {
       margin: 0;
       padding: 0;
-      background-color: var(--section-4-background, #f7f0cb);
+      background-color: #f7f0cb;
       min-height: 100vh;
+      font-size: 1vw;
+      font-family: TeX Gyre Heros Condensed, sans-serif;
+      line-height: 1.1;
+      color: #000;
     }
 
-    /* ---- Nav (static, not fixed, so page scrolls naturally) ---- */
+    /* ---- Nav ---- */
     .notes-nav {
       position: fixed;
       top: 0;
@@ -63,21 +64,64 @@
       text-align: right;
     }
 
-    /* ---- Page content ---- */
-    .notes-page {
-      min-height: 100vh;
-      padding: 12em 3em 6em;
-      max-width: 100%;
-      box-sizing: border-box;
+    /* ---- Logo ---- */
+    .notes-logo {
+      position: fixed;
+      bottom: 1.32em;
+      left: 1.32em;
+      right: 1.32em;
+      z-index: 200;
+      display: flex;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+    .notes-logo a {
+      pointer-events: auto;
+    }
+    .notes-logo svg {
+      width: 100%;
+      height: auto;
+      max-height: 5.3em;
     }
 
-    .notes-heading {
-      font-family: ITC Garamond Std, sans-serif;
-      font-size: 6.61em;
-      font-weight: 400;
-      line-height: .9;
-      margin: 0 0 1em 0;
+    /* ---- Ticker banner ---- */
+    .notes-ticker-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      width: 100%;
+      overflow: hidden;
+      background: #f7f0cb;
+      padding-top: 10em;
+      padding-bottom: 1em;
+    }
+    .notes-ticker-track {
+      display: flex;
+      width: max-content;
+      animation: notes-ticker 18s linear infinite;
+    }
+    .notes-ticker-track:hover {
+      animation-play-state: paused;
+    }
+    .notes-ticker-item {
+      font-family: Larish Alte, sans-serif;
+      font-size: 16.53em;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+      padding-right: .25em;
       color: #000;
+    }
+    @keyframes notes-ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ---- List content ---- */
+    .notes-page {
+      padding: 2em 3em 10em;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .notes-list {
@@ -124,24 +168,29 @@
       font-size: 1.6em;
       color: #000;
       opacity: 0.6;
+      margin: 0 0 1em;
     }
 
+    @media screen and (max-width: 991px) {
+      html, body { font-size: 1.25vw; }
+    }
     @media screen and (max-width: 767px) {
-      body { font-size: 2vw; }
-      .notes-heading { font-size: 4em; }
+      html, body { font-size: 2vw; }
+      .notes-ticker-item { font-size: 8em; }
       .notes-item-link { font-size: 2.2em; }
+      .notes-ticker-wrapper { padding-top: 7em; }
     }
-
     @media screen and (max-width: 479px) {
-      body { font-size: 3.5vw; }
-      .notes-page { padding: 8em 1.5em 4em; }
-      .notes-heading { font-size: 3em; }
+      html, body { font-size: 3.5vw; }
+      .notes-page { padding: 1.5em 1.5em 8em; }
+      .notes-ticker-item { font-size: 7.62em; }
       .notes-item-link { font-size: 1.8em; }
       .notes-nav { padding: .76em; }
+      .notes-ticker-wrapper { padding-top: 5em; }
     }
   </style>
 </head>
-<body style="font-size: 1vw;">
+<body>
 
   <!-- Nav -->
   <div class="notes-nav">
@@ -155,11 +204,50 @@
     </div>
   </div>
 
-  <!-- Content -->
+  <!-- Looping ticker heading -->
+  <div class="notes-ticker-wrapper">
+    <div class="notes-ticker-track" id="notes-ticker-track">
+      <div class="notes-ticker-item">Notes&nbsp;</div>
+      <div class="notes-ticker-item">Notes&nbsp;</div>
+      <div class="notes-ticker-item">Notes&nbsp;</div>
+      <div class="notes-ticker-item">Notes&nbsp;</div>
+      <div class="notes-ticker-item">Notes&nbsp;</div>
+      <div class="notes-ticker-item">Notes&nbsp;</div>
+      <div class="notes-ticker-item">Notes&nbsp;</div>
+      <div class="notes-ticker-item">Notes&nbsp;</div>
+    </div>
+  </div>
+
+  <!-- List -->
   <div class="notes-page">
-    <h1 class="notes-heading">Notes</h1>
     <p class="notes-status" id="notes-status">Loading...</p>
     <ul class="notes-list" id="notes-list"></ul>
+  </div>
+
+  <!-- Logo (bottom-fixed like index.html) -->
+  <div class="notes-logo">
+    <a href="index.html">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 158" fill="none">
+        <!-- LITTLE -->
+        <path d="M0 0.27H37.4V128.33H71.4V153.26H0V0.27Z" fill="currentColor"/>
+        <path d="M78.57 0.27H115.97V153.26H78.57V0.27Z" fill="currentColor"/>
+        <path d="M143.73 28.03H121.44V0.27H203.41V28.03H181.31V153.25H143.72V28.03H143.73Z" fill="currentColor"/>
+        <path d="M231.18 28.03H208.89V0.27H290.86V28.03H268.76V153.25H231.17V28.03H231.18Z" fill="currentColor"/>
+        <path d="M296.35 0.27H333.75V128.33H367.75V153.26H296.36V0.27H296.35Z" fill="currentColor"/>
+        <path d="M374.92 0.27H446.5V25.39H412.31V59.58H437.81V85.64H412.31V128.33H446.69V153.26H374.92V0.27Z" fill="currentColor"/>
+        <!-- BUSINESS -->
+        <g transform="translate(452, 2)">
+          <path d="M0 0H41.36C67.05 0 92.17 4.34 92.17 40.61C92.17 58.93 83.29 68.19 69.69 70.83C87.25 72.53 97.08 85.56 97.08 107.09C97.08 140.33 78.95 153 48.92 153H0V0ZM42.3 60.44C56.84 60.44 59.49 53.07 59.49 41.74C59.49 32.3 53.45 24.74 43.62 24.74H37.39V60.44H42.3ZM42.49 126.92C56.28 126.92 61 119.74 61 106.33C61 89.9 56.47 84.42 42.68 84.42H37.39V126.92H42.49Z" fill="currentColor"/>
+          <path d="M106.15 106.71V0H143.36V113.14C143.36 119.75 143.93 128.82 152.61 128.82C161.29 128.82 161.86 119.75 161.86 113.14V0H199.26V106.71C199.26 138.82 188.3 155.44 152.61 155.44C116.92 155.44 106.15 138.82 106.15 106.71Z" fill="currentColor"/>
+          <path d="M210.03 105.77L241.76 101.61C241.95 122.39 246.67 127.11 252.71 127.11C258.75 127.11 258.94 121.44 258.94 118.04C258.94 105.57 252.71 98.02 241.94 88.95L232.31 80.83C220.22 70.63 210.02 58.54 210.02 39.09C210.02 12.27 227.4 0 254.97 0C290.1 0 292.74 29.28 292.93 44.57L260.44 47.78C260.44 34.56 260.25 27 253.64 27C248.54 27 246.65 33.99 246.65 37.58C246.65 49.48 253.45 55.71 262.89 64.02L271.77 71.76C285.37 83.47 295.95 96.88 295.95 118.6C295.95 140.32 280.27 157.7 254.96 157.7C225.31 157.7 210.95 144.29 210.01 108.03L210.03 105.77Z" fill="currentColor"/>
+          <path d="M304.84 0H342.24V153H304.84V0Z" fill="currentColor"/>
+          <path d="M356.97 0H383.41L411.36 65.54V0H442.34V153H416.65L389.07 81.03V153H356.96V0H356.97Z" fill="currentColor"/>
+          <path d="M457.08 0H528.66V25.12H494.47V59.31H519.97V85.37H494.47V128.06H528.84V153H457.07V0H457.08Z" fill="currentColor"/>
+          <path d="M533.2 105.77L564.93 101.61C565.12 122.39 569.84 127.11 575.88 127.11C581.92 127.11 582.11 121.44 582.11 118.04C582.11 105.57 575.88 98.02 565.11 88.95L555.48 80.83C543.39 70.63 533.19 58.54 533.19 39.09C533.19 12.27 550.57 0 578.14 0C613.27 0 615.91 29.28 616.1 44.57L583.61 47.78C583.61 34.56 583.42 27 576.81 27C571.71 27 569.82 33.99 569.82 37.58C569.82 49.48 576.62 55.71 586.06 64.02L594.94 71.76C608.54 83.47 619.12 96.88 619.12 118.6C619.12 140.32 603.44 157.7 578.13 157.7C548.48 157.7 534.12 144.29 533.18 108.03L533.2 105.77Z" fill="currentColor"/>
+          <path d="M621.21 105.77L652.94 101.61C653.13 122.39 657.85 127.11 663.89 127.11C669.93 127.11 670.12 121.44 670.12 118.04C670.12 105.57 663.89 98.02 653.12 88.95L643.49 80.83C631.4 70.63 621.2 58.54 621.2 39.09C621.2 12.27 638.58 0 666.15 0C701.28 0 703.92 29.28 704.11 44.57L671.62 47.78C671.62 34.56 671.43 27 664.82 27C659.72 27 657.83 33.99 657.83 37.58C657.83 49.48 664.63 55.71 674.07 64.02L682.95 71.76C696.55 83.47 707.13 96.88 707.13 118.6C707.13 140.32 691.45 157.7 666.14 157.7C636.49 157.7 622.13 144.29 621.19 108.03L621.21 105.77Z" fill="currentColor"/>
+        </g>
+      </svg>
+    </a>
   </div>
 
   <script>
