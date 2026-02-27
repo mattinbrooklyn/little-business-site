@@ -154,6 +154,13 @@ font-size: inherit;
   background: transparent;
   pointer-events: none;
 }
+/* Nav logo: hidden by default, shown only once the hero has fully scrolled away */
+#lb-desktop-nav .nav-logo-center {
+  visibility: hidden;
+}
+#lb-desktop-nav.logo-visible .nav-logo-center {
+  visibility: visible;
+}
 /* Italic active state for current section */
 .lb-nav-link.is-current {
   font-style: italic;
@@ -883,6 +890,12 @@ font-size: inherit;
           nav.classList.add('is-visible');
         } else {
           nav.classList.remove('is-visible');
+        }
+        // Show nav logo only once the hero is fully off-screen (no doubling)
+        if (rect.bottom <= 0) {
+          nav.classList.add('logo-visible');
+        } else {
+          nav.classList.remove('logo-visible');
         }
       }
 
