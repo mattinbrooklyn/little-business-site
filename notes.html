@@ -418,23 +418,26 @@
         card.classList.add('lb-interactive');
       }
 
-      // Trigger when user scrolls to the last notes item.
-      // Must wait for the async Buttondown fetch to finish populating the list.
+      // Trigger when the last notes item is scrolled into view.
+      // The list is populated asynchronously, so we check on every scroll
+      // and also run an immediate check after the list loads.
       var list = document.getElementById('notes-list');
 
-      function attachScrollTrigger() {
-        window.addEventListener('scroll', function () {
-          if (triggered || dismissed) return;
-          var lastItem = list.querySelector('.notes-item:last-child');
-          if (!lastItem) return;
-          var rect = lastItem.getBoundingClientRect();
-          if (rect.top < window.innerHeight && rect.bottom > 0) {
-            showModal();
-          }
-        }, { passive: true });
+      function checkLastItem() {
+        if (triggered || dismissed) return;
+        var lastItem = list.querySelector('.notes-item:last-child');
+        if (!lastItem) return;
+        var rect = lastItem.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          showModal();
+        }
       }
 
-      window.addEventListener('notes-list-ready', attachScrollTrigger, { once: true });
+      // Attach scroll listener immediately — it handles the null case safely
+      window.addEventListener('scroll', checkLastItem, { passive: true });
+
+      // Also check immediately once the list is populated (in case already scrolled down)
+      window.addEventListener('notes-list-ready', checkLastItem, { once: true });
 
       closeBtn.addEventListener('click', function () {
         dismissed = true;
