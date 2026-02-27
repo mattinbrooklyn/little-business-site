@@ -154,10 +154,9 @@ font-size: inherit;
   background: transparent;
   pointer-events: none;
 }
-/* Nav logo invisible spacer — keeps 5-item space-between balanced */
-#lb-desktop-nav .nav-logo-center {
-  visibility: hidden;
-  pointer-events: none;
+/* Italic active state for current section */
+.lb-nav-link.is-current {
+  font-style: italic;
 }
 .lb-nav-link {
   text-transform: uppercase;
@@ -870,6 +869,13 @@ font-size: inherit;
       var hero = document.querySelector('.section.home-hero');
       if (!nav || !hero) return;
 
+      // Section → nav link mapping
+      var sections = [
+        { id: 'capabilities',   selector: '[href="#capabilities"]' },
+        { id: 'about-section',  selector: '[href="#about-section"]' },
+        { id: 'Contact',        selector: '[href="#Contact"]' }
+      ];
+
       function checkHero() {
         var rect = hero.getBoundingClientRect();
         // Show nav once the hero section has scrolled mostly out of view
@@ -880,8 +886,36 @@ font-size: inherit;
         }
       }
 
-      window.addEventListener('scroll', checkHero, { passive: true });
+      function updateActive() {
+        var midY = window.innerHeight * 0.4;
+        var active = null;
+
+        // Find the last section whose top is above 40% of viewport
+        sections.forEach(function (s) {
+          var el = document.getElementById(s.id);
+          if (!el) return;
+          var top = el.getBoundingClientRect().top;
+          if (top <= midY) active = s.selector;
+        });
+
+        // Toggle is-current on each link
+        nav.querySelectorAll('.lb-nav-link').forEach(function (link) {
+          if (active && link.matches(active)) {
+            link.classList.add('is-current');
+          } else {
+            link.classList.remove('is-current');
+          }
+        });
+      }
+
+      function onScroll() {
+        checkHero();
+        updateActive();
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
       checkHero();
+      updateActive();
     })();
   </script>
   <script defer="">document.addEventListener('load', function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "https://widget.prod.equally.ai/equally-widget.min.js";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'equallyWidget'));!window.EQUALLY_AI_API_KEY&&(window.EQUALLY_AI_API_KEY="va4amcvjsjh7f14yljjsds1waneztpir",intervalId=setInterval(function(){window.EquallyAi&&(clearInterval(intervalId),window.EquallyAi=new EquallyAi)},500));</script>
