@@ -267,7 +267,7 @@ ul {
   font-style: normal;
   line-height: 0.85;
   display: inline;
-  vertical-align: top;
+  vertical-align: bottom;
 }
 
 .about-label {
