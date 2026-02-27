@@ -177,21 +177,17 @@ font-size: inherit;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.91em;
+  gap: 0.84em;
   text-decoration: none;
   color: #000;
 }
-.nav-logo-svg-little {
-  display: block;
-  width: 8em;
-  height: auto;
-  color: #000;
-  flex-shrink: 0;
-}
+/* Both SVGs constrained to the same height as the Webflow collapsed logo
+   (logo-wrapper 20em × padding-top 13.1043% = 2.621em tall) */
+.nav-logo-svg-little,
 .nav-logo-svg-business {
   display: block;
-  width: 12.65em;
-  height: auto;
+  height: 2.621em;
+  width: auto;
   color: #000;
   flex-shrink: 0;
 }
