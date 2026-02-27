@@ -30,7 +30,7 @@
       color: #000;
     }
 
-    /* ---- Nav (matches index.html #lb-desktop-nav exactly) ---- */
+    /* ---- Nav ---- */
     #lb-desktop-nav {
       position: fixed;
       top: 0;
@@ -41,12 +41,12 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      padding: 1.32em 1.32em;
+      padding: 1.32em;
       background: transparent;
       opacity: 1;
       pointer-events: auto;
     }
-    /* Nav logo: fully visible and clickable on notes page */
+    /* Nav logo: visible and clickable */
     #lb-desktop-nav .nav-logo-center {
       opacity: 1;
       pointer-events: auto;
@@ -64,25 +64,23 @@
       text-decoration: none;
       display: block;
     }
+    /* Logo: sized to exactly match the Webflow hero logo at its collapsed nav state.
+       The Webflow logo-wrapper collapses to 20em wide; aspect ratio set by
+       padding-top:13.1043% → height = 2.621em. Both SVGs constrained to that
+       same height so they align perfectly, widths derived from viewBox ratios. */
     .nav-logo-center {
       display: flex;
       flex-direction: row;
       align-items: center;
-      gap: 0.91em;
+      gap: 0.84em;
       text-decoration: none;
       color: #000;
     }
-    .nav-logo-svg-little {
-      display: block;
-      width: 8em;
-      height: auto;
-      color: #000;
-      flex-shrink: 0;
-    }
+    .nav-logo-svg-little,
     .nav-logo-svg-business {
       display: block;
-      width: 12.65em;
-      height: auto;
+      height: 2.621em;
+      width: auto;
       color: #000;
       flex-shrink: 0;
     }
@@ -180,8 +178,7 @@
       .notes-ticker-item { font-size: 8em; }
       .notes-item-link { font-size: 2.2em; }
       .notes-ticker-wrapper { padding-top: 8em; }
-      .nav-logo-svg-little { width: 5em; }
-      .nav-logo-svg-business { width: 7.9em; }
+      .nav-logo-svg-little, .nav-logo-svg-business { height: 2em; }
     }
     @media screen and (max-width: 479px) {
       html, body { font-size: 3.5vw; }
@@ -190,8 +187,7 @@
       .notes-item-link { font-size: 1.8em; }
       #lb-desktop-nav { padding: .76em; }
       .notes-ticker-wrapper { padding-top: 7em; }
-      .nav-logo-svg-little { width: 4em; }
-      .nav-logo-svg-business { width: 6.35em; }
+      .nav-logo-svg-little, .nav-logo-svg-business { height: 1.6em; }
     }
   </style>
 </head>
