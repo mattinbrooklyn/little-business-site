@@ -419,12 +419,11 @@
       }
 
       // Trigger when the last notes item is scrolled into view.
-      // The list is populated asynchronously, so we check on every scroll
-      // and also run an immediate check after the list loads.
       var list = document.getElementById('notes-list');
+      var hasScrolled = false;
 
       function checkLastItem() {
-        if (triggered || dismissed) return;
+        if (!hasScrolled || triggered || dismissed) return;
         var lastItem = list.querySelector('.notes-item:last-child');
         if (!lastItem) return;
         var rect = lastItem.getBoundingClientRect();
@@ -433,10 +432,13 @@
         }
       }
 
-      // Attach scroll listener immediately — it handles the null case safely
-      window.addEventListener('scroll', checkLastItem, { passive: true });
+      // Track whether user has actually scrolled
+      window.addEventListener('scroll', function () {
+        hasScrolled = true;
+        checkLastItem();
+      }, { passive: true });
 
-      // Also check immediately once the list is populated (in case already scrolled down)
+      // Once list loads, check in case user is already scrolled to bottom
       window.addEventListener('notes-list-ready', checkLastItem, { once: true });
 
       closeBtn.addEventListener('click', function () {
