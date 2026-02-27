@@ -336,5 +336,160 @@
     })();
   </script>
 
+  <!-- Newsletter modal (same as index.html) -->
+  <style>
+    #lb-modal-card {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(480px, calc(100vw - 40px));
+      background: #f7f0cb;
+      border: 2px solid #000;
+      border-radius: .66em;
+      padding: 1.4em 1em;
+      box-sizing: border-box;
+      z-index: 9999;
+      pointer-events: none;
+      bottom: -600px;
+    }
+    #lb-modal-card.lb-interactive {
+      pointer-events: auto;
+    }
+    #lb-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 4px;
+      color: #000;
+    }
+    #lb-modal-heading {
+      font-family: "ITC Garamond Std", sans-serif;
+      font-size: 3.2em;
+      font-weight: 400;
+      line-height: 1;
+      margin-top: 0;
+      margin-bottom: .6em;
+    }
+    #lb-modal-form {
+      display: flex;
+    }
+    #lb-modal-email {
+      flex: 1;
+      border: 1px solid #000;
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: "TeX Gyre Heros Condensed", sans-serif;
+      text-transform: uppercase;
+      background: transparent;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    #lb-modal-email::placeholder {
+      color: #666;
+      font-family: "TeX Gyre Heros Condensed", sans-serif;
+      text-transform: uppercase;
+    }
+    #lb-modal-submit {
+      border: 1px solid #000;
+      border-radius: 0 4px 4px 0;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-family: "TeX Gyre Heros Condensed", sans-serif;
+      text-transform: uppercase;
+      background: #000;
+      color: #f7f0cb;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+    }
+  </style>
+
+  <div id="lb-modal-card" role="dialog" aria-modal="true" aria-label="Keep in touch">
+    <button id="lb-modal-close" aria-label="Close">&#x2715;</button>
+    <h2 id="lb-modal-heading">Want to keep in touch?</h2>
+    <div id="lb-modal-form">
+      <input id="lb-modal-email" type="email" placeholder="your email">
+      <button id="lb-modal-submit" type="button">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var card = document.getElementById('lb-modal-card');
+      var closeBtn = document.getElementById('lb-modal-close');
+      var dismissed = false;
+      var travelPx = 300;
+      var triggerY = 400; // start showing after 400px scroll
+
+      function update() {
+        if (dismissed) return;
+        var scrollY = window.scrollY;
+        var vh = window.innerHeight;
+        var cardH = card.offsetHeight;
+        var centeredBottom = (vh - cardH) / 2;
+        var hiddenBottom = -cardH - 40;
+
+        var extra = scrollY - triggerY;
+        if (extra < 0) {
+          card.style.bottom = hiddenBottom + 'px';
+          card.classList.remove('lb-interactive');
+        } else {
+          var t = Math.min(1, extra / travelPx);
+          var eased = 1 - Math.pow(1 - t, 3);
+          card.style.bottom = (hiddenBottom + (centeredBottom - hiddenBottom) * eased) + 'px';
+          if (t > 0) card.classList.add('lb-interactive');
+          else card.classList.remove('lb-interactive');
+        }
+      }
+
+      closeBtn.addEventListener('click', function () {
+        dismissed = true;
+        card.style.bottom = '-600px';
+        card.classList.remove('lb-interactive');
+      });
+
+      var submitBtn = document.getElementById('lb-modal-submit');
+      var emailInput = document.getElementById('lb-modal-email');
+      var formDiv = document.getElementById('lb-modal-form');
+      submitBtn.addEventListener('click', function () {
+        var email = emailInput.value.trim();
+        if (!email) return;
+        submitBtn.disabled = true;
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'https://buttondown.com/api/emails/embed-subscribe/littlebusiness';
+        form.target = 'bd-iframe';
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'email';
+        input.value = email;
+        form.appendChild(input);
+        var embedInput = document.createElement('input');
+        embedInput.type = 'hidden';
+        embedInput.name = 'embed';
+        embedInput.value = '1';
+        form.appendChild(embedInput);
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+        formDiv.innerHTML = '<p style="margin:0;font-size:.95em;">Thanks! TTYS \u003c3</p>';
+      });
+      var iframe = document.createElement('iframe');
+      iframe.name = 'bd-iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+      update();
+    })();
+  </script>
+
 </body>
 </html>
