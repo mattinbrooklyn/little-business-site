@@ -139,6 +139,39 @@ font-size: inherit;
     display: none; // Safari and Chrome
 }
 
+/* ---- Custom desktop nav (replaces Webflow nav on desktop) ---- */
+#lb-desktop-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.32em;
+  background: transparent;
+  pointer-events: none;
+}
+#lb-desktop-nav a {
+  pointer-events: auto;
+}
+.lb-nav-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5em;
+}
+.lb-nav-link {
+  text-transform: uppercase;
+  font-family: "TeX Gyre Heros Condensed", sans-serif;
+  font-size: .99em;
+  line-height: 1.13;
+  color: #000;
+  text-decoration: none;
+  display: block;
+}
 .nav-logo-center {
   display: flex;
   flex-direction: row;
@@ -161,9 +194,52 @@ font-size: inherit;
   color: #000;
   flex-shrink: 0;
 }
+/* Hide Webflow nav on desktop — we use #lb-desktop-nav instead */
+@media screen and (min-width: 768px) {
+  .nav.w-nav { display: none !important; }
+  #lb-desktop-nav { display: flex; }
+}
+/* Hide custom nav on mobile — Webflow nav handles it */
+@media screen and (max-width: 767px) {
+  #lb-desktop-nav { display: none !important; }
+  .nav.w-nav { display: flex !important; opacity: 1 !important; }
+}
 </style>
 </head>
 <body data-scroll-time="0" class="body">
+
+  <!-- Custom desktop nav: Capabilities — About — LITTLE BUSINESS — Notes — Contact -->
+  <nav id="lb-desktop-nav" aria-label="Main navigation">
+    <div class="lb-nav-group">
+      <a href="#capabilities" class="lb-nav-link">CAPABILITIES</a>
+      <a href="#about-section" class="lb-nav-link">About</a>
+    </div>
+    <a href="#Home" class="nav-logo-center">
+      <svg class="nav-logo-svg-little" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 447 154" fill="none">
+        <path d="M0 0.27002H37.4V128.33H71.4V153.26H0V0.27002Z" fill="currentColor"></path>
+        <path d="M78.5701 0.27002H115.97V153.26H78.5701V0.27002Z" fill="currentColor"></path>
+        <path d="M143.73 28.03H121.44V0.27002H203.41V28.03H181.31V153.25H143.72V28.03H143.73Z" fill="currentColor"></path>
+        <path d="M231.18 28.03H208.89V0.27002H290.86V28.03H268.76V153.25H231.17V28.03H231.18Z" fill="currentColor"></path>
+        <path d="M296.35 0.27002H333.75V128.33H367.75V153.26H296.36V0.27002H296.35Z" fill="currentColor"></path>
+        <path d="M374.92 0.27002H446.5V25.39H412.31V59.58H437.81V85.64H412.31V128.33H446.69V153.26H374.92V0.27002Z" fill="currentColor"></path>
+      </svg>
+      <svg class="nav-logo-svg-business" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 708 158" fill="none">
+        <path d="M0.370117 2.27002H41.7301C67.4201 2.27002 92.5401 6.61002 92.5401 42.88C92.5401 61.2 83.6601 70.46 70.0601 73.1C87.6201 74.8 97.4501 87.83 97.4501 109.36C97.4501 142.6 79.3201 155.26 49.2901 155.26H0.370117V2.27002ZM42.6701 62.71C57.2101 62.71 59.8601 55.34 59.8601 44.01C59.8601 34.57 53.8201 27.01 43.9901 27.01H37.7601V62.71H42.6701ZM42.8601 129.19C56.6501 129.19 61.3701 122.01 61.3701 108.6C61.3701 92.17 56.8401 86.69 43.0501 86.69H37.7601V129.19H42.8601Z" fill="currentColor"></path>
+        <path d="M106.52 108.98V2.27002H143.73V115.41C143.73 122.02 144.3 131.09 152.98 131.09C161.66 131.09 162.23 122.02 162.23 115.41V2.27002H199.63V108.98C199.63 141.09 188.67 157.71 152.98 157.71C117.29 157.71 106.52 141.09 106.52 108.98Z" fill="currentColor"></path>
+        <path d="M210.4 108.04L242.13 103.88C242.32 124.66 247.04 129.38 253.08 129.38C259.12 129.38 259.31 123.71 259.31 120.31C259.31 107.84 253.08 100.29 242.31 91.22L232.68 83.1C220.59 72.9 210.39 60.81 210.39 41.36C210.39 14.54 227.77 0 255.34 0C290.47 0 293.11 29.28 293.3 44.57L260.81 47.78C260.81 34.56 260.62 27 254.01 27C248.91 27 247.02 33.99 247.02 37.58C247.02 49.48 253.82 55.71 263.26 64.02L272.14 71.76C285.74 83.47 296.32 96.88 296.32 118.6C296.32 140.32 280.64 157.7 255.33 157.7C225.68 157.7 211.32 144.29 210.38 108.03L210.4 108.04Z" fill="currentColor"></path>
+        <path d="M305.21 2.27002H342.61V155.26H305.21V2.27002Z" fill="currentColor"></path>
+        <path d="M357.34 2.27002H383.78L411.73 67.81V2.27002H442.71V155.26H417.02L389.44 83.3V155.26H357.33V2.27002H357.34Z" fill="currentColor"></path>
+        <path d="M457.45 2.27002H529.03V27.39H494.84V61.58H520.34V87.64H494.84V130.33H529.21V155.26H457.44V2.27002H457.45Z" fill="currentColor"></path>
+        <path d="M533.57 108.04L565.3 103.88C565.49 124.66 570.21 129.38 576.25 129.38C582.29 129.38 582.48 123.71 582.48 120.31C582.48 107.84 576.25 100.29 565.48 91.22L555.85 83.1C543.76 72.9 533.56 60.81 533.56 41.36C533.56 14.54 550.94 0 578.51 0C613.64 0 616.28 29.28 616.47 44.57L583.98 47.78C583.98 34.56 583.79 27 577.18 27C572.08 27 570.19 33.99 570.19 37.58C570.19 49.48 576.99 55.71 586.43 64.02L595.31 71.76C608.91 83.47 619.49 96.88 619.49 118.6C619.49 140.32 603.81 157.7 578.5 157.7C548.85 157.7 534.49 144.29 533.55 108.03L533.57 108.04Z" fill="currentColor"></path>
+        <path d="M621.58 108.04L653.31 103.88C653.5 124.66 658.22 129.38 664.26 129.38C670.3 129.38 670.49 123.71 670.49 120.31C670.49 107.84 664.26 100.29 653.49 91.22L643.86 83.1C631.77 72.9 621.57 60.81 621.57 41.36C621.57 14.54 638.95 0 666.52 0C701.65 0 704.29 29.28 704.48 44.57L671.99 47.78C671.99 34.56 671.8 27 665.19 27C660.09 27 658.2 33.99 658.2 37.58C658.2 49.48 665 55.71 674.44 64.02L683.32 71.76C696.92 83.47 707.5 96.88 707.5 118.6C707.5 140.32 691.82 157.7 666.51 157.7C636.86 157.7 622.5 144.29 621.56 108.03L621.58 108.04Z" fill="currentColor"></path>
+      </svg>
+    </a>
+    <div class="lb-nav-group">
+      <a href="notes.html" class="lb-nav-link">Notes</a>
+      <a href="#Contact" class="lb-nav-link">Contact</a>
+    </div>
+  </nav>
+
   <div class="page-wrapper">
     <div class="initial-flash-fix-custom-code w-embed">
       <style>
