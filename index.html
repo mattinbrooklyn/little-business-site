@@ -139,46 +139,27 @@ font-size: inherit;
     display: none; // Safari and Chrome
 }
 
-/* ---- Desktop nav: single horizontal row with logo centered ---- */
-@media screen and (min-width: 768px) {
-  .desktop-menu {
-    display: flex !important;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-  /* Override fixed positioning — nav-left and nav-right become flex children */
-  .desktop-menu .nav-left.is-desktop,
-  .desktop-menu .nav-right {
-    position: static !important;
-    inset: auto !important;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1.5em;
-  }
-  .nav-logo-center {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.91em;
-    text-decoration: none;
-    color: #000;
-  }
-  .nav-logo-svg-little {
-    display: block;
-    width: 8em;
-    height: auto;
-    color: #000;
-    flex-shrink: 0;
-  }
-  .nav-logo-svg-business {
-    display: block;
-    width: 12.65em;
-    height: auto;
-    color: #000;
-    flex-shrink: 0;
-  }
+.nav-logo-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.91em;
+  text-decoration: none;
+  color: #000;
+}
+.nav-logo-svg-little {
+  display: block;
+  width: 8em;
+  height: auto;
+  color: #000;
+  flex-shrink: 0;
+}
+.nav-logo-svg-business {
+  display: block;
+  width: 12.65em;
+  height: auto;
+  color: #000;
+  flex-shrink: 0;
 }
 </style>
 </head>
