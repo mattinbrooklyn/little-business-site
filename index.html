@@ -154,11 +154,10 @@ font-size: inherit;
   background: transparent;
   pointer-events: none;
 }
-/* Nav logo: visually hidden but fully clickable — links to #Home.
-   visibility:hidden hides it from view while keeping its layout space,
-   and pointer-events:auto lets clicks through to the <a href="#Home">. */
+/* Nav logo: invisible but clickable — links to #Home.
+   opacity:0 (not visibility:hidden) keeps pointer events active. */
 #lb-desktop-nav .nav-logo-center {
-  visibility: hidden;
+  opacity: 0;
   pointer-events: auto;
 }
 /* Italic active state for current section */
