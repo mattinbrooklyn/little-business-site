@@ -700,6 +700,7 @@ font-size: inherit;
   <script>
     (function () {
       var contentCol = document.querySelector('.about-content-col');
+      var aboutLabel = document.querySelector('.about-label');
       var aboutSection = document.getElementById('about-section');
       var aboutBg = document.getElementById('about-bg-el');
       var aboutBgNav = document.getElementById('about-bg-nav');
@@ -713,11 +714,15 @@ font-size: inherit;
         var active = entering && !exiting;
 
         if (active) {
-          contentCol.classList.add('is-visible');
-          contentCol.classList.remove('is-hidden');
+          if (aboutLabel) { aboutLabel.classList.add('is-visible'); aboutLabel.classList.remove('is-hidden'); }
           if (aboutBg) aboutBg.classList.add('is-active');
           if (aboutBgNav) aboutBgNav.classList.add('is-active');
+          setTimeout(function() {
+            contentCol.classList.add('is-visible');
+            contentCol.classList.remove('is-hidden');
+          }, 200);
         } else {
+          if (aboutLabel) { aboutLabel.classList.remove('is-visible'); aboutLabel.classList.add('is-hidden'); }
           contentCol.classList.remove('is-visible');
           contentCol.classList.add('is-hidden');
           if (aboutBg) aboutBg.classList.remove('is-active');
