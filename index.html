@@ -161,6 +161,15 @@ font-size: inherit;
   visibility: hidden;
   pointer-events: none;
 }
+/* Raise .brand-2 above our nav so the hero logo is clickable.
+   Only the inner logo link needs to be interactive. */
+.brand-2 {
+  z-index: 10000 !important;
+  pointer-events: none !important;
+}
+.brand-2 .logo-relative {
+  pointer-events: auto !important;
+}
 /* Italic active state for current section */
 .lb-nav-link.is-current {
   font-style: italic;
