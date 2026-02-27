@@ -154,21 +154,12 @@ font-size: inherit;
   background: transparent;
   pointer-events: none;
 }
-/* Nav logo: invisible spacer — keeps 5-item space-between balanced.
-   The Webflow .brand-2 hero logo (which shrinks into nav position on scroll)
-   serves as the visible/clickable logo; we never show a second one. */
+/* Nav logo: visually hidden but fully clickable — links to #Home.
+   visibility:hidden hides it from view while keeping its layout space,
+   and pointer-events:auto lets clicks through to the <a href="#Home">. */
 #lb-desktop-nav .nav-logo-center {
   visibility: hidden;
-  pointer-events: none;
-}
-/* Raise .brand-2 above our nav so the hero logo is clickable.
-   Only the inner logo link needs to be interactive. */
-.brand-2 {
-  z-index: 10000 !important;
-  pointer-events: none !important;
-}
-.brand-2 .logo-relative {
-  pointer-events: auto !important;
+  pointer-events: auto;
 }
 /* Italic active state for current section */
 .lb-nav-link.is-current {
