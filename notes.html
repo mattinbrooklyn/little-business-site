@@ -414,33 +414,45 @@
       var card = document.getElementById('lb-modal-card');
       var closeBtn = document.getElementById('lb-modal-close');
       var dismissed = false;
-      var travelPx = 300;
-      var triggerY = 400; // start showing after 400px scroll
+      var triggered = false;
 
-      function update() {
-        if (dismissed) return;
-        var scrollY = window.scrollY;
+      function showModal() {
+        if (dismissed || triggered) return;
+        triggered = true;
         var vh = window.innerHeight;
         var cardH = card.offsetHeight;
         var centeredBottom = (vh - cardH) / 2;
-        var hiddenBottom = -cardH - 40;
+        card.style.transition = 'bottom 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+        card.style.bottom = centeredBottom + 'px';
+        card.classList.add('lb-interactive');
+      }
 
-        var extra = scrollY - triggerY;
-        if (extra < 0) {
-          card.style.bottom = hiddenBottom + 'px';
-          card.classList.remove('lb-interactive');
+      // Trigger when the last notes item scrolls into view
+      var list = document.getElementById('notes-list');
+
+      function attachObserver() {
+        var lastItem = list.querySelector('.notes-item:last-child');
+        if (lastItem) {
+          var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                showModal();
+                observer.disconnect();
+              }
+            });
+          }, { threshold: 0.5 });
+          observer.observe(lastItem);
         } else {
-          var t = Math.min(1, extra / travelPx);
-          var eased = 1 - Math.pow(1 - t, 3);
-          card.style.bottom = (hiddenBottom + (centeredBottom - hiddenBottom) * eased) + 'px';
-          if (t > 0) card.classList.add('lb-interactive');
-          else card.classList.remove('lb-interactive');
+          // List not yet populated by API — retry
+          setTimeout(attachObserver, 300);
         }
       }
+      attachObserver();
 
       closeBtn.addEventListener('click', function () {
         dismissed = true;
-        card.style.bottom = '-600px';
+        card.style.transition = 'bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+        card.style.bottom = (-card.offsetHeight - 40) + 'px';
         card.classList.remove('lb-interactive');
       });
 
@@ -474,10 +486,6 @@
       iframe.name = 'bd-iframe';
       iframe.style.display = 'none';
       document.body.appendChild(iframe);
-
-      window.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update, { passive: true });
-      update();
     })();
   </script>
 
