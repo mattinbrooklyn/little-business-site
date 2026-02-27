@@ -259,6 +259,16 @@ ul {
   margin-bottom: 0;
 }
 
+.about-name {
+  font-family: ITC Garamond Std, serif;
+  font-size: 3em;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1;
+  display: inline;
+  vertical-align: baseline;
+}
+
 .about-bg {
   z-index: -1;
   background-color: var(--about-background);
