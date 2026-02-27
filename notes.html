@@ -418,28 +418,15 @@
         card.classList.add('lb-interactive');
       }
 
-      // Trigger when the last notes item is scrolled into view.
-      var list = document.getElementById('notes-list');
-      var hasScrolled = false;
-
-      function checkLastItem() {
-        if (!hasScrolled || triggered || dismissed) return;
-        var lastItem = list.querySelector('.notes-item:last-child');
-        if (!lastItem) return;
-        var rect = lastItem.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
+      // Trigger when user scrolls within 200px of the bottom of the page
+      window.addEventListener('scroll', function () {
+        if (triggered || dismissed) return;
+        var scrolledTo = window.scrollY + window.innerHeight;
+        var pageHeight = document.documentElement.scrollHeight;
+        if (scrolledTo >= pageHeight - 200) {
           showModal();
         }
-      }
-
-      // Track whether user has actually scrolled
-      window.addEventListener('scroll', function () {
-        hasScrolled = true;
-        checkLastItem();
       }, { passive: true });
-
-      // Once list loads, check in case user is already scrolled to bottom
-      window.addEventListener('notes-list-ready', checkLastItem, { once: true });
 
       closeBtn.addEventListener('click', function () {
         dismissed = true;
