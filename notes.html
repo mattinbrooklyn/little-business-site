@@ -418,15 +418,26 @@
         card.classList.add('lb-interactive');
       }
 
-      // Trigger when user scrolls within 200px of the bottom of the page
-      window.addEventListener('scroll', function () {
+      function checkBottom() {
         if (triggered || dismissed) return;
         var scrolledTo = window.scrollY + window.innerHeight;
         var pageHeight = document.documentElement.scrollHeight;
-        if (scrolledTo >= pageHeight - 200) {
+        // Trigger within 300px of bottom, or if the page isn't scrollable at all
+        if (pageHeight - window.innerHeight < 10 || scrolledTo >= pageHeight - 300) {
           showModal();
         }
-      }, { passive: true });
+      }
+
+      // Check on every scroll
+      window.addEventListener('scroll', checkBottom, { passive: true });
+
+      // After list loads: if page isn't scrollable, show after a short delay
+      window.addEventListener('notes-list-ready', function () {
+        var pageHeight = document.documentElement.scrollHeight;
+        if (pageHeight - window.innerHeight < 10) {
+          setTimeout(showModal, 2000);
+        }
+      }, { once: true });
 
       closeBtn.addEventListener('click', function () {
         dismissed = true;
