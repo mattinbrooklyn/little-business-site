@@ -76,7 +76,10 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      gap: 0;
+      /* gap mirrors space-between on main page: gap% = 100 - 37.1159 - 58.6684 = 4.2157%
+         of the total logo container. Total container = 8 + 12.65 = 20.65em.
+         gap = 4.2157/100 × (20.65 / (1 - 0.042157)) ≈ 0.91em */
+      gap: 0.91em;
       text-decoration: none;
       color: #000;
     }
