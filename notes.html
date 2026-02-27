@@ -64,28 +64,38 @@
       text-align: right;
     }
 
-    /* ---- Logo: centered SVG in nav ---- */
+    /* ---- Logo: centered inline SVG in nav (mirrors main page .brand-2 layout) ---- */
     .notes-logo-center {
       position: absolute;
-      top: 0.8em;
+      top: 1.32em;
       left: 50%;
       transform: translateX(-50%);
       z-index: 9999;
-      white-space: nowrap;
     }
     .notes-logo-center a {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      gap: 0.15em;
+      gap: 0;
       text-decoration: none;
       color: #000;
     }
-    .notes-logo-svg {
+    /* Main page uses flex percentages: LITTLE=37.1159%, BUSINESS=58.6684% of full width.
+       Ratio BUSINESS/LITTLE ≈ 1.581. We set LITTLE=8em so BUSINESS=8×1.581≈12.65em.
+       This keeps the same proportions & character sizes as the main page logo. */
+    .notes-logo-svg-little {
       display: block;
-      width: 10em;
+      width: 8em;
       height: auto;
       color: #000;
+      flex-shrink: 0;
+    }
+    .notes-logo-svg-business {
+      display: block;
+      width: 12.65em;
+      height: auto;
+      color: #000;
+      flex-shrink: 0;
     }
 
     /* ---- Ticker banner ---- */
@@ -96,7 +106,7 @@
       width: 100%;
       overflow: hidden;
       background: #f7f0cb;
-      padding-top: 14em;
+      padding-top: 8em;
       padding-bottom: 1em;
     }
     .notes-ticker-track {
@@ -182,8 +192,9 @@
       html, body { font-size: 2vw; }
       .notes-ticker-item { font-size: 8em; }
       .notes-item-link { font-size: 2.2em; }
-      .notes-ticker-wrapper { padding-top: 12em; }
-      .notes-logo-svg { width: 8em; }
+      .notes-ticker-wrapper { padding-top: 8em; }
+      .notes-logo-svg-little { width: 5em; }
+      .notes-logo-svg-business { width: 7.9em; }
     }
     @media screen and (max-width: 479px) {
       html, body { font-size: 3.5vw; }
@@ -191,8 +202,9 @@
       .notes-ticker-item { font-size: 7.62em; }
       .notes-item-link { font-size: 1.8em; }
       .notes-nav { padding: .76em; }
-      .notes-ticker-wrapper { padding-top: 10em; }
-      .notes-logo-svg { width: 7em; }
+      .notes-ticker-wrapper { padding-top: 7em; }
+      .notes-logo-svg-little { width: 4em; }
+      .notes-logo-svg-business { width: 6.35em; }
     }
   </style>
 </head>
@@ -234,7 +246,7 @@
   <div class="notes-logo-center">
     <a href="index.html">
       <!-- LITTLE -->
-      <svg class="notes-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 447 154" fill="none">
+      <svg class="notes-logo-svg-little" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 447 154" fill="none">
         <path d="M0 0.27002H37.4V128.33H71.4V153.26H0V0.27002Z" fill="currentColor"></path>
         <path d="M78.5701 0.27002H115.97V153.26H78.5701V0.27002Z" fill="currentColor"></path>
         <path d="M143.73 28.03H121.44V0.27002H203.41V28.03H181.31V153.25H143.72V28.03H143.73Z" fill="currentColor"></path>
@@ -243,7 +255,7 @@
         <path d="M374.92 0.27002H446.5V25.39H412.31V59.58H437.81V85.64H412.31V128.33H446.69V153.26H374.92V0.27002Z" fill="currentColor"></path>
       </svg>
       <!-- BUSINESS -->
-      <svg class="notes-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 708 158" fill="none">
+      <svg class="notes-logo-svg-business" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 708 158" fill="none">
         <path d="M0.370117 2.27002H41.7301C67.4201 2.27002 92.5401 6.61002 92.5401 42.88C92.5401 61.2 83.6601 70.46 70.0601 73.1C87.6201 74.8 97.4501 87.83 97.4501 109.36C97.4501 142.6 79.3201 155.26 49.2901 155.26H0.370117V2.27002ZM42.6701 62.71C57.2101 62.71 59.8601 55.34 59.8601 44.01C59.8601 34.57 53.8201 27.01 43.9901 27.01H37.7601V62.71H42.6701ZM42.8601 129.19C56.6501 129.19 61.3701 122.01 61.3701 108.6C61.3701 92.17 56.8401 86.69 43.0501 86.69H37.7601V129.19H42.8601Z" fill="currentColor"></path>
         <path d="M106.52 108.98V2.27002H143.73V115.41C143.73 122.02 144.3 131.09 152.98 131.09C161.66 131.09 162.23 122.02 162.23 115.41V2.27002H199.63V108.98C199.63 141.09 188.67 157.71 152.98 157.71C117.29 157.71 106.52 141.09 106.52 108.98Z" fill="currentColor"></path>
         <path d="M210.4 108.04L242.13 103.88C242.32 124.66 247.04 129.38 253.08 129.38C259.12 129.38 259.31 123.71 259.31 120.31C259.31 107.84 253.08 100.29 242.31 91.22L232.68 83.1C220.59 72.9 210.39 60.81 210.39 41.36C210.39 14.54 227.77 0 255.34 0C290.47 0 293.11 29.28 293.3 44.57L260.81 47.78C260.81 34.56 260.62 27 254.01 27C248.91 27 247.02 33.99 247.02 37.58C247.02 49.48 253.82 55.71 263.26 64.02L272.14 71.76C285.74 83.47 296.32 96.88 296.32 118.6C296.32 140.32 280.64 157.7 255.33 157.7C225.68 157.7 211.32 144.29 210.38 108.03L210.4 108.04Z" fill="currentColor"></path>
