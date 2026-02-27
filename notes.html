@@ -427,30 +427,18 @@
         card.classList.add('lb-interactive');
       }
 
-      // Trigger when the last notes item scrolls into view,
-      // but only if the user has actually scrolled (not on initial page load).
+      // Trigger when user scrolls and the last notes item is in view
       var list = document.getElementById('notes-list');
-      var hasScrolled = false;
-      window.addEventListener('scroll', function () { hasScrolled = true; }, { passive: true, once: true });
 
-      function attachObserver() {
+      window.addEventListener('scroll', function () {
+        if (triggered || dismissed) return;
         var lastItem = list.querySelector('.notes-item:last-child');
-        if (lastItem) {
-          var observer = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting && hasScrolled) {
-                showModal();
-                observer.disconnect();
-              }
-            });
-          }, { threshold: 0.5 });
-          observer.observe(lastItem);
-        } else {
-          // List not yet populated by API — retry
-          setTimeout(attachObserver, 300);
+        if (!lastItem) return;
+        var rect = lastItem.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          showModal();
         }
-      }
-      attachObserver();
+      }, { passive: true });
 
       closeBtn.addEventListener('click', function () {
         dismissed = true;
