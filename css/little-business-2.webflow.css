@@ -493,14 +493,15 @@ ul {
 
 .nav-left {
   z-index: 9999;
-  position: fixed;
-  inset: 1.32em auto auto 1.32em;
+  position: static;
+  inset: auto;
 }
 
 .nav-left.is-desktop {
-  grid-column-gap: .5em;
-  grid-row-gap: .5em;
-  flex-flow: column;
+  grid-column-gap: 1.5em;
+  grid-row-gap: 0;
+  flex-flow: row;
+  align-items: center;
   display: flex;
 }
 
@@ -518,8 +519,12 @@ ul {
 .nav-right {
   z-index: 9999;
   text-align: right;
-  position: fixed;
-  inset: 1.32em 1.32em auto auto;
+  position: static;
+  inset: auto;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  gap: 1.5em;
 }
 
 .intro-wrapper-top {
@@ -982,7 +987,11 @@ ul {
 }
 
 .desktop-menu {
-  display: block;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .menu-modal-container {
