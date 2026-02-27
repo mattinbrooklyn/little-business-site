@@ -157,7 +157,7 @@ font-size: inherit;
 #lb-desktop-nav a {
   pointer-events: auto;
 }
-/* Each side group takes equal width so logo is perfectly centered */
+/* Each side group takes equal width, logo (hidden on index) stays centered */
 .lb-nav-group {
   display: flex;
   flex-direction: row;
@@ -168,9 +168,11 @@ font-size: inherit;
 .lb-nav-group:last-child {
   justify-content: flex-end;
 }
-/* Logo sits in the true center */
+/* Nav logo hidden on index.html — hero's own .brand-2 logo already sits centered */
 #lb-desktop-nav .nav-logo-center {
   flex: 0 0 auto;
+  visibility: hidden;
+  pointer-events: none;
 }
 .lb-nav-link {
   text-transform: uppercase;
