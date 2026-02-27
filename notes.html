@@ -307,6 +307,8 @@
           li.appendChild(link);
           list.appendChild(li);
         });
+        // Signal that the list is ready so the modal scroll trigger can attach
+        window.dispatchEvent(new CustomEvent('notes-list-ready'));
       })
       .catch(function(err) {
         status.textContent = 'Couldn\'t load notes right now. Try again later.';
@@ -416,18 +418,23 @@
         card.classList.add('lb-interactive');
       }
 
-      // Trigger when user scrolls and the last notes item is in view
+      // Trigger when user scrolls to the last notes item.
+      // Must wait for the async Buttondown fetch to finish populating the list.
       var list = document.getElementById('notes-list');
 
-      window.addEventListener('scroll', function () {
-        if (triggered || dismissed) return;
-        var lastItem = list.querySelector('.notes-item:last-child');
-        if (!lastItem) return;
-        var rect = lastItem.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          showModal();
-        }
-      }, { passive: true });
+      function attachScrollTrigger() {
+        window.addEventListener('scroll', function () {
+          if (triggered || dismissed) return;
+          var lastItem = list.querySelector('.notes-item:last-child');
+          if (!lastItem) return;
+          var rect = lastItem.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            showModal();
+          }
+        }, { passive: true });
+      }
+
+      window.addEventListener('notes-list-ready', attachScrollTrigger, { once: true });
 
       closeBtn.addEventListener('click', function () {
         dismissed = true;
