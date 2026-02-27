@@ -154,12 +154,12 @@ font-size: inherit;
   background: transparent;
   pointer-events: none;
 }
-/* Nav logo: hidden by default, shown only once the hero has fully scrolled away */
+/* Nav logo: invisible spacer — keeps 5-item space-between balanced.
+   The Webflow .brand-2 hero logo (which shrinks into nav position on scroll)
+   serves as the visible/clickable logo; we never show a second one. */
 #lb-desktop-nav .nav-logo-center {
   visibility: hidden;
-}
-#lb-desktop-nav.logo-visible .nav-logo-center {
-  visibility: visible;
+  pointer-events: none;
 }
 /* Italic active state for current section */
 .lb-nav-link.is-current {
@@ -890,12 +890,6 @@ font-size: inherit;
           nav.classList.add('is-visible');
         } else {
           nav.classList.remove('is-visible');
-        }
-        // Show nav logo only once the hero is fully off-screen (no doubling)
-        if (rect.bottom <= 0) {
-          nav.classList.add('logo-visible');
-        } else {
-          nav.classList.remove('logo-visible');
         }
       }
 
