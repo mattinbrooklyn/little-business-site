@@ -954,9 +954,9 @@ font-size: inherit;
         // Testimonials animate during the second half of the about section scroll
         var testimonialProgress = Math.max(0, (progress - 0.4) / 0.6);
 
-        // Strip travels from +100vw (off right) to -300vw (all cards passed left)
+        // Strip starts centered (0) and scrolls left until all cards exit (-300vw)
         var vw = window.innerWidth;
-        var translateX = vw - testimonialProgress * 4 * vw;
+        var translateX = -testimonialProgress * 3 * vw;
         strip.style.transform = 'translateX(' + translateX + 'px)';
       }
 
