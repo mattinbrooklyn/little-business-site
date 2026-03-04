@@ -603,6 +603,29 @@ font-size: inherit;
         </div>
       </div>
     </div>
+    <div class="sticky-section-wrapper testimonials">
+      <div class="section sticky-section">
+        <div class="container full-screen-height">
+          <div class="testimonials-inner">
+            <div class="testimonial-card">
+              <p class="testimonial-quote-text">&#x201C;Matt transformed our business. His inherent understanding of systems and operational mind brought clarity, ease and efficiency to each area of the business he took on. He has the unique ability to both come up with the brilliant concept that fundamentally changes and expands a business and then map out exactly how to do it, as well. As a thinking partner, his creative problem-solving and critical thinking level-up every conversation; it&#x2019;s a relief and joy to have his insight and perspective.&#x201D;</p>
+              <p class="testimonial-name">Kate Barnett</p>
+              <p class="testimonial-title">President, Man Repeller</p>
+            </div>
+            <div class="testimonial-card">
+              <p class="testimonial-quote-text">&#x201C;Matt is to collaboration as Beth Harmon is to chess in The Queen&#x2019;s Gambit. He has the uncanny ability to visualize how all the pieces of a team can or should work together, determining a path forward that sets everyone up to successfully do what they do best. He is a true partner &#x2014; supportive, strategic, and creative with an infectious personality. You can&#x2019;t help but have fun along the way.&#x201D;</p>
+              <p class="testimonial-name">Harling Ross</p>
+              <p class="testimonial-title">Writer, Creator</p>
+            </div>
+            <div class="testimonial-card">
+              <p class="testimonial-quote-text">&#x201C;I have met few people who embody the combination of a confident leader and humble collaborator like Matt does. He has a special way of guiding projects, conversations and relationships with aptitude that makes you trust his leadership, while simultaneously possessing a cooperative and caring spirit that makes you value his friendship. The result is a rare kind of innovator whose values of humility, compassion and fairness come through in all that he does.&#x201D;</p>
+              <p class="testimonial-name">Mikaela Clark</p>
+              <p class="testimonial-title">Painter, Designer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="C" data-w-id="a1c75341-7476-c96c-47ae-af7670d196b4" class="sticky-section-wrapper cta">
       <div id="Contact-Close" class="contact-close"></div>
       <div class="section sticky-section cta">
@@ -919,6 +942,31 @@ font-size: inherit;
       window.addEventListener('scroll', onScroll, { passive: true });
       checkHero();
       updateActive();
+    })();
+  </script>
+  <script>
+    (function () {
+      var wrapper = document.querySelector('.sticky-section-wrapper.testimonials');
+      var cards = document.querySelectorAll('.testimonial-card');
+      if (!wrapper || !cards.length) return;
+
+      function update() {
+        var rect = wrapper.getBoundingClientRect();
+        var total = wrapper.offsetHeight - window.innerHeight;
+        var progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
+        var activeIndex = Math.min(Math.floor(progress * cards.length), cards.length - 1);
+
+        cards.forEach(function (card, i) {
+          if (i === activeIndex) {
+            card.classList.add('is-active');
+          } else {
+            card.classList.remove('is-active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', update, { passive: true });
+      update();
     })();
   </script>
   <script>window.EQUALLY_AI_API_KEY = "va4amcvjsjh7f14yljjsds1waneztpir";</script>
