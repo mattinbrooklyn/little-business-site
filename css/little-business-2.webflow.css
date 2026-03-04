@@ -501,8 +501,8 @@ ul {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 22%;
-  overflow: visible;
+  height: 55%;
+  overflow: hidden;
   pointer-events: none;
   z-index: 1;
 }
