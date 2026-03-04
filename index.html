@@ -943,8 +943,8 @@ font-size: inherit;
   <script>
     (function () {
       var aboutSection = document.getElementById('about-section');
-      var strip = document.querySelector('.testimonials-strip');
-      if (!aboutSection || !strip) return;
+      var cards = document.querySelectorAll('.testimonial-card');
+      if (!aboutSection || !cards.length) return;
 
       function update() {
         var rect = aboutSection.getBoundingClientRect();
@@ -953,11 +953,31 @@ font-size: inherit;
 
         // Testimonials animate during the second half of the about section scroll
         var testimonialProgress = Math.max(0, (progress - 0.4) / 0.6);
+        var n = cards.length;
+        var vh = window.innerHeight;
 
-        // Strip starts centered (0) and scrolls left until all cards exit (-300vw)
-        var vw = window.innerWidth;
-        var translateX = -testimonialProgress * 3 * vw;
-        strip.style.transform = 'translateX(' + translateX + 'px)';
+        cards.forEach(function (card, i) {
+          var phaseStart = i / n;
+          var phaseEnd = (i + 1) / n;
+
+          if (testimonialProgress <= phaseStart) {
+            // Not yet — wait invisibly at bottom
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(0)';
+          } else if (testimonialProgress >= phaseEnd) {
+            // Done — gone above
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(-' + (vh * 0.85) + 'px)';
+          } else {
+            // Active — rising upward
+            var lp = (testimonialProgress - phaseStart) / (phaseEnd - phaseStart);
+            var translateY = -lp * vh * 0.85;
+            // Fade in for first 15%, full opacity 15-80%, fade out for last 20%
+            var opacity = lp < 0.15 ? lp / 0.15 : (lp > 0.8 ? (1 - lp) / 0.2 : 1);
+            card.style.opacity = String(Math.max(0, opacity));
+            card.style.transform = 'translateY(' + translateY + 'px)';
+          }
+        });
       }
 
       window.addEventListener('scroll', update, { passive: true });
