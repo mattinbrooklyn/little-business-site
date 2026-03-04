@@ -491,34 +491,35 @@ ul {
   min-height: 550vh;
 }
 
+.sticky-section-wrapper.about .container {
+  position: relative;
+  z-index: 2;
+}
+
 .testimonials-strip-wrapper {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   height: 22%;
-  overflow: hidden;
+  overflow: visible;
   pointer-events: none;
+  z-index: 1;
 }
 
 .testimonials-strip {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: row;
-  width: 300vw;
+  position: relative;
+  width: 100%;
   height: 100%;
-  will-change: transform;
 }
 
 .testimonial-card {
-  width: 100vw;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 3em;
+  position: absolute;
+  bottom: 0;
+  left: 3em;
+  width: 44vw;
+  opacity: 0;
+  will-change: transform, opacity;
 }
 
 .testimonial-quote-text {
@@ -528,7 +529,6 @@ ul {
   line-height: 1.45;
   margin-top: 0;
   margin-bottom: 0.4em;
-  max-width: 55%;
 }
 
 .testimonial-name {
@@ -541,12 +541,11 @@ ul {
 }
 
 .testimonial-title {
-  font-family: TeX Gyre Heros Condensed, sans-serif;
-  font-size: 0.82em;
+  font-family: ITC Garamond Std, sans-serif;
+  font-style: italic;
+  font-size: 0.9em;
   font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: var(--grey);
+  color: #000;
   margin: 0;
 }
 
