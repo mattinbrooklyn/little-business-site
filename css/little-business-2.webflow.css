@@ -488,48 +488,52 @@ ul {
 }
 
 .sticky-section-wrapper.about {
-  min-height: 300vh;
+  min-height: 550vh;
 }
 
-.sticky-section-wrapper.testimonials {
-  min-height: 400vh;
-  background-color: var(--about-background);
-}
-
-.testimonials-inner {
-  width: 100%;
-  height: 100%;
-  position: relative;
+.testimonials-strip-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 33%;
   overflow: hidden;
+  pointer-events: none;
+}
+
+.testimonials-strip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  width: 300vw;
+  height: 100%;
+  will-change: transform;
 }
 
 .testimonial-card {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  max-width: 62%;
-  transform: translateX(-110%) translateY(-50%);
-  opacity: 0;
-  transition: transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease;
-}
-
-.testimonial-card.is-active {
-  transform: translateX(0) translateY(-50%);
-  opacity: 1;
+  width: 100vw;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 4em;
 }
 
 .testimonial-quote-text {
   font-family: ITC Garamond Std, sans-serif;
-  font-size: 1.35em;
+  font-size: 1.25em;
   font-weight: 400;
   line-height: 1.55;
   margin-top: 0;
-  margin-bottom: 0.75em;
+  margin-bottom: 0.6em;
+  max-width: 60%;
 }
 
 .testimonial-name {
   font-family: TeX Gyre Heros Condensed, sans-serif;
-  font-size: 0.95em;
+  font-size: 0.9em;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -538,7 +542,7 @@ ul {
 
 .testimonial-title {
   font-family: TeX Gyre Heros Condensed, sans-serif;
-  font-size: 0.85em;
+  font-size: 0.82em;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.03em;
