@@ -599,6 +599,10 @@ font-size: inherit;
           </div>
           <div class="about-content-col">
             <p class="about-bio"><span class="about-name">Matt Little</span> is a business producer with over 15 years of experience building alongside makers: writers, photographers, designers, directors and creators of all kinds. Little Business is the container for this work, bringing hands-on partnership and a collaborative network to help creative entrepreneurs create freely and build wisely.</p>
+            <div class="about-loved">
+              <p class="about-loved-heading">People and projects we&#x2019;ve loved</p>
+              <p class="about-loved-list">a very good job | Ask Holly How | Atlas Obscura | BuzzFeed | byline | Canal Street Market | Center Street Partners | Field&#x2019;s Grade | Free People | Freehand | Future PLC | Hansel Clothing | Jubilee Media | Gensler | Man Repeller | Morganstern&#x2019;s | Winter Learning Group | Yumi Matsuo Studio</p>
+            </div>
           </div>
         </div>
         <div class="testimonials-strip-wrapper">
@@ -944,12 +948,22 @@ font-size: inherit;
     (function () {
       var aboutSection = document.getElementById('about-section');
       var cards = document.querySelectorAll('.testimonial-card');
+      var lovedBlock = document.querySelector('.about-loved');
       if (!aboutSection || !cards.length) return;
 
       function update() {
         var rect = aboutSection.getBoundingClientRect();
         var totalScroll = aboutSection.offsetHeight - window.innerHeight;
         var progress = totalScroll > 0 ? Math.max(0, Math.min(1, -rect.top / totalScroll)) : 0;
+
+        // Show loved block as first testimonial appears
+        if (lovedBlock) {
+          if (progress >= 0.2) {
+            lovedBlock.classList.add('is-visible');
+          } else {
+            lovedBlock.classList.remove('is-visible');
+          }
+        }
 
         // Testimonials start once the bio is settled (~20% into the about scroll)
         var testimonialProgress = Math.max(0, (progress - 0.2) / 0.8);
