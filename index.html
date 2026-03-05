@@ -958,6 +958,17 @@ font-size: inherit;
       measurePush();
 
       function update() {
+        // On tablet/mobile: reset all animated elements and skip animation
+        if (window.innerWidth <= 991) {
+          cards.forEach(function (card) {
+            card.style.transform = '';
+            card.style.opacity = '';
+          });
+          if (bioInner) bioInner.style.transform = '';
+          if (lovedBlock) lovedBlock.style.transform = '';
+          return;
+        }
+
         var rect = aboutSection.getBoundingClientRect();
         var totalScroll = aboutSection.offsetHeight - window.innerHeight;
         var progress = totalScroll > 0 ? Math.max(0, Math.min(1, -rect.top / totalScroll)) : 0;

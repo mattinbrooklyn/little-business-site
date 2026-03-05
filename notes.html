@@ -204,6 +204,16 @@
       .notes-ticker-wrapper { padding-top: 7em; }
       .nav-logo-svg-little, .nav-logo-svg-business { height: 1.6em; }
     }
+    /* Mobile nav: hide left/right links, just show logo centered */
+    @media screen and (max-width: 767px) {
+      #lb-desktop-nav {
+        grid-template-columns: 1fr auto 1fr;
+      }
+      .lb-nav-left,
+      .lb-nav-right {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>

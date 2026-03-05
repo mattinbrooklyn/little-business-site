@@ -2062,3 +2062,170 @@ ul {
   font-style: normal;
   font-display: swap;
 }
+/* ============================================================
+   CUSTOM RESPONSIVE — TABLET & MOBILE
+   These rules override desktop layout for screens ≤ 991px.
+   Desktop styles (above 991px) are unchanged.
+   ============================================================ */
+
+/* ---- TABLET (768px – 991px) ---- */
+@media screen and (max-width: 991px) {
+  /* CTA form: prevent em-width from overflowing viewport */
+  .cta-form {
+    width: 100%;
+    max-width: 28em;
+  }
+}
+
+/* ---- MOBILE & TABLET (≤ 767px) ---- */
+@media screen and (max-width: 767px) {
+
+  /* About section: disable sticky, reset to normal document flow */
+  .sticky-section-wrapper.about {
+    min-height: auto;
+  }
+
+  .sticky-section-wrapper.about .sticky-section {
+    position: relative;
+    top: auto;
+    overflow: visible;
+  }
+
+  /* About label: size down so it doesn't overflow at mobile */
+  .about-label {
+    font-size: 8em;
+    line-height: 1;
+    margin-bottom: 0.5em;
+  }
+
+  /* About label col: normal flow, full width */
+  .about-label-col {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    padding: 1.5em 1.5em 0;
+    box-sizing: border-box;
+  }
+
+  /* Full-screen-height container: auto height on mobile */
+  .container.full-screen-height.about {
+    height: auto;
+    min-height: 0;
+    padding-bottom: 1em;
+  }
+
+  /* Testimonials strip wrapper: un-clip, flow naturally */
+  .testimonials-strip-wrapper {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    padding: 0 1.5em;
+    box-sizing: border-box;
+  }
+
+  /* About bio col: back to document flow */
+  .about-content-col {
+    position: relative;
+    width: 100%;
+    right: auto;
+    top: auto;
+    overflow: visible;
+    transform: none !important;
+  }
+
+  .about-content-inner {
+    transform: none !important;
+  }
+
+  /* Bio text: slightly smaller on mobile */
+  .about-bio {
+    font-size: 1.4em;
+    line-height: 1.35;
+    margin-bottom: 0;
+  }
+
+  /* Work & Clients block: normal flow under bio */
+  .about-loved {
+    position: relative;
+    width: 100%;
+    right: auto;
+    top: auto;
+    transform: none !important;
+    margin-top: 2em;
+  }
+
+  .about-loved-heading {
+    font-size: 1.8em;
+    margin-bottom: 0.4em;
+  }
+
+  .about-loved-list {
+    font-size: 1.2em;
+    line-height: 1.35;
+  }
+
+  /* Testimonials strip: vertical stack */
+  .testimonials-strip {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5em;
+    margin-top: 2.5em;
+    padding-bottom: 3em;
+  }
+
+  /* Testimonial cards: full width, static */
+  .testimonial-card {
+    position: relative;
+    width: 100%;
+    bottom: auto;
+    left: auto;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .testimonial-quote-text {
+    font-size: 1.1em;
+    line-height: 1.4;
+    margin-bottom: 0.75em;
+  }
+
+  .testimonial-name {
+    font-size: 1em;
+    margin-bottom: 0.15em;
+  }
+
+  .testimonial-title {
+    font-size: 0.85em;
+  }
+
+  /* Intro boxes (Three things): 1 column on mobile */
+  .intro-box-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  /* Capabilities cards: stack vertically */
+  .post-intro-wrapper {
+    flex-direction: column;
+    gap: 2em;
+  }
+
+  .post-intro-item-wrap {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* ---- SMALL MOBILE (≤ 479px) ---- */
+@media screen and (max-width: 479px) {
+  .about-label {
+    font-size: 6em;
+  }
+
+  .testimonials-strip-wrapper {
+    padding: 0 1em;
+  }
+}
