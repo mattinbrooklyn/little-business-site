@@ -970,22 +970,26 @@ font-size: inherit;
         var n = cards.length;
         var vh = window.innerHeight;
 
+        // Cards start below the wrapper bottom (clipped), rise through, clip at top
+        var startY = vh * 0.35;
+        var totalTravel = vh * 0.85 + startY;
+
         cards.forEach(function (card, i) {
           var phaseStart = i / n;
           var phaseEnd = (i + 1) / n;
 
           if (testimonialProgress <= phaseStart) {
-            // Not yet — wait invisibly at bottom
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(0)';
+            // Parked below the visible wrapper, clipped by overflow:hidden
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(' + startY + 'px)';
           } else if (testimonialProgress >= phaseEnd) {
-            // Done — gone above
-            card.style.opacity = '0';
+            // Clipped above
+            card.style.opacity = '1';
             card.style.transform = 'translateY(-' + (vh * 0.85) + 'px)';
           } else {
-            // Active — rising upward
+            // Scrolling upward — enters naturally from below
             var lp = (testimonialProgress - phaseStart) / (phaseEnd - phaseStart);
-            var translateY = -lp * vh * 0.85;
+            var translateY = startY - lp * totalTravel;
             card.style.opacity = '1';
             card.style.transform = 'translateY(' + translateY + 'px)';
           }
