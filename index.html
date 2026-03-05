@@ -976,7 +976,7 @@ font-size: inherit;
         var vh = window.innerHeight;
 
         // Bio pushes up and clips out; loved block rises independently from below like a quote card
-        var swapP = Math.max(0, Math.min(1, (testimonialProgress - 0.28) / 0.1));
+        var swapP = Math.max(0, Math.min(1, (testimonialProgress - 0.58) / 0.1));
         if (bioInner) {
           bioInner.style.transform = 'translateY(' + (-swapP * pushDistance) + 'px)';
         }
