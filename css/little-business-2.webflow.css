@@ -278,8 +278,11 @@ ul {
 }
 
 .about-loved {
-  opacity: 0;
-  will-change: opacity;
+  position: absolute;
+  top: 0;
+  right: 3em;
+  width: 44vw;
+  will-change: transform;
 }
 
 .about-loved-heading {
@@ -296,11 +299,12 @@ ul {
 
 .about-loved-list {
   font-family: TeX Gyre Heros Condensed, sans-serif;
-  font-size: 1.6em;
+  font-size: 1em;
   font-weight: 400;
   line-height: 1.2;
   margin: 0;
   color: #000;
+  text-wrap: pretty;
 }
 
 .about-label {
