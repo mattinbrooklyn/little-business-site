@@ -602,11 +602,11 @@ font-size: inherit;
           <div class="about-content-col">
             <div class="about-content-inner">
               <p class="about-bio"><span class="about-name">Matt Little</span> is a business producer with over 15 years of experience building alongside makers: writers, photographers, designers, directors and creators of all kinds. Little Business is the container for this work, bringing hands-on partnership and a collaborative network to help creative entrepreneurs create freely and build wisely.</p>
-              <div class="about-loved">
-                <p class="about-loved-heading">People and projects we&#x2019;ve loved</p>
-                <p class="about-loved-list">a very good job | Ali Landorf Prints | Ask Holly How | Atlas Obscura | BuzzFeed | byline | Canal Street Market | Center Street Partners | Field&#x2019;s Grade | Free People | Freehand | Gensler | Hansel Clothing | Jubilee Media | Man Repeller | Morganstern&#x2019;s | Winter Learning Group | Yumi Matsuo Studio</p>
-              </div>
             </div>
+          </div>
+          <div class="about-loved">
+            <p class="about-loved-heading">People and projects we&#x2019;ve loved</p>
+            <p class="about-loved-list">a very good job | Ali Landorf Prints | Ask Holly How | Atlas Obscura | BuzzFeed | byline | Canal Street Market | Center Street Partners | Field&#x2019;s Grade | Free People | Freehand | Gensler | Hansel Clothing | Jubilee Media | Man Repeller | Morganstern&#x2019;s | Winter Learning Group | Yumi Matsuo Studio</p>
           </div>
           <div class="testimonials-strip">
             <div class="testimonial-card">
@@ -975,13 +975,15 @@ font-size: inherit;
         var n = cards.length;
         var vh = window.innerHeight;
 
-        // Bio+loved stack pushes up together: bio clips out, loved locks in bio's spot
+        // Bio pushes up and clips out; loved block rises independently from below like a quote card
         var swapP = Math.max(0, Math.min(1, (testimonialProgress - 0.28) / 0.1));
         if (bioInner) {
           bioInner.style.transform = 'translateY(' + (-swapP * pushDistance) + 'px)';
         }
         if (lovedBlock) {
-          lovedBlock.style.opacity = String(swapP);
+          // Starts below the wrapper (clipped), rises up to top:0 and locks in place
+          var lovedStartY = vh * 0.6;
+          lovedBlock.style.transform = 'translateY(' + ((1 - swapP) * lovedStartY) + 'px)';
         }
 
         // Cards start below the wrapper bottom (clipped), rise through, clip at top
