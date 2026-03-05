@@ -951,8 +951,8 @@ font-size: inherit;
         var totalScroll = aboutSection.offsetHeight - window.innerHeight;
         var progress = totalScroll > 0 ? Math.max(0, Math.min(1, -rect.top / totalScroll)) : 0;
 
-        // Testimonials animate during the second half of the about section scroll
-        var testimonialProgress = Math.max(0, (progress - 0.4) / 0.6);
+        // Testimonials start once the bio is settled (~20% into the about scroll)
+        var testimonialProgress = Math.max(0, (progress - 0.2) / 0.8);
         var n = cards.length;
         var vh = window.innerHeight;
 
