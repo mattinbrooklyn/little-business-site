@@ -524,7 +524,7 @@ ul {
 }
 
 .sticky-section-wrapper.about {
-  min-height: 550vh;
+  min-height: 300vh;
 }
 
 .sticky-section-wrapper.about .container {
