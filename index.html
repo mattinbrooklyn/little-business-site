@@ -600,10 +600,12 @@ font-size: inherit;
         </div>
         <div class="testimonials-strip-wrapper">
           <div class="about-content-col">
-            <p class="about-bio"><span class="about-name">Matt Little</span> is a business producer with over 15 years of experience building alongside makers: writers, photographers, designers, directors and creators of all kinds. Little Business is the container for this work, bringing hands-on partnership and a collaborative network to help creative entrepreneurs create freely and build wisely.</p>
-            <div class="about-loved">
-              <p class="about-loved-heading">People and projects we&#x2019;ve loved</p>
-              <p class="about-loved-list">a very good job | Ali Landorf Prints | Ask Holly How | Atlas Obscura | BuzzFeed | byline | Canal Street Market | Center Street Partners | Field&#x2019;s Grade | Free People | Freehand | Gensler | Hansel Clothing | Jubilee Media | Man Repeller | Morganstern&#x2019;s | Winter Learning Group | Yumi Matsuo Studio</p>
+            <div class="about-content-inner">
+              <p class="about-bio"><span class="about-name">Matt Little</span> is a business producer with over 15 years of experience building alongside makers: writers, photographers, designers, directors and creators of all kinds. Little Business is the container for this work, bringing hands-on partnership and a collaborative network to help creative entrepreneurs create freely and build wisely.</p>
+              <div class="about-loved">
+                <p class="about-loved-heading">People and projects we&#x2019;ve loved</p>
+                <p class="about-loved-list">a very good job | Ali Landorf Prints | Ask Holly How | Atlas Obscura | BuzzFeed | byline | Canal Street Market | Center Street Partners | Field&#x2019;s Grade | Free People | Freehand | Gensler | Hansel Clothing | Jubilee Media | Man Repeller | Morganstern&#x2019;s | Winter Learning Group | Yumi Matsuo Studio</p>
+              </div>
             </div>
           </div>
           <div class="testimonials-strip">
@@ -950,7 +952,18 @@ font-size: inherit;
       var cards = document.querySelectorAll('.testimonial-card');
       var lovedBlock = document.querySelector('.about-loved');
       var bioEl = document.querySelector('.about-bio');
+      var bioInner = document.querySelector('.about-content-inner');
       if (!aboutSection || !cards.length) return;
+
+      // Measure how far to push: bio height + gap between bio and loved block
+      var pushDistance = 0;
+      function measurePush() {
+        if (bioEl && bioInner) {
+          var gap = parseFloat(window.getComputedStyle(bioInner).gap) || 24;
+          pushDistance = bioEl.offsetHeight + gap;
+        }
+      }
+      measurePush();
 
       function update() {
         var rect = aboutSection.getBoundingClientRect();
@@ -962,15 +975,13 @@ font-size: inherit;
         var n = cards.length;
         var vh = window.innerHeight;
 
-        // Bio exits up behind the clip line / loved block enters as second quote arrives
+        // Bio+loved stack pushes up together: bio clips out, loved locks in bio's spot
         var swapP = Math.max(0, Math.min(1, (testimonialProgress - 0.28) / 0.1));
-        if (bioEl) {
-          // Pure translateY — overflow:hidden on wrapper clips it at the same line as quotes
-          bioEl.style.transform = 'translateY(' + (-swapP * vh * 0.6) + 'px)';
+        if (bioInner) {
+          bioInner.style.transform = 'translateY(' + (-swapP * pushDistance) + 'px)';
         }
         if (lovedBlock) {
           lovedBlock.style.opacity = String(swapP);
-          lovedBlock.style.transform = 'translateY(' + ((1 - swapP) * 3) + 'em)';
         }
 
         // Cards start below the wrapper bottom (clipped), rise through, clip at top
@@ -1000,7 +1011,7 @@ font-size: inherit;
       }
 
       window.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update, { passive: true });
+      window.addEventListener('resize', function() { measurePush(); update(); }, { passive: true });
       update();
     })();
   </script>
