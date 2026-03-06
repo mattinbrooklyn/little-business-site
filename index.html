@@ -1020,38 +1020,36 @@ font-size: inherit;
       update();
     })();
   </script>
-  <!-- Mobile intro carousel: one box at a time, scroll-driven push effect -->
+  <!-- Mobile intro carousel: sliding-window push effect, scroll-driven -->
   <script>
     (function () {
       var MAX_W = 479;
-      var wrapper  = document.querySelector('.sticky-section-wrapper.intro');
-      var overflow = document.querySelector('.intro-box-overflow');
-      var boxes    = Array.from(document.querySelectorAll('.intro-box'));
+      var stickyWrapper = document.querySelector('.sticky-section-wrapper.intro');
+      var overflow      = document.querySelector('.intro-box-overflow');
+      var boxWrapper    = document.querySelector('.intro-box-wrapper');
+      var boxes         = Array.from(document.querySelectorAll('.intro-box'));
 
-      if (!wrapper || !overflow || boxes.length < 2) return;
+      if (!stickyWrapper || !overflow || !boxWrapper || boxes.length < 2) return;
 
       var slotH = 0;
 
+      // Immediately hide to avoid flash of all 3 boxes before JS positions them
+      if (window.innerWidth <= MAX_W) overflow.style.visibility = 'hidden';
+
       function setup() {
         if (window.innerWidth > MAX_W) {
-          // Wider than mobile — clear any inline styles we set
           overflow.style.height = '';
-          boxes.forEach(function (b) {
-            b.style.removeProperty('transform');
-            b.style.removeProperty('opacity');
-          });
+          overflow.style.visibility = '';
+          boxWrapper.style.removeProperty('transform');
           return;
         }
 
-        // Temporarily clear transforms so layout can measure the natural box height
-        boxes.forEach(function (b) {
-          b.style.setProperty('transform', 'none', 'important');
-          b.style.setProperty('opacity', '1', 'important');
-        });
-
+        // Measure one box height (CSS transform:none !important keeps boxes unshifted)
         requestAnimationFrame(function () {
           slotH = boxes[0].offsetHeight;
+          if (slotH === 0) { setTimeout(setup, 100); return; } // retry if not painted yet
           overflow.style.height = slotH + 'px';
+          overflow.style.visibility = 'visible';
           update();
         });
       }
@@ -1059,34 +1057,16 @@ font-size: inherit;
       function update() {
         if (window.innerWidth > MAX_W || slotH === 0) return;
 
-        var rect     = wrapper.getBoundingClientRect();
-        var total    = wrapper.offsetHeight - window.innerHeight;
+        var rect     = stickyWrapper.getBoundingClientRect();
+        var total    = stickyWrapper.offsetHeight - window.innerHeight;
         var progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
 
-        var phases        = boxes.length - 1;           // 2
-        var phaseProgress = progress * phases;
-        var phase         = Math.min(Math.floor(phaseProgress), phases - 1);
-        var t             = progress >= 1 ? 1 : (phaseProgress - phase);
-
-        boxes.forEach(function (box, i) {
-          var y;
-          if (i < phase) {
-            y = -slotH;                   // already exited above
-          } else if (i === phase) {
-            y = -t * slotH;              // exiting upward
-          } else if (i === phase + 1) {
-            y = slotH * (1 - t);         // entering from below
-          } else {
-            y = slotH;                   // not yet entered
-          }
-          // Use setProperty('important') to beat Webflow's inline transforms
-          box.style.setProperty('transform', 'translateY(' + y + 'px)', 'important');
-          box.style.setProperty('opacity', '1', 'important');
-        });
+        // Translate the whole box-wrapper upward — sliding window through all boxes
+        var y = -progress * (boxes.length - 1) * slotH;
+        boxWrapper.style.setProperty('transform', 'translateY(' + y + 'px)', 'important');
       }
 
-      // Short delay so Webflow initialises before we measure
-      setTimeout(setup, 150);
+      setup();
 
       window.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', function () { slotH = 0; setup(); }, { passive: true });

@@ -1744,15 +1744,13 @@ ul {
     grid-template-columns: 1fr;
   }
 
-  /* Stack boxes absolutely for carousel — JS drives translateY */
+  /* Cancel Webflow per-box animations on mobile — carousel JS handles movement */
   .intro-box {
     grid-column-gap: .5em;
     grid-row-gap: .5em;
     padding-top: 1.2em;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    transform: none !important;
+    opacity: 1 !important;
   }
 
   .intro-box-heading {
@@ -1881,7 +1879,6 @@ ul {
   /* Carousel clip container — JS sets height to one box height */
   .intro-box-overflow {
     overflow: hidden;
-    position: relative;
   }
 
   .desktop-menu {
@@ -2033,11 +2030,13 @@ ul {
     font-size: 1.4em;
   }
 
-  /* Breathing room: heading at top, boxes anchored at bottom */
+  /* Breathing room: heading at top, boxes anchored at bottom.
+     max-height caps the flex stretch so gap between h1 and boxes is ~20% tighter. */
   .intro-parent-wrapper {
     grid-column-gap: 1em;
     grid-row-gap: 1em;
     justify-content: space-between;
+    max-height: 80vh;
   }
 }
 
