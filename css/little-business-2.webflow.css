@@ -1417,6 +1417,19 @@ ul {
     grid-column-gap: 2em;
     grid-row-gap: 2em;
     justify-content: flex-start;
+    padding-top: 8em;
+  }
+
+  .intro-parent-wrapper {
+    grid-column-gap: 1.5em;
+    grid-row-gap: 1.5em;
+    justify-content: flex-start;
+  }
+
+  /* Reset Webflow scroll animations on mobile — boxes should be fully visible */
+  .intro-box {
+    transform: none !important;
+    opacity: 1 !important;
   }
 
   .container.full-screen-height.packages {
@@ -2015,10 +2028,17 @@ ul {
   .intro-parent-wrapper {
     grid-column-gap: 1em;
     grid-row-gap: 1em;
+    justify-content: flex-start;
     flex: 1;
     position: sticky;
     top: 0;
     left: 0;
+  }
+
+  /* Reset Webflow scroll animations — all boxes visible immediately */
+  .intro-box {
+    transform: none !important;
+    opacity: 1 !important;
   }
 }
 
