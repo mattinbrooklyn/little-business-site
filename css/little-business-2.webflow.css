@@ -1842,8 +1842,17 @@ ul {
     display: none;
   }
 
-  /* Lock hero heading in place — override any Webflow scroll animations */
-  .intro-wrapper-top-outer,
+  /* Hard-lock the hero heading at 25% from the top of the viewport.
+     position:sticky inside the sticky section pins it there permanently —
+     no JS transform or layout shift can move it once it's in place. */
+  .intro-wrapper-top-outer {
+    position: sticky;
+    top: 25vh;
+    z-index: 1;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
   .intro-wrapper-top {
     transform: none !important;
     opacity: 1 !important;
@@ -1855,9 +1864,10 @@ ul {
     opacity: 1 !important;
   }
 
-  /* Scale font-size down only — font, line-height, max-width all stay as desktop */
+  /* Scale font-size down only — font, line-height all stay as desktop */
   .packages-heading {
-    font-size: 2.6em !important;
+    font-size: 2.2em !important;
+    max-width: 70% !important;
   }
 
   .points-wrapper {
@@ -2043,13 +2053,11 @@ ul {
     font-size: 1.4em;
   }
 
-  /* Breathing room: heading at top, boxes anchored at bottom.
-     max-height caps the flex stretch so gap between h1 and boxes is ~20% tighter. */
+  /* Heading is sticky-locked above; boxes anchor to the bottom via space-between */
   .intro-parent-wrapper {
     grid-column-gap: 1em;
     grid-row-gap: 1em;
     justify-content: space-between;
-    max-height: 80vh;
   }
 }
 
