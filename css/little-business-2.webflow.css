@@ -1738,17 +1738,19 @@ ul {
     display: flex;
   }
 
+  /* Horizontal carousel layout */
   .intro-box-wrapper {
-    grid-column-gap: 1.5em;
-    grid-row-gap: 1.5em;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
   }
 
-  /* Cancel Webflow per-box animations on mobile — carousel JS handles movement */
+  /* Cancel Webflow per-box animations — JS translates the wrapper, not individual boxes */
   .intro-box {
     grid-column-gap: .5em;
     grid-row-gap: .5em;
     padding-top: 1.2em;
+    flex-shrink: 0;
     transform: none !important;
     opacity: 1 !important;
   }
@@ -1839,12 +1841,24 @@ ul {
     display: none;
   }
 
-  .section-1-heading {
-    font-size: 3.0em;
+  /* Lock hero heading in place — override any Webflow scroll animations */
+  .intro-wrapper-top-outer,
+  .intro-wrapper-top {
+    transform: none !important;
+    opacity: 1 !important;
   }
 
+  .section-1-heading {
+    font-size: 3.0em;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  /* !important needed to beat the inline font-size on the points paragraph */
   .packages-heading {
-    font-size: 2.8em;
+    font-size: 1.5em !important;
+    max-width: 100% !important;
+    line-height: 1.4 !important;
   }
 
   .points-wrapper {

@@ -1020,7 +1020,7 @@ font-size: inherit;
       update();
     })();
   </script>
-  <!-- Mobile intro carousel: sliding-window push effect, scroll-driven -->
+  <!-- Mobile intro carousel: horizontal swipe, scroll-driven -->
   <script>
     (function () {
       var MAX_W = 479;
@@ -1031,45 +1031,46 @@ font-size: inherit;
 
       if (!stickyWrapper || !overflow || !boxWrapper || boxes.length < 2) return;
 
-      var slotH = 0;
+      var slotW = 0;
 
-      // Immediately hide to avoid flash of all 3 boxes before JS positions them
+      // Immediately hide to avoid flash of unsized boxes before JS initialises
       if (window.innerWidth <= MAX_W) overflow.style.visibility = 'hidden';
 
       function setup() {
         if (window.innerWidth > MAX_W) {
-          overflow.style.height = '';
           overflow.style.visibility = '';
           boxWrapper.style.removeProperty('transform');
+          boxes.forEach(function (b) { b.style.width = ''; });
           return;
         }
 
-        // Measure one box height (CSS transform:none !important keeps boxes unshifted)
         requestAnimationFrame(function () {
-          slotH = boxes[0].offsetHeight;
-          if (slotH === 0) { setTimeout(setup, 100); return; } // retry if not painted yet
-          overflow.style.height = slotH + 'px';
+          // Each box should be exactly as wide as the clip container
+          slotW = overflow.offsetWidth;
+          if (slotW === 0) { setTimeout(setup, 100); return; }
+
+          boxes.forEach(function (b) { b.style.width = slotW + 'px'; });
           overflow.style.visibility = 'visible';
           update();
         });
       }
 
       function update() {
-        if (window.innerWidth > MAX_W || slotH === 0) return;
+        if (window.innerWidth > MAX_W || slotW === 0) return;
 
         var rect     = stickyWrapper.getBoundingClientRect();
         var total    = stickyWrapper.offsetHeight - window.innerHeight;
         var progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
 
-        // Translate the whole box-wrapper upward — sliding window through all boxes
-        var y = -progress * (boxes.length - 1) * slotH;
-        boxWrapper.style.setProperty('transform', 'translateY(' + y + 'px)', 'important');
+        // Slide the whole box-wrapper left — each box swipes in from the right
+        var x = -progress * (boxes.length - 1) * slotW;
+        boxWrapper.style.setProperty('transform', 'translateX(' + x + 'px)', 'important');
       }
 
       setup();
 
       window.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', function () { slotH = 0; setup(); }, { passive: true });
+      window.addEventListener('resize', function () { slotW = 0; setup(); }, { passive: true });
     })();
   </script>
   <script>window.EQUALLY_AI_API_KEY = "va4amcvjsjh7f14yljjsds1waneztpir";</script>
