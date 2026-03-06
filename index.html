@@ -1020,6 +1020,78 @@ font-size: inherit;
       update();
     })();
   </script>
+  <!-- Mobile intro carousel: one box at a time, scroll-driven push effect -->
+  <script>
+    (function () {
+      var MAX_W = 479;
+      var wrapper  = document.querySelector('.sticky-section-wrapper.intro');
+      var overflow = document.querySelector('.intro-box-overflow');
+      var boxes    = Array.from(document.querySelectorAll('.intro-box'));
+
+      if (!wrapper || !overflow || boxes.length < 2) return;
+
+      var slotH = 0;
+
+      function setup() {
+        if (window.innerWidth > MAX_W) {
+          // Wider than mobile — clear any inline styles we set
+          overflow.style.height = '';
+          boxes.forEach(function (b) {
+            b.style.removeProperty('transform');
+            b.style.removeProperty('opacity');
+          });
+          return;
+        }
+
+        // Temporarily clear transforms so layout can measure the natural box height
+        boxes.forEach(function (b) {
+          b.style.setProperty('transform', 'none', 'important');
+          b.style.setProperty('opacity', '1', 'important');
+        });
+
+        requestAnimationFrame(function () {
+          slotH = boxes[0].offsetHeight;
+          overflow.style.height = slotH + 'px';
+          update();
+        });
+      }
+
+      function update() {
+        if (window.innerWidth > MAX_W || slotH === 0) return;
+
+        var rect     = wrapper.getBoundingClientRect();
+        var total    = wrapper.offsetHeight - window.innerHeight;
+        var progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
+
+        var phases        = boxes.length - 1;           // 2
+        var phaseProgress = progress * phases;
+        var phase         = Math.min(Math.floor(phaseProgress), phases - 1);
+        var t             = progress >= 1 ? 1 : (phaseProgress - phase);
+
+        boxes.forEach(function (box, i) {
+          var y;
+          if (i < phase) {
+            y = -slotH;                   // already exited above
+          } else if (i === phase) {
+            y = -t * slotH;              // exiting upward
+          } else if (i === phase + 1) {
+            y = slotH * (1 - t);         // entering from below
+          } else {
+            y = slotH;                   // not yet entered
+          }
+          // Use setProperty('important') to beat Webflow's inline transforms
+          box.style.setProperty('transform', 'translateY(' + y + 'px)', 'important');
+          box.style.setProperty('opacity', '1', 'important');
+        });
+      }
+
+      // Short delay so Webflow initialises before we measure
+      setTimeout(setup, 150);
+
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', function () { slotH = 0; setup(); }, { passive: true });
+    })();
+  </script>
   <script>window.EQUALLY_AI_API_KEY = "va4amcvjsjh7f14yljjsds1waneztpir";</script>
   <script src="https://widget.prod.equally.ai/equally-widget.min.js" defer></script>
 </body>
