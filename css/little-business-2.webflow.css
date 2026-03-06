@@ -1743,6 +1743,7 @@ ul {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    gap: 1.5em;
   }
 
   /* Cancel Webflow per-box animations — JS translates the wrapper, not individual boxes */

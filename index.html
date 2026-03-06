@@ -1029,12 +1029,29 @@ font-size: inherit;
       var boxWrapper    = document.querySelector('.intro-box-wrapper');
       var boxes         = Array.from(document.querySelectorAll('.intro-box'));
 
+      // Elements to keep locked in place (Webflow scroll animation might move them)
+      var heroLockEls = [
+        document.querySelector('.intro-wrapper-top-outer'),
+        document.querySelector('.intro-wrapper-top'),
+        document.querySelector('.section-1-heading')
+      ].filter(Boolean);
+
       if (!stickyWrapper || !overflow || !boxWrapper || boxes.length < 2) return;
 
       var slotW = 0;
+      var stepW = 0; // slotW + gap — measured from boxes[1].offsetLeft after sizing
 
       // Immediately hide to avoid flash of unsized boxes before JS initialises
       if (window.innerWidth <= MAX_W) overflow.style.visibility = 'hidden';
+
+      // Lock the hero heading on every scroll frame — CSS !important alone can't beat
+      // Webflow's inline setProperty('important') transforms
+      function lockHero() {
+        heroLockEls.forEach(function (el) {
+          el.style.setProperty('transform', 'none', 'important');
+          el.style.setProperty('opacity',   '1',    'important');
+        });
+      }
 
       function setup() {
         if (window.innerWidth > MAX_W) {
@@ -1045,12 +1062,16 @@ font-size: inherit;
         }
 
         requestAnimationFrame(function () {
-          // Each box should be exactly as wide as the clip container
           slotW = overflow.offsetWidth;
           if (slotW === 0) { setTimeout(setup, 100); return; }
 
           boxes.forEach(function (b) { b.style.width = slotW + 'px'; });
+
+          // Measure step after sizing so it includes the CSS gap
+          stepW = boxes.length > 1 ? boxes[1].offsetLeft : slotW;
+
           overflow.style.visibility = 'visible';
+          lockHero();
           update();
         });
       }
@@ -1058,19 +1079,21 @@ font-size: inherit;
       function update() {
         if (window.innerWidth > MAX_W || slotW === 0) return;
 
+        lockHero();
+
         var rect     = stickyWrapper.getBoundingClientRect();
         var total    = stickyWrapper.offsetHeight - window.innerHeight;
         var progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
 
-        // Slide the whole box-wrapper left — each box swipes in from the right
-        var x = -progress * (boxes.length - 1) * slotW;
+        // Slide box-wrapper left; step includes the gap so boxes arrive cleanly
+        var x = -progress * (boxes.length - 1) * stepW;
         boxWrapper.style.setProperty('transform', 'translateX(' + x + 'px)', 'important');
       }
 
       setup();
 
       window.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', function () { slotW = 0; setup(); }, { passive: true });
+      window.addEventListener('resize', function () { slotW = 0; stepW = 0; setup(); }, { passive: true });
     })();
   </script>
   <script>window.EQUALLY_AI_API_KEY = "va4amcvjsjh7f14yljjsds1waneztpir";</script>
