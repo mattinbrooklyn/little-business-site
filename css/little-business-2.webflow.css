@@ -1823,7 +1823,7 @@ ul {
   }
 
   .section-1-heading {
-    font-size: 3.3em;
+    font-size: 3.0em;
   }
 
   .packages-heading {
@@ -2013,8 +2013,8 @@ ul {
   }
 
   .intro-parent-wrapper {
-    grid-column-gap: 2em;
-    grid-row-gap: 2em;
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
     flex: 1;
     position: sticky;
     top: 0;
