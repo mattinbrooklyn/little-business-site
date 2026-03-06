@@ -1669,11 +1669,11 @@ ul {
   }
 
   .sticky-section-wrapper.intro {
-    min-height: 170vh;
+    min-height: 0;
   }
 
   .sticky-section-wrapper.points {
-    min-height: 150vh;
+    min-height: 0;
   }
 
   .nav-left {
