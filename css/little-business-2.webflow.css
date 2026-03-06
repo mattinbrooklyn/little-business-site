@@ -1681,9 +1681,9 @@ ul {
     overflow: visible;
   }
 
-  /* Re-enable sticky scroll for mobile box carousel */
+  /* Re-enable sticky scroll for mobile box carousel — 500vh gives ~200vh per box transition */
   .sticky-section-wrapper.intro {
-    min-height: 300vh;
+    min-height: 500vh;
   }
 
   .sticky-section-wrapper.points {
@@ -1855,11 +1855,12 @@ ul {
     opacity: 1 !important;
   }
 
-  /* !important needed to beat the inline font-size on the points paragraph */
+  /* Override the inline styles on the points paragraph to look like body copy */
   .packages-heading {
-    font-size: 3.0em !important;
+    font-family: 'Neue Haas Grotesk Display', Arial, sans-serif !important;
+    font-size: 1.8em !important;
+    line-height: 1.55 !important;
     max-width: 100% !important;
-    line-height: 1.4 !important;
   }
 
   .points-wrapper {
