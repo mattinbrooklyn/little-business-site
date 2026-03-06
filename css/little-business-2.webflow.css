@@ -1857,7 +1857,7 @@ ul {
 
   /* Scale font-size down only — font, line-height, max-width all stay as desktop */
   .packages-heading {
-    font-size: 2.0em !important;
+    font-size: 2.6em !important;
   }
 
   .points-wrapper {
