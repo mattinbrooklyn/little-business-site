@@ -1856,7 +1856,7 @@ ul {
 
   /* !important needed to beat the inline font-size on the points paragraph */
   .packages-heading {
-    font-size: 1.5em !important;
+    font-size: 3.0em !important;
     max-width: 100% !important;
     line-height: 1.4 !important;
   }
