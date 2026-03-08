@@ -1681,9 +1681,9 @@ ul {
     overflow: visible;
   }
 
-  /* Re-enable sticky scroll for mobile box carousel — 500vh gives ~200vh per box transition */
+  /* Re-enable sticky scroll for mobile box carousel — ~44vh per card transition */
   .sticky-section-wrapper.intro {
-    min-height: 500vh;
+    min-height: 200vh;
   }
 
   .sticky-section-wrapper.points {

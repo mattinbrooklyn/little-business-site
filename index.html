@@ -1091,13 +1091,16 @@ font-size: inherit;
         var progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
 
         // Fade boxes in over first 12% of scroll — initial screen shows only the hero
+        var FADE = 0.12;
         if (bottomOuter) {
-          var boxOpacity = Math.min(1, progress / 0.12);
+          var boxOpacity = Math.min(1, progress / FADE);
           bottomOuter.style.setProperty('opacity', boxOpacity, 'important');
         }
 
-        // Slide box-wrapper left; step includes the gap so boxes arrive cleanly
-        var x = -progress * (boxes.length - 1) * stepW;
+        // Cards hold still during the fade-in, then transition over the remaining travel.
+        // This ensures card 1 is fully visible before any lateral movement begins.
+        var cardProgress = progress <= FADE ? 0 : Math.min(1, (progress - FADE) / (1 - FADE));
+        var x = -cardProgress * (boxes.length - 1) * stepW;
         boxWrapper.style.setProperty('transform', 'translateX(' + x + 'px)', 'important');
       }
 
