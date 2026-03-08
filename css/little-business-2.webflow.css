@@ -2130,6 +2130,21 @@ ul {
     overflow: visible;
   }
 
+  /* CTA section: same treatment — disable sticky, kill the desktop entry gap.
+     background-color ensures no white body bleeds through if the fixed
+     overlay system doesn't activate in time on mobile Safari. */
+  .sticky-section-wrapper.cta {
+    min-height: auto;
+    background-color: var(--section-5-background);
+  }
+
+  .section.sticky-section.cta {
+    position: relative;
+    top: auto;
+    margin-top: 0;
+    overflow: visible;
+  }
+
   /* About label: size down so it doesn't overflow at mobile */
   .about-label {
     font-size: 8em;
