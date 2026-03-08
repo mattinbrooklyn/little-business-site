@@ -1036,13 +1036,18 @@ font-size: inherit;
         document.querySelector('.section-1-heading')
       ].filter(Boolean);
 
+      var bottomOuter = document.querySelector('.intro-wrapper-bottom-outer');
+
       if (!stickyWrapper || !overflow || !boxWrapper || boxes.length < 2) return;
 
       var slotW = 0;
       var stepW = 0; // slotW + gap — measured from boxes[1].offsetLeft after sizing
 
-      // Immediately hide to avoid flash of unsized boxes before JS initialises
-      if (window.innerWidth <= MAX_W) overflow.style.visibility = 'hidden';
+      // Immediately hide both the boxes section and the overflow to avoid flash on load
+      if (window.innerWidth <= MAX_W) {
+        overflow.style.visibility = 'hidden';
+        if (bottomOuter) bottomOuter.style.opacity = '0';
+      }
 
       // Lock the hero heading on every scroll frame — CSS !important alone can't beat
       // Webflow's inline setProperty('important') transforms
@@ -1084,6 +1089,12 @@ font-size: inherit;
         var rect     = stickyWrapper.getBoundingClientRect();
         var total    = stickyWrapper.offsetHeight - window.innerHeight;
         var progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
+
+        // Fade boxes in over first 12% of scroll — initial screen shows only the hero
+        if (bottomOuter) {
+          var boxOpacity = Math.min(1, progress / 0.12);
+          bottomOuter.style.setProperty('opacity', boxOpacity, 'important');
+        }
 
         // Slide box-wrapper left; step includes the gap so boxes arrive cleanly
         var x = -progress * (boxes.length - 1) * stepW;
