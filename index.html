@@ -1055,9 +1055,9 @@ font-size: inherit;
 
       if (!stickyWrapper || boxes.length < 2) return;
 
-      // Hide bottom section before first paint to avoid flash
+      // Subtitle + cards are visible from the start — lock opacity so IX2 can't fade them
       if (window.innerWidth <= MAX_W) {
-        if (bottomOuter) bottomOuter.style.opacity = '0';
+        if (bottomOuter) bottomOuter.style.setProperty('opacity', '1', 'important');
       }
 
       function lockHero() {
@@ -1065,12 +1065,14 @@ font-size: inherit;
           el.style.setProperty('transform', 'none', 'important');
           el.style.setProperty('opacity',   '1',    'important');
         });
+        // Also keep subtitle locked visible so IX2 can't fade it
+        if (bottomOuter) bottomOuter.style.setProperty('opacity', '1', 'important');
       }
 
       function setup() {
         if (window.innerWidth > MAX_W) {
           // Reset everything on resize to desktop
-          if (bottomOuter) bottomOuter.style.opacity = '';
+          if (bottomOuter) bottomOuter.style.removeProperty('opacity');
           boxes.forEach(function (b, i) {
             b.style.removeProperty('opacity');
             b.style.removeProperty('transform');
@@ -1079,12 +1081,12 @@ font-size: inherit;
           });
           return;
         }
-        // Cards 1 and 2 start off-screen to the right;
-        // card 0 appears with the section fade-in (no special handling)
+        // Cards 1 and 2 start off-screen to the left (clipped by .intro-box-wrapper overflow).
+        // No opacity change — cards are always opaque, only position animates.
         boxes.forEach(function (b, i) {
           if (i > 0) {
-            b.style.setProperty('opacity',   '0',             'important');
-            b.style.setProperty('transform', 'translateX(2em)', 'important');
+            b.style.setProperty('opacity',   '1',            'important');
+            b.style.setProperty('transform', 'translateX(-110%)', 'important');
           }
         });
         lockHero();
@@ -1100,24 +1102,16 @@ font-size: inherit;
         var total    = stickyWrapper.offsetHeight - window.innerHeight;
         var progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
 
-        // Fade the whole bottom section (heading + cards) in over first 12% of scroll
-        var FADE = 0.12;
-        if (bottomOuter) {
-          bottomOuter.style.setProperty('opacity', String(Math.min(1, progress / FADE)), 'important');
-        }
-
-        // cardProgress runs 0→1 over the scroll travel that remains after the fade-in
-        var cardProgress = progress <= FADE ? 0 : Math.min(1, (progress - FADE) / (1 - FADE));
-
-        // Card 0 visible from the start; cards 1 and 2 scroll in at staggered thresholds.
-        // REVEAL is how much of cardProgress each fade-in consumes (~one short scroll).
+        // Card 0 visible from the start; cards 1 and 2 slide in from the left
+        // at staggered scroll thresholds. REVEAL is the fraction of scroll each
+        // transition consumes — roughly one deliberate swipe.
         var REVEAL = 0.15;
         var thresholds = [null, 0.40, 0.75];
         boxes.forEach(function (box, i) {
           if (i === 0) return;
-          var r = Math.min(1, Math.max(0, (cardProgress - thresholds[i]) / REVEAL));
-          box.style.setProperty('opacity',   String(r),                            'important');
-          box.style.setProperty('transform', 'translateX(' + ((1 - r) * 2) + 'em)', 'important');
+          var r = Math.min(1, Math.max(0, (progress - thresholds[i]) / REVEAL));
+          box.style.setProperty('opacity',   '1',                                      'important');
+          box.style.setProperty('transform', 'translateX(' + ((r - 1) * 110) + '%)',   'important');
         });
       }
 

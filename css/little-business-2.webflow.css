@@ -1655,7 +1655,7 @@ ul {
   }
 
   .container.full-screen-height.intro {
-    padding-top: 2.5em;
+    padding-top: 4em;
     padding-bottom: 4em;
   }
 
@@ -1738,11 +1738,13 @@ ul {
     display: flex;
   }
 
-  /* Vertical stack — cards scroll in one by one via JS */
+  /* Vertical stack — cards scroll in one by one via JS.
+     overflow:hidden clips cards that are off to the left before they slide in. */
   .intro-box-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 0.5em;
+    overflow: hidden;
   }
 
   /* Cancel Webflow per-box animations — Webflow uses plain inline styles which
@@ -1751,7 +1753,7 @@ ul {
   .intro-box {
     grid-column-gap: .5em;
     grid-row-gap: .5em;
-    padding-top: 1.2em;
+    padding-top: 0.7em;
     transform: none !important;
     opacity: 1 !important;
   }
@@ -1853,7 +1855,7 @@ ul {
   .intro-wrapper-top-outer {
     transform: none !important;
     opacity: 1 !important;
-    padding-bottom: 3em;
+    padding-bottom: 1em;
   }
 
   .intro-wrapper-top {
@@ -1902,9 +1904,9 @@ ul {
     margin-bottom: 4em;
   }
 
-  /* Carousel clip container — JS sets height to one box height */
+  /* Clipping is handled by .intro-box-wrapper; individual overflows stay visible */
   .intro-box-overflow {
-    overflow: hidden;
+    overflow: visible;
   }
 
   .desktop-menu {
