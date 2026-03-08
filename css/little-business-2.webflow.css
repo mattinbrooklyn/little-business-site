@@ -1748,14 +1748,11 @@ ul {
 
   /* Subtitle slides in first, then each card one at a time.
      JS adds .is-visible at staggered scroll thresholds. */
+  /* JS controls the subtitle's transform via setProperty — only the
+     transition lives here so the slide animates smoothly */
   .points-heading {
-    transform: translateX(-110%) !important;
     transition: transform 0.9s cubic-bezier(.16, 1, .3, 1);
     will-change: transform;
-  }
-
-  .points-heading.is-visible {
-    transform: translateX(0) !important;
   }
 
   /* Cards start off-screen left; same animation style as the subtitle. */
@@ -2140,9 +2137,27 @@ ul {
 /* ---- MOBILE & TABLET (≤ 767px) ---- */
 @media screen and (max-width: 767px) {
 
-  /* About section: disable sticky, reset to normal document flow */
+  /* On mobile, Webflow's fixed-position background layer system (section-1-bg
+     through section-5-bg) is unreliable — mobile Safari doesn't update fixed
+     elements smoothly during scroll, letting white body bleed through.
+     Each section wrapper gets its own background-color as a reliable fallback. */
+  .sticky-section-wrapper.intro {
+    background-color: var(--section-1-background);
+  }
+
+  .sticky-section-wrapper.packages {
+    background-color: var(--section-2-background);
+  }
+
+  .sticky-section-wrapper.points {
+    background-color: var(--section-3-background);
+  }
+
+  /* About section: disable sticky, reset to normal document flow.
+     min-height: 100vh ensures the CTA section stays below the fold. */
   .sticky-section-wrapper.about {
-    min-height: auto;
+    min-height: 100vh;
+    background-color: var(--section-4-background);
   }
 
   .sticky-section-wrapper.about .sticky-section {
@@ -2152,11 +2167,20 @@ ul {
   }
 
   /* CTA section: same treatment — disable sticky, kill the desktop entry gap.
-     background-color ensures no white body bleeds through if the fixed
-     overlay system doesn't activate in time on mobile Safari. */
+     A gradient at the top bridges the about→CTA color transition instead of
+     a hard cut, since the fixed-bg cross-fade doesn't run on mobile. */
   .sticky-section-wrapper.cta {
     min-height: auto;
     background-color: var(--section-5-background);
+  }
+
+  .sticky-section-wrapper.cta::before {
+    content: '';
+    display: block;
+    height: 3em;
+    background: linear-gradient(to bottom, var(--section-4-background), var(--section-5-background));
+    margin-top: -3em;
+    pointer-events: none;
   }
 
   .section.sticky-section.cta {

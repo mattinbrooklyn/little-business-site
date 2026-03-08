@@ -1071,8 +1071,8 @@ font-size: inherit;
 
       function setup() {
         if (window.innerWidth > MAX_W) {
-          // Reset for desktop: remove classes, clear inline styles, restore IX2 refs
-          if (subtitle) subtitle.classList.remove('is-visible');
+          // Reset for desktop: clear inline styles, restore IX2 refs
+          if (subtitle) subtitle.style.removeProperty('transform');
           if (bottomOuter) bottomOuter.style.removeProperty('opacity');
           boxes.forEach(function (b, i) {
             b.classList.remove('is-visible');
@@ -1082,8 +1082,9 @@ font-size: inherit;
           });
           return;
         }
-        // Reset everything to off-screen state — CSS handles initial transform
-        if (subtitle) subtitle.classList.remove('is-visible');
+        // Push subtitle off-screen via setProperty — same !important authority
+        // as the hero lock, bypasses any CSS specificity issues
+        if (subtitle) subtitle.style.setProperty('transform', 'translateX(-110%)', 'important');
         boxes.forEach(function (b) { b.classList.remove('is-visible'); });
         lockHero();
         update();
@@ -1099,9 +1100,15 @@ font-size: inherit;
         var progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
 
         // Staggered sequence: subtitle → card 0 → card 1 → card 2.
-        // Each item gets its own scroll threshold; CSS transition handles
-        // the smooth slide-in (same cubic-bezier as the rest of the site).
-        if (subtitle) subtitle.classList.toggle('is-visible', progress >= 0.05);
+        // Subtitle uses setProperty so inline !important wins over anything.
+        // CSS transition on .points-heading fires when the value changes.
+        if (subtitle) {
+          subtitle.style.setProperty(
+            'transform',
+            progress >= 0.05 ? 'translateX(0)' : 'translateX(-110%)',
+            'important'
+          );
+        }
         var cardThresholds = [0.28, 0.52, 0.76];
         boxes.forEach(function (box, i) {
           box.classList.toggle('is-visible', progress >= cardThresholds[i]);
