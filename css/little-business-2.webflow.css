@@ -2151,12 +2151,9 @@ ul {
     overflow: visible;
   }
 
-  /* CTA section: same treatment — disable sticky, kill the desktop entry gap.
-     background-color ensures no white body bleeds through if the fixed
-     overlay system doesn't activate in time on mobile Safari. */
+  /* CTA section: same treatment — disable sticky, kill the desktop entry gap */
   .sticky-section-wrapper.cta {
     min-height: auto;
-    background-color: var(--section-5-background);
   }
 
   .section.sticky-section.cta {
