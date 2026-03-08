@@ -1046,6 +1046,7 @@ font-size: inherit;
       var stickyWrapper = document.querySelector('.sticky-section-wrapper.intro');
       var boxes         = Array.from(document.querySelectorAll('.intro-box'));
       var bottomOuter   = document.querySelector('.intro-wrapper-bottom-outer');
+      var subtitle      = document.querySelector('.intro-wrapper-bottom .points-heading');
 
       var heroLockEls = [
         document.querySelector('.intro-wrapper-top-outer'),
@@ -1055,7 +1056,7 @@ font-size: inherit;
 
       if (!stickyWrapper || boxes.length < 2) return;
 
-      // Subtitle + cards are visible from the start — lock opacity so IX2 can't fade them
+      // Lock the bottom wrapper at opacity 1 so IX2 can't fade it
       if (window.innerWidth <= MAX_W) {
         if (bottomOuter) bottomOuter.style.setProperty('opacity', '1', 'important');
       }
@@ -1065,13 +1066,13 @@ font-size: inherit;
           el.style.setProperty('transform', 'none', 'important');
           el.style.setProperty('opacity',   '1',    'important');
         });
-        // Also keep subtitle locked visible so IX2 can't fade it
         if (bottomOuter) bottomOuter.style.setProperty('opacity', '1', 'important');
       }
 
       function setup() {
         if (window.innerWidth > MAX_W) {
-          // Reset for desktop: remove class, clear inline styles, restore IX2 refs
+          // Reset for desktop: remove classes, clear inline styles, restore IX2 refs
+          if (subtitle) subtitle.classList.remove('is-visible');
           if (bottomOuter) bottomOuter.style.removeProperty('opacity');
           boxes.forEach(function (b, i) {
             b.classList.remove('is-visible');
@@ -1081,10 +1082,9 @@ font-size: inherit;
           });
           return;
         }
-        // Reset all cards to off-screen state (CSS handles the initial position)
-        boxes.forEach(function (b, i) {
-          if (i > 0) b.classList.remove('is-visible');
-        });
+        // Reset everything to off-screen state — CSS handles initial transform
+        if (subtitle) subtitle.classList.remove('is-visible');
+        boxes.forEach(function (b) { b.classList.remove('is-visible'); });
         lockHero();
         update();
       }
@@ -1098,12 +1098,13 @@ font-size: inherit;
         var total    = stickyWrapper.offsetHeight - window.innerHeight;
         var progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
 
-        // Toggle .is-visible at staggered scroll thresholds — CSS transition
-        // handles the smooth slide-in (same cubic-bezier as the rest of the site).
-        var thresholds = [null, 0.40, 0.75];
+        // Staggered sequence: subtitle → card 0 → card 1 → card 2.
+        // Each item gets its own scroll threshold; CSS transition handles
+        // the smooth slide-in (same cubic-bezier as the rest of the site).
+        if (subtitle) subtitle.classList.toggle('is-visible', progress >= 0.05);
+        var cardThresholds = [0.28, 0.52, 0.76];
         boxes.forEach(function (box, i) {
-          if (i === 0) return;
-          box.classList.toggle('is-visible', progress >= thresholds[i]);
+          box.classList.toggle('is-visible', progress >= cardThresholds[i]);
         });
       }
 

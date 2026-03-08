@@ -1426,9 +1426,8 @@ ul {
     justify-content: flex-start;
   }
 
-  /* Reset Webflow scroll animations on mobile — boxes should be fully visible */
+  /* opacity lock only — transform is handled by our slide-in animation below */
   .intro-box {
-    transform: none !important;
     opacity: 1 !important;
   }
 
@@ -1747,26 +1746,32 @@ ul {
     overflow: hidden;
   }
 
-  /* Cards start off-screen left; JS adds .is-visible at scroll thresholds.
-     CSS transition matches the site-wide slide-in animation style. */
+  /* Subtitle slides in first, then each card one at a time.
+     JS adds .is-visible at staggered scroll thresholds. */
+  .points-heading {
+    transform: translateX(-110%) !important;
+    transition: transform 0.9s cubic-bezier(.16, 1, .3, 1);
+    will-change: transform;
+  }
+
+  .points-heading.is-visible {
+    transform: translateX(0) !important;
+  }
+
+  /* Cards start off-screen left; same animation style as the subtitle. */
   .intro-box {
     grid-column-gap: .5em;
     grid-row-gap: .5em;
     padding-top: 0.7em;
     opacity: 1 !important;
-    transform: translateX(-110%);
+    transform: translateX(-110%) !important;
     transition: transform 0.9s cubic-bezier(.16, 1, .3, 1);
     will-change: transform;
   }
 
-  /* Card 0 is always in place */
-  .intro-box:first-child {
-    transform: translateX(0);
-  }
-
   /* Revealed state — toggled by JS */
   .intro-box.is-visible {
-    transform: translateX(0);
+    transform: translateX(0) !important;
   }
 
   /* intro-box-wrapper clips off-screen cards; individual overflows stay open */
