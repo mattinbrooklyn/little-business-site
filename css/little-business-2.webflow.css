@@ -1745,12 +1745,15 @@ ul {
     gap: 1em;
   }
 
-  /* Cancel Webflow per-box transforms; JS drives opacity + translateY per card */
+  /* Cancel Webflow per-box animations — Webflow uses plain inline styles which
+     CSS !important beats. Our JS then uses setProperty('important') to override
+     this rule and reveal cards one by one. */
   .intro-box {
     grid-column-gap: .5em;
     grid-row-gap: .5em;
     padding-top: 1.2em;
     transform: none !important;
+    opacity: 1 !important;
   }
 
   /* No horizontal clipping needed for vertical layout */
