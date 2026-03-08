@@ -1847,15 +1847,13 @@ ul {
     display: none;
   }
 
-  /* Hard-lock the hero heading at 25% from the top of the viewport.
-     position:sticky inside the sticky section pins it there permanently —
-     no JS transform or layout shift can move it once it's in place. */
+  /* Lock transform/opacity so IX2 can't animate the hero heading.
+     No independent sticky — the outer wrapper holds the whole section
+     in view, so everything (hero + subtitle + cards) exits together. */
   .intro-wrapper-top-outer {
-    position: sticky;
-    top: 25vh;
-    z-index: 1;
     transform: none !important;
     opacity: 1 !important;
+    padding-bottom: 3em;
   }
 
   .intro-wrapper-top {
@@ -1871,7 +1869,7 @@ ul {
 
   /* Scale font-size down only — font, line-height all stay as desktop */
   .packages-heading {
-    font-size: 2.6em !important;
+    font-size: 2.5em !important;
     max-width: 70% !important;
   }
 
@@ -2058,7 +2056,7 @@ ul {
     font-size: 1.4em;
   }
 
-  /* Heading is sticky-locked above; boxes anchor to the bottom via space-between */
+  /* Boxes anchor to the bottom of the full-height container via space-between */
   .intro-parent-wrapper {
     grid-column-gap: 1em;
     grid-row-gap: 1em;
