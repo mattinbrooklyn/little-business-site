@@ -1681,9 +1681,9 @@ ul {
     overflow: visible;
   }
 
-  /* Re-enable sticky scroll for mobile box carousel — ~44vh per card transition */
+  /* Sticky scroll for mobile card reveal — ~50vh per card transition */
   .sticky-section-wrapper.intro {
-    min-height: 200vh;
+    min-height: 250vh;
   }
 
   .sticky-section-wrapper.points {
@@ -1738,22 +1738,24 @@ ul {
     display: flex;
   }
 
-  /* Horizontal carousel layout */
+  /* Vertical stack — cards scroll in one by one via JS */
   .intro-box-wrapper {
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 1.5em;
+    flex-direction: column;
+    gap: 1em;
   }
 
-  /* Cancel Webflow per-box animations — JS translates the wrapper, not individual boxes */
+  /* Cancel Webflow per-box transforms; JS drives opacity + translateY per card */
   .intro-box {
     grid-column-gap: .5em;
     grid-row-gap: .5em;
     padding-top: 1.2em;
-    flex-shrink: 0;
     transform: none !important;
-    opacity: 1 !important;
+  }
+
+  /* No horizontal clipping needed for vertical layout */
+  .intro-box-overflow {
+    overflow: visible;
   }
 
   .intro-box-heading {
