@@ -1024,6 +1024,25 @@ font-size: inherit;
   <script>
     (function () {
       var MAX_W = 479;
+
+      // ── IX2 defeat ────────────────────────────────────────────────────────
+      // Webflow's GSAP-based IX2 captures element references at DOMContentLoaded
+      // and then sets element.style.opacity = X on every scroll frame. That plain
+      // assignment strips the !important flag from any earlier setProperty call,
+      // letting CSS `opacity: 1 !important` win and keeping all cards visible.
+      //
+      // Fix: remove data-w-id from intro-boxes NOW (synchronous inline script,
+      // runs before DOMContentLoaded). IX2 never gets a reference → never
+      // interferes → our setProperty calls are the only thing writing opacity.
+      var savedWIds = [];
+      if (window.innerWidth <= MAX_W) {
+        document.querySelectorAll('.intro-box').forEach(function (box, i) {
+          savedWIds[i] = box.getAttribute('data-w-id') || null;
+          box.removeAttribute('data-w-id');
+        });
+      }
+      // ──────────────────────────────────────────────────────────────────────
+
       var stickyWrapper = document.querySelector('.sticky-section-wrapper.intro');
       var boxes         = Array.from(document.querySelectorAll('.intro-box'));
       var bottomOuter   = document.querySelector('.intro-wrapper-bottom-outer');
@@ -1052,9 +1071,11 @@ font-size: inherit;
         if (window.innerWidth > MAX_W) {
           // Reset everything on resize to desktop
           if (bottomOuter) bottomOuter.style.opacity = '';
-          boxes.forEach(function (b) {
+          boxes.forEach(function (b, i) {
             b.style.removeProperty('opacity');
             b.style.removeProperty('transform');
+            // Restore data-w-id so desktop Webflow animations work
+            if (savedWIds[i]) b.setAttribute('data-w-id', savedWIds[i]);
           });
           return;
         }
