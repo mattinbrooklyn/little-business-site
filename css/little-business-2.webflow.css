@@ -1866,7 +1866,7 @@ ul {
 
   /* Scale font-size down only — font, line-height all stay as desktop */
   .packages-heading {
-    font-size: 2.4em !important;
+    font-size: 2.6em !important;
     max-width: 70% !important;
   }
 
