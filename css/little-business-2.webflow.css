@@ -2277,6 +2277,19 @@ ul {
     width: 100%;
     max-width: 100%;
   }
+
+  /* Mobile nav overlay: periwinkle bg, cream text, Garamond */
+  .menu-modal {
+    background-color: var(--about-background);
+    color: var(--section-1-background);
+  }
+
+  .menu-modal .nav-link-2,
+  .menu-modal .menu-bottom-text {
+    font-family: 'ITC Garamond Std', serif;
+    font-weight: 400;
+    text-transform: none;
+  }
 }
 
 /* ---- SMALL MOBILE (≤ 479px) ---- */
