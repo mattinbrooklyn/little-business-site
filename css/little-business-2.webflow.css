@@ -2288,4 +2288,10 @@ ul {
   .testimonials-strip-wrapper {
     padding: 0 1em;
   }
+
+  /* Give the CTA wrapper scroll travel so IX2 can fade in the gold background
+     gradually — without this, the ~100vh auto height makes the transition abrupt */
+  .sticky-section-wrapper.cta {
+    min-height: 150vh;
+  }
 }
