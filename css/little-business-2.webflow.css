@@ -2298,21 +2298,9 @@ ul {
     color: #161717; /* beats Webflow's hardcoded .nav-link-2 { color: #000 } */
   }
 
-  /* Tagline: system sans-serif, not the nav-link serif */
-  .menu-modal .menu-bottom-text {
-    font-family: 'Neue Haas Grotesk Display', Arial, sans-serif;
-    font-weight: 400;
-    color: #161717;
-  }
-
-  /* Layout: space-between — links near top, tagline pinned to bottom */
+  /* Layout: center links vertically in the modal */
   .menu-modal .menu-modal-container {
-    justify-content: space-between;
-  }
-
-  /* Tagline: pull well clear of the bottom edge */
-  .mobile-menu-bottom {
-    padding-bottom: 3em;
+    justify-content: center;
   }
 }
 

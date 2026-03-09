@@ -382,9 +382,6 @@ font-size: inherit;
                 </a>
               </div>
             </div>
-            <div class="mobile-menu-bottom">
-              <div class="menu-bottom-text">Create Freely. Build Wisely.</div>
-            </div>
           </div>
         </div>
         <div class="desktop-menu">
@@ -661,7 +658,8 @@ font-size: inherit;
       border-radius: .66em;
       padding: 1.4em 1em;
       box-sizing: border-box;
-      z-index: 9999;
+      /* Below the nav (z-index: 9999) so it can't bleed through the open menu */
+      z-index: 1000;
       pointer-events: none;
       /* parked well below screen, no CSS transition — JS drives position */
       bottom: -600px;
