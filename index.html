@@ -763,7 +763,7 @@ font-size: inherit;
         if (!inView) {
           // Outside section — hide modal, reset trigger for next entry
           modalTriggerY = null;
-          card.style.bottom = hiddenBottom + 'px';
+          card.style.bottom = '-600px'; // fixed off-screen; never depends on cardH (can be 0 on first paint)
           card.classList.remove('lb-interactive');
           return;
         }
@@ -779,7 +779,7 @@ font-size: inherit;
         var extra = window.scrollY - modalTriggerY;
 
         if (extra < 0) {
-          card.style.bottom = hiddenBottom + 'px';
+          card.style.bottom = '-600px'; // same: fixed value, immune to cardH = 0
           card.classList.remove('lb-interactive');
         } else {
           var t = Math.min(1, extra / travelPx);
@@ -840,7 +840,11 @@ font-size: inherit;
 
       window.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update, { passive: true });
-      update();
+      // Double-RAF: defers until after the browser has painted, so getBoundingClientRect()
+      // returns real values (iOS Safari can return top:0 if called synchronously on load).
+      requestAnimationFrame(function () {
+        requestAnimationFrame(update);
+      });
     })();
   </script>
 
