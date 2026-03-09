@@ -2278,34 +2278,41 @@ ul {
     max-width: 100%;
   }
 
-  /* Mobile nav overlay: periwinkle bg, black text, Larish Alte */
+  /* Body bg matches the nav so any iOS safe-area / overscroll gap
+     shows periwinkle rather than the page's cream background */
+  body {
+    background-color: var(--about-background);
+  }
+
+  /* Mobile nav overlay: periwinkle bg, black text */
   .menu-modal {
     background-color: var(--about-background);
     color: #161717;
-    /* Extend background into iOS safe area so no page color bleeds through */
-    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
-  .menu-modal .nav-link-2,
-  .menu-modal .menu-bottom-text {
+  /* Nav links: Larish Alte serif */
+  .menu-modal .nav-link-2 {
     font-family: 'Larish Alte', sans-serif;
     font-weight: 400;
     text-transform: none;
+    color: #161717; /* beats Webflow's hardcoded .nav-link-2 { color: #000 } */
   }
 
-  /* Explicit color to beat Webflow's hardcoded .nav-link-2 { color: #000 } */
-  .menu-modal .nav-link-2 {
+  /* Tagline: system sans-serif, not the nav-link serif */
+  .menu-modal .menu-bottom-text {
+    font-family: 'Neue Haas Grotesk Display', Arial, sans-serif;
+    font-weight: 400;
     color: #161717;
   }
 
-  /* Layout: space-between pushes tagline to bottom, links stay near top */
+  /* Layout: space-between — links near top, tagline pinned to bottom */
   .menu-modal .menu-modal-container {
     justify-content: space-between;
   }
 
-  /* Tagline: give it breathing room from the safe-area padding */
+  /* Tagline: pull well clear of the bottom edge */
   .mobile-menu-bottom {
-    padding-bottom: 1em;
+    padding-bottom: 3em;
   }
 }
 
