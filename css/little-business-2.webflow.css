@@ -2278,7 +2278,7 @@ ul {
     max-width: 100%;
   }
 
-  /* Mobile nav overlay: periwinkle bg, cream text, Garamond */
+  /* Mobile nav overlay: periwinkle bg, cream text, Larish Alte */
   .menu-modal {
     background-color: var(--about-background);
     color: var(--section-1-background);
@@ -2286,7 +2286,7 @@ ul {
 
   .menu-modal .nav-link-2,
   .menu-modal .menu-bottom-text {
-    font-family: 'ITC Garamond Std', serif;
+    font-family: 'Larish Alte', sans-serif;
     font-weight: 400;
     text-transform: none;
   }
