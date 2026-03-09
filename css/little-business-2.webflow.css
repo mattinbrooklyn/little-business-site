@@ -2289,9 +2289,14 @@ ul {
     padding: 0 1em;
   }
 
-  /* Give the CTA wrapper scroll travel so IX2 can fade in the gold background
-     gradually — without this, the ~100vh auto height makes the transition abrupt */
+  /* Restore scroll travel on About and CTA so IX2 can run the background
+     cross-fades at the same pace as the other section transitions.
+     All other sections use 200vh+ wrappers — matching that here. */
+  .sticky-section-wrapper.about {
+    min-height: 200vh;
+  }
+
   .sticky-section-wrapper.cta {
-    min-height: 150vh;
+    min-height: 200vh;
   }
 }
