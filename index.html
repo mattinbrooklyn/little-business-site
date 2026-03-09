@@ -843,6 +843,38 @@ font-size: inherit;
     })();
   </script>
 
+  <!-- Mobile CTA: email slides in from left at 30% scroll through wrapper -->
+  <script>
+    (function () {
+      var MAX_W = 479;
+
+      var ctaWrapper = document.querySelector('.sticky-section-wrapper.cta');
+      var emailEl    = document.querySelector('.cta-email');
+      if (!ctaWrapper || !emailEl) return;
+
+      function update() {
+        if (window.innerWidth > MAX_W) return;
+        var rect     = ctaWrapper.getBoundingClientRect();
+        var total    = ctaWrapper.offsetHeight - window.innerHeight;
+        var progress = total > 0 ? Math.max(0, Math.min(1, -rect.top / total)) : 0;
+        emailEl.classList.toggle('is-visible', progress >= 0.30);
+      }
+
+      function setup() {
+        if (window.innerWidth > MAX_W) {
+          emailEl.classList.remove('is-visible');
+          emailEl.style.removeProperty('transform');
+          return;
+        }
+        update();
+      }
+
+      setup();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', setup, { passive: true });
+    })();
+  </script>
+
   <script>
     (function () {
       var contentCol = document.querySelector('.about-content-col');
