@@ -2290,6 +2290,16 @@ ul {
     font-weight: 400;
     text-transform: none;
   }
+
+  /* Nav link color: explicit rule needed to beat Webflow's .nav-link-2 { color: #000 } */
+  .menu-modal .nav-link-2 {
+    color: var(--section-1-background);
+  }
+
+  /* Bottom tagline: pull it up so it's never clipped on short viewports */
+  .mobile-menu-bottom {
+    padding-bottom: 2.5em;
+  }
 }
 
 /* ---- SMALL MOBILE (≤ 479px) ---- */
