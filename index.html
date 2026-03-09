@@ -754,7 +754,8 @@ font-size: inherit;
         var vh = window.innerHeight;
         var cardH = card.offsetHeight;
         var centeredBottom = (vh - cardH) / 2;
-        var hiddenBottom = -cardH - 40;
+        // Guard against cardH being 0 on first paint — always park at least 200px off-screen
+        var hiddenBottom = Math.min(-cardH - 40, -200);
 
         // Section is in view when sectionRect.top < vh
         var inView = sectionRect.top < vh && sectionRect.bottom > 0;
