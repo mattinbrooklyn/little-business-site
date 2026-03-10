@@ -1687,7 +1687,7 @@ ul {
   }
 
   .sticky-section-wrapper.packages {
-    min-height: 300vh;
+    min-height: 200vh;
   }
 
   .sticky-section-wrapper.points {
@@ -2344,6 +2344,11 @@ ul {
   /* Override the 767px gap: 2em — items stack flush so borders are adjacent */
   .post-intro-wrapper {
     gap: 0;
+  }
+
+  /* Shorten ticker section so less scrolling separates it from capabilities */
+  .sticky-section-wrapper.looping-banner {
+    min-height: 150vh;
   }
 
   .about-label {

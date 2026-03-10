@@ -1074,8 +1074,8 @@ font-size: inherit;
       var wrapItems  = Array.from(document.querySelectorAll('.post-intro-item-wrap'));
       if (!stickyWrapper || !wrapItems.length) return;
 
-      // ~70vh between each item (300vh wrapper, 200vh scrollable)
-      var thresholds = [0.10, 0.45, 0.80];
+      // 35vh between each item (200vh wrapper, 100vh scrollable); first near-instant
+      var thresholds = [0.02, 0.37, 0.72];
 
       function update() {
         if (window.innerWidth > MAX_W) return;
