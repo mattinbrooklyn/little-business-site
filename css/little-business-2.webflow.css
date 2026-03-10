@@ -2392,6 +2392,8 @@ ul {
 
   .sticky-section-wrapper.cta {
     min-height: 200vh;
+    /* Own bg prevents white flash when IX2's fixed section-5-bg fades on scroll-up */
+    background-color: var(--section-5-background);
   }
 
   /* CTA: restore sticky so the section pins while the 200vh wrapper scrolls past —
