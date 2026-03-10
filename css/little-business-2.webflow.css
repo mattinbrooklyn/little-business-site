@@ -2379,7 +2379,15 @@ ul {
 
   /* More breathing room between bio and Work & Clients */
   .about-loved {
-    margin-top: 3.5em;
+    margin-top: 5em;
+  }
+
+  .about-loved-heading {
+    font-size: 1.4em;
+  }
+
+  .about-loved-list {
+    font-size: 1em;
   }
 
   .sticky-section-wrapper.cta {
