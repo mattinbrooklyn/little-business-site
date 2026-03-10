@@ -2342,6 +2342,13 @@ ul {
     gap: 0;
   }
 
+  /* Clip translated item-wraps at the sticky section boundary so they don't
+     create body-level horizontal scroll (iOS Safari doesn't contain transform
+     overflow on flex children reliably without this outer clip) */
+  .sticky-section-wrapper.packages .sticky-section {
+    overflow: hidden;
+  }
+
   .about-label {
     font-size: 6em;
   }
