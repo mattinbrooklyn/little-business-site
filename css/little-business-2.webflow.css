@@ -2367,6 +2367,12 @@ ul {
     font-size: 6em;
   }
 
+  /* Pull label-col to screen edge: counteract container padding (3em) + col padding (1.5em) */
+  .about-label-col {
+    margin-left: -4.5em;
+    padding-left: 0;
+  }
+
   .testimonials-strip-wrapper {
     padding: 0 1em;
   }
