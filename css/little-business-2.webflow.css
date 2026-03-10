@@ -1858,20 +1858,24 @@ ul {
     padding-right: 0.75em;
   }
 
-  /* Close the gap so borders are flush between rows; clip slide-in overflow */
+  /* Close the gap so borders are flush between rows */
   .post-intro-wrapper {
     gap: 0;
+  }
+
+  /* Wrap stays static (borders always visible); clip the sliding inner content */
+  .post-intro-item-wrap {
     overflow: hidden;
   }
 
-  /* Items slide in from left one by one — same as hero cards */
-  .post-intro-item-wrap {
+  /* Inner content slides in from left — borders remain static */
+  .post-intro-item {
     transform: translateX(-110%);
     transition: transform 0.9s cubic-bezier(.16, 1, .3, 1);
     will-change: transform;
   }
 
-  .post-intro-item-wrap.is-visible {
+  .post-intro-item.is-visible {
     transform: translateX(0);
   }
 
