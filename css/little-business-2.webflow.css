@@ -2371,6 +2371,17 @@ ul {
     min-height: 200vh;
   }
 
+  /* Restore sticky pin so about content pauses in frame while wrapper scrolls */
+  .sticky-section-wrapper.about .sticky-section {
+    position: sticky;
+    top: 0;
+  }
+
+  /* More breathing room between bio and Work & Clients */
+  .about-loved {
+    margin-top: 3.5em;
+  }
+
   .sticky-section-wrapper.cta {
     min-height: 200vh;
   }
