@@ -1842,12 +1842,33 @@ ul {
     position: relative;
   }
 
+  /* Scaled down so "Integrated Collaboration" fits on one line */
   .post-intro-small-heading {
-    font-size: 2.4em;
+    font-size: 1.85em;
   }
 
+  /* Proportional to heading reduction (2.4→1.85 ≈ ×0.77) */
   .post-intro-paragraph {
-    font-size: 1.7em;
+    font-size: 1.4em;
+  }
+
+  /* Tighter horizontal padding — keeps borders consistent edge-to-edge */
+  .post-intro-item-wrap {
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+  }
+
+  /* Initial hidden state — JS adds .is-visible to reveal each item in sequence */
+  .post-intro-item {
+    opacity: 0;
+    transform: translateX(-2.5em) !important;
+    transition: opacity 0.7s ease, transform 0.9s cubic-bezier(.16, 1, .3, 1);
+    will-change: transform, opacity;
+  }
+
+  .post-intro-item.is-visible {
+    opacity: 1;
+    transform: translateX(0) !important;
   }
 
   .brand-logo-stacked {
