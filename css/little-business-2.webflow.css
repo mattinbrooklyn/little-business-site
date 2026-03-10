@@ -1852,22 +1852,27 @@ ul {
     font-size: 1.4em;
   }
 
-  /* Tighter horizontal padding — keeps borders consistent edge-to-edge */
+  /* Padding consistent across all three items */
   .post-intro-item-wrap {
     padding-left: 0.75em;
     padding-right: 0.75em;
   }
 
-  /* Initial hidden state — JS adds .is-visible to reveal each item in sequence */
-  .post-intro-item {
-    opacity: 0;
-    transform: translateX(-2.5em) !important;
-    transition: opacity 0.7s ease, transform 0.9s cubic-bezier(.16, 1, .3, 1);
-    will-change: transform, opacity;
+  /* Clip off-screen items; close the gap so borders are flush between rows */
+  .post-intro-wrapper {
+    overflow: hidden;
+    gap: 0;
   }
 
-  .post-intro-item.is-visible {
-    opacity: 1;
+  /* Whole row (border + content) starts fully off-screen left.
+     JS adds .is-visible to each wrap in sequence. */
+  .post-intro-item-wrap {
+    transform: translateX(-110%) !important;
+    transition: transform 0.9s cubic-bezier(.16, 1, .3, 1);
+    will-change: transform;
+  }
+
+  .post-intro-item-wrap.is-visible {
     transform: translateX(0) !important;
   }
 
@@ -2332,6 +2337,11 @@ ul {
 
 /* ---- SMALL MOBILE (≤ 479px) ---- */
 @media screen and (max-width: 479px) {
+  /* Override the 767px gap: 2em — items stack flush so borders are adjacent */
+  .post-intro-wrapper {
+    gap: 0;
+  }
+
   .about-label {
     font-size: 6em;
   }
