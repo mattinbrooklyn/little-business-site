@@ -2341,6 +2341,13 @@ ul {
 
 /* ---- SMALL MOBILE (≤ 479px) ---- */
 @media screen and (max-width: 479px) {
+  /* Body fallback: all section backgrounds are position:fixed z-index:-1.
+     When IX2 cross-fades between them there's a brief gap showing body bg.
+     Cream matches sections 1 & 4 so any gap is seamless; far better than white. */
+  body {
+    background-color: var(--section-1-background);
+  }
+
   /* Hide quote cards only — bio and clients/work remain visible */
   .testimonials-strip {
     display: none;
@@ -2392,8 +2399,6 @@ ul {
 
   .sticky-section-wrapper.cta {
     min-height: 200vh;
-    /* Own bg prevents white flash when IX2's fixed section-5-bg fades on scroll-up */
-    background-color: var(--section-5-background);
   }
 
   /* CTA: restore sticky so the section pins while the 200vh wrapper scrolls past —
