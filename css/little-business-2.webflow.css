@@ -2341,16 +2341,10 @@ ul {
 
 /* ---- SMALL MOBILE (≤ 479px) ---- */
 @media screen and (max-width: 479px) {
-  /* Body fallback: all section backgrounds are position:fixed z-index:-1.
-     When IX2 cross-fades between them there's a brief gap showing body bg.
-     Cream matches sections 1 & 4 so any gap is seamless; far better than white. */
+  /* overflow-x: clip on body only — blocks horizontal scroll without creating a
+     scroll container (unlike hidden), so position: sticky still works.
+     Applying clip to html causes fixed backgrounds to not cover the full viewport. */
   body {
-    background-color: var(--section-1-background);
-  }
-
-  /* overflow-x: clip cuts horizontal overflow without creating a scroll container,
-     so position: sticky still works (unlike overflow-x: hidden which breaks it). */
-  html, body {
     overflow-x: clip;
   }
 
