@@ -1864,9 +1864,9 @@ ul {
     overflow: hidden;
   }
 
-  /* Items slide in from right one by one — same pattern as hero cards (left) */
+  /* Items slide in from left one by one — same as hero cards */
   .post-intro-item-wrap {
-    transform: translateX(110%);
+    transform: translateX(-110%);
     transition: transform 0.9s cubic-bezier(.16, 1, .3, 1);
     will-change: transform;
   }
