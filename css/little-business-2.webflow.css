@@ -2341,6 +2341,11 @@ ul {
 
 /* ---- SMALL MOBILE (≤ 479px) ---- */
 @media screen and (max-width: 479px) {
+  /* Hide quote cards only — bio and clients/work remain visible */
+  .testimonials-strip {
+    display: none;
+  }
+
   /* Override the 767px gap: 2em — items stack flush so borders are adjacent */
   .post-intro-wrapper {
     gap: 0;
