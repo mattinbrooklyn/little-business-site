@@ -60,6 +60,7 @@ body {
   font-family: TeX Gyre Heros Condensed, sans-serif;
   font-size: 1vw;
   line-height: 1.1;
+  background-color: var(--section-1-background);
 }
 
 h1 {
@@ -2341,13 +2342,6 @@ ul {
 
 /* ---- SMALL MOBILE (≤ 479px) ---- */
 @media screen and (max-width: 479px) {
-  /* Keep opener-bg permanently visible on mobile. IX2 fades it during the intro
-     animation, removing the base layer and letting white show through any
-     cross-fade gap. Locking opacity:1 restores its intended permanent role. */
-  .opener-bg:not(.clip-nav) {
-    opacity: 1 !important;
-  }
-
   /* overflow-x: clip on body only — blocks horizontal scroll without creating a
      scroll container (unlike hidden), so position: sticky still works. */
   body {
