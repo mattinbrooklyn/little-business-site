@@ -2348,6 +2348,12 @@ ul {
     background-color: var(--section-1-background);
   }
 
+  /* overflow-x: clip cuts horizontal overflow without creating a scroll container,
+     so position: sticky still works (unlike overflow-x: hidden which breaks it). */
+  html, body {
+    overflow-x: clip;
+  }
+
   /* Hide quote cards only — bio and clients/work remain visible */
   .testimonials-strip {
     display: none;
