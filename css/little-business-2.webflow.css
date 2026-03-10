@@ -2367,9 +2367,13 @@ ul {
     font-size: 6em;
   }
 
-  /* Pull label-col to screen edge: counteract container padding (3em) + col padding (1.5em) */
+  /* about-label-col is the only child of the about container, so zeroing the
+     container's left padding + col's own padding gets the label flush to screen edge.
+     (Negative margin caused left overflow and broke horizontal scroll containment.) */
+  .container.full-screen-height.about {
+    padding-left: 0;
+  }
   .about-label-col {
-    margin-left: -4.5em;
     padding-left: 0;
   }
 
