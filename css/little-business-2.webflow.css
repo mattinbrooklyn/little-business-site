@@ -2342,10 +2342,10 @@ ul {
 
 /* ---- SMALL MOBILE (≤ 479px) ---- */
 @media screen and (max-width: 479px) {
-  /* overflow-x: clip on body only — blocks horizontal scroll without creating a
-     scroll container (unlike hidden), so position: sticky still works. */
+  /* Prevent horizontal touch-panning on mobile without affecting CSS overflow or
+     fixed backgrounds (unlike overflow-x:clip/hidden which clips fixed elements). */
   body {
-    overflow-x: clip;
+    touch-action: pan-y;
   }
 
   /* Hide quote cards only — bio and clients/work remain visible */
@@ -2367,12 +2367,8 @@ ul {
     font-size: 6em;
   }
 
-  /* about-label-col is the only child of the about container, so zeroing the
-     container's left padding + col's own padding gets the label flush to screen edge.
-     (Negative margin caused left overflow and broke horizontal scroll containment.) */
-  .container.full-screen-height.about {
-    padding-left: 0;
-  }
+  /* Remove the col's own 1.5em padding so the label aligns with the container edge.
+     Container's 3em padding still provides natural breathing room from screen edge. */
   .about-label-col {
     padding-left: 0;
   }
