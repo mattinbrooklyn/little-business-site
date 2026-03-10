@@ -1687,7 +1687,7 @@ ul {
   }
 
   .sticky-section-wrapper.packages {
-    min-height: 200vh;
+    min-height: 300vh;
   }
 
   .sticky-section-wrapper.points {
@@ -1819,6 +1819,7 @@ ul {
     margin-left: 0;
     padding-bottom: 1em;
     font-size: 4vw;
+    text-align: left;
   }
 
   .cta-email {
