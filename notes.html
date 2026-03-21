@@ -298,6 +298,9 @@
           status.textContent = 'No notes yet.';
           return;
         }
+        emails.sort(function(a, b) {
+          return new Date(b.publish_date || b.creation_date) - new Date(a.publish_date || a.creation_date);
+        });
         emails.forEach(function(email) {
           var li = document.createElement('li');
           li.className = 'notes-item';
