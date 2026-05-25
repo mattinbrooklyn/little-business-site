@@ -801,29 +801,14 @@ font-size: inherit;
         var email = emailInput.value.trim();
         if (!email) return;
         submitBtn.disabled = true;
-        var form = document.createElement('form');
-        form.method = 'POST';
-        form.action = 'https://buttondown.com/api/emails/embed-subscribe/littlebusiness';
-        form.target = 'bd-iframe';
-        var input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'email';
-        input.value = email;
-        form.appendChild(input);
-        var embedInput = document.createElement('input');
-        embedInput.type = 'hidden';
-        embedInput.name = 'embed';
-        embedInput.value = '1';
-        form.appendChild(embedInput);
-        document.body.appendChild(form);
-        form.submit();
-        document.body.removeChild(form);
+        fetch('https://script.google.com/macros/s/AKfycbxEWZCrsVVvuyGKlsZV-gxfyyBISybvjQnConHfja_6qTKD18GBBjyxyFq-qBp8YzqPVg/exec', {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'email=' + encodeURIComponent(email)
+        });
         formDiv.innerHTML = '<p style="margin:0;font-size:.95em;">Thanks! TTYS \u003c3</p>';
       });
-      var iframe = document.createElement('iframe');
-      iframe.name = 'bd-iframe';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
 
       document.querySelectorAll('a[href="#Contact"]').forEach(function (link) {
         link.addEventListener('click', function (e) {
