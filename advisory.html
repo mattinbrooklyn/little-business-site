@@ -110,13 +110,15 @@
       grid-template-columns: 1.4fr 1fr;
       gap: 4em;
       align-items: start;
-      margin-top: 5em;
+      margin-top: 4em;
     }
+    /* Section labels: Garamond sentence case, same as the "Work and Clients" heading */
     .adv-kicker {
-      text-transform: uppercase;
-      font-size: 1.1em;
-      letter-spacing: .04em;
-      margin: 0 0 .8em;
+      font-family: "ITC Garamond Std", sans-serif;
+      font-size: 2.5em;
+      font-weight: 400;
+      line-height: 1;
+      margin: 0 0 .35em;
     }
 
     /* Scope rows: same heading/paragraph pairing as the homepage capabilities list */
@@ -128,7 +130,7 @@
       gap: 1em;
       align-items: baseline;
       border-bottom: 2px solid #000;
-      padding: 1em 0;
+      padding: .8em 0;
     }
     .adv-scope h3 {
       font-family: "Larish Alte", sans-serif;
@@ -140,7 +142,7 @@
     .adv-scope p {
       font-size: 1.6em;
       line-height: 1.25;
-      margin: .25em 0 0;
+      margin: .15em 0 0;
       text-wrap: pretty;
     }
 
@@ -150,29 +152,28 @@
       top: 7em;
       border: 2px solid #000;
       border-radius: .66em;
-      padding: 1.4em 1.2em 1.2em;
+      padding: 1.2em 1em 1em;
     }
     .adv-offer dl { margin: 0; }
-    .adv-offer .row { padding: .7em 0; }
+    .adv-offer .row { padding: .6em 0; }
     .adv-offer .row + .row { border-top: 1px solid #000; }
     .adv-offer dt {
-      text-transform: uppercase;
-      font-size: 1em;
-      letter-spacing: .04em;
-      margin: 0 0 .35em;
+      font-family: "ITC Garamond Std", sans-serif;
+      font-size: 2.2em;
+      line-height: 1;
+      margin: 0 0 .15em;
     }
     .adv-offer dd {
-      font-family: "ITC Garamond Std", sans-serif;
-      font-size: 2.4em;
-      line-height: 1.05;
+      font-size: 1.6em;
+      line-height: 1.2;
       margin: 0;
       text-wrap: pretty;
     }
-    .adv-offer .rate dd { font-size: 3.2em; }
+    .adv-offer .rate dd { font-size: 2.2em; line-height: 1.1; }
 
     /* ---- CTA: same pairing as the homepage contact section ---- */
     .adv-cta {
-      margin-top: 6em;
+      margin-top: 4.5em;
       padding-top: 1.4em;
       border-top: 2px solid #000;
     }
@@ -225,9 +226,11 @@
       .adv-sheet { margin-top: 3em; gap: 2.5em; }
       .adv-scope h3 { font-size: 2.4em; }
       .adv-scope p { font-size: 1.3em; }
-      .adv-offer { padding: 1.2em 1em 1em; }
-      .adv-offer dd { font-size: 1.9em; }
-      .adv-offer .rate dd { font-size: 2.4em; }
+      .adv-kicker { font-size: 2.1em; }
+      .adv-offer { padding: 1em .9em .8em; }
+      .adv-offer dt { font-size: 1.9em; }
+      .adv-offer dd { font-size: 1.3em; }
+      .adv-offer .rate dd { font-size: 1.7em; }
       .adv-cta { margin-top: 4em; }
       .adv-cta h2 { font-size: 3.6em; }
       .adv-cta a { font-size: 2.2em; }
