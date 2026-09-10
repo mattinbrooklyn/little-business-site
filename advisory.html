@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <title>Advisory — Little Business</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <meta name="description" content="Ongoing, hourly advisory for creators and entrepreneurs who want a business producer in their corner. No retainer, no proposal, no minimum.">
+  <meta name="description" content="A business producer, by the hour. Ongoing, on-call advisory for creators and entrepreneurs. No retainer, no proposal, no minimum.">
   <meta property="og:title" content="Advisory — Little Business">
-  <meta property="og:description" content="You make the work. We mind the business. Hourly advisory from a business producer, whenever you need one.">
+  <meta property="og:description" content="A business producer, by the hour. No retainer, no proposal, no minimum.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://littlebusiness.co/advisory">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
@@ -26,7 +26,7 @@
     .w-webflow-badge { display: none !important; }
     *::selection { color: #f7f0cb; background: #000; }
 
-    /* Same viewport-scaled type system as notes.html, so sizes track the homepage */
+    /* Same viewport-scaled base as index.html and notes.html */
     html, body {
       margin: 0;
       padding: 0;
@@ -47,13 +47,8 @@
       grid-template-columns: 1fr 20.2em 1fr;
       align-items: center;
       padding: 1.32em;
-      background: transparent;
     }
-    .lb-nav-left, .lb-nav-right {
-      display: flex;
-      align-items: center;
-      gap: 5em;
-    }
+    .lb-nav-left, .lb-nav-right { display: flex; align-items: center; gap: 5em; }
     .lb-nav-left { justify-content: flex-start; }
     .lb-nav-right { justify-content: flex-end; }
     #lb-desktop-nav .nav-logo-center { justify-self: center; }
@@ -62,195 +57,173 @@
       font-family: "TeX Gyre Heros Condensed", sans-serif;
       font-size: .99em;
       line-height: 1.13;
-      color: #000;
-      text-decoration: none;
       display: block;
     }
-    .nav-logo-center {
-      display: flex;
-      align-items: center;
-      gap: 0.84em;
-      color: #000;
-    }
+    .nav-logo-center { display: flex; align-items: center; gap: .84em; }
     .nav-logo-svg-little, .nav-logo-svg-business {
       display: block;
       height: 2.621em;
       width: auto;
-      color: #000;
       flex-shrink: 0;
     }
 
-    /* ---- Page frame ---- */
+    /* ---- Page ---- */
     .advisory-page {
-      padding: 12em 3em 8em;
+      padding: 8em 3em 6em;
       box-sizing: border-box;
-      max-width: 100%;
     }
 
-    /* Small uppercase label used for section names and numbering */
-    .adv-label {
-      font-family: "TeX Gyre Heros Condensed", sans-serif;
+    /* Oversized section word, same treatment as the About label and Notes ticker */
+    .adv-word {
+      font-family: "Larish Alte", sans-serif;
+      font-size: 16.53em;
+      font-weight: 600;
+      line-height: .85;
+      margin: 0 0 .12em -.04em;
+    }
+
+    /* Statement + lede: same sizes as the homepage hero heading and capability paragraphs */
+    .adv-statement {
+      font-family: "ITC Garamond Std", sans-serif;
+      font-size: 5.5em;
+      font-weight: 400;
+      line-height: 1.05;
+      margin: 0 0 .35em;
+      max-width: 11em;
+    }
+    .adv-lede {
+      font-size: 2.2em;
+      line-height: 1.2;
+      margin: 0;
+      max-width: 26em;
+      text-wrap: pretty;
+    }
+
+    /* ---- Two-column sheet: scope left, offer right ---- */
+    .adv-sheet {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 4em;
+      align-items: start;
+      margin-top: 5em;
+    }
+    .adv-kicker {
       text-transform: uppercase;
       font-size: 1.1em;
       letter-spacing: .04em;
-      line-height: 1.2;
-      margin: 0;
+      margin: 0 0 .8em;
     }
 
-    /* ---- Hero ---- */
-    .adv-hero { margin-bottom: 5em; }
-    .adv-hero .adv-label { margin-bottom: 2em; }
-    .adv-headline {
-      font-family: "Larish Alte", serif;
-      font-weight: 600;
-      font-size: 7.4em;
-      line-height: .95;
-      letter-spacing: -.01em;
-      margin: 0 0 .35em;
-      max-width: 9.5em;
-    }
-    .adv-lede {
-      font-family: "ITC Garamond Std", serif;
-      font-weight: 400;
-      font-size: 2.6em;
-      line-height: 1.15;
-      margin: 0;
-      max-width: 22em;
-    }
-
-    /* ---- Sections: label column left, content right ---- */
-    .adv-section {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 2em;
-      border-top: 2px solid #000;
-      padding: 1.6em 0 3em;
-    }
-    .adv-section:last-of-type { border-bottom: 2px solid #000; }
-
-    /* Item lists: a Garamond statement followed by a plainer explanation */
-    .adv-items { list-style: none; margin: 0; padding: 0; }
-    .adv-item {
-      display: grid;
-      grid-template-columns: 4em 1fr;
-      gap: 1em;
-      padding: .6em 0 1.2em;
-    }
-    .adv-item + .adv-item { border-top: 1px solid rgba(0,0,0,.35); padding-top: 1.2em; }
-    .adv-item-lead {
-      font-family: "ITC Garamond Std", serif;
-      font-size: 2.4em;
-      line-height: 1.05;
-      margin: 0 0 .25em;
-    }
-    .adv-item-text {
-      font-size: 1.35em;
-      line-height: 1.25;
-      margin: 0;
-      max-width: 34em;
-    }
-    /* Items without a leading number */
-    .adv-items.no-number .adv-item { grid-template-columns: 1fr; }
-
-    /* ---- Terms: key/value rows ---- */
-    .adv-terms { margin: 0; }
-    .adv-term-row {
+    /* Scope rows: same heading/paragraph pairing as the homepage capabilities list */
+    .adv-scope { list-style: none; margin: 0; padding: 0; border-top: 2px solid #000; }
+    .adv-scope li {
       display: grid;
       grid-template-columns: 9em 1fr;
       gap: 1em;
-      padding: .9em 0;
+      border-bottom: 2px solid #000;
+      padding: 1em 0;
     }
-    .adv-term-row + .adv-term-row { border-top: 1px solid rgba(0,0,0,.35); }
-    .adv-term-row dt { margin: 0; padding-top: .55em; }
-    .adv-term-row dd {
-      font-family: "ITC Garamond Std", serif;
-      font-size: 2.2em;
-      line-height: 1.1;
-      margin: 0;
-      max-width: 20em;
-    }
-    .adv-term-row dd small {
-      display: block;
-      font-family: "TeX Gyre Heros Condensed", sans-serif;
-      font-size: .58em;
-      line-height: 1.25;
-      margin-top: .35em;
-      opacity: .75;
-    }
-
-    /* ---- Quote ---- */
-    .adv-quote { margin: 0; }
-    .adv-quote p {
-      font-family: "ITC Garamond Std", serif;
-      font-size: 2.6em;
-      line-height: 1.12;
-      margin: 0 0 .6em;
-      max-width: 20em;
-    }
-    .adv-quote cite {
-      font-style: normal;
-      font-size: 1.2em;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-    }
-
-    /* ---- Call to action ---- */
-    .adv-cta { padding: 5em 0 0; }
-    .adv-cta-heading {
-      font-family: "Larish Alte", serif;
+    .adv-scope h3 {
+      font-family: "Larish Alte", sans-serif;
+      font-size: 3.2em;
       font-weight: 600;
-      font-size: 5.6em;
-      line-height: .95;
-      margin: 0 0 .4em;
+      line-height: 1;
+      margin: 0;
     }
-    .adv-cta-link {
-      display: inline-block;
-      font-family: "ITC Garamond Std", serif;
-      font-size: 3.6em;
+    .adv-scope p {
+      font-size: 1.6em;
+      line-height: 1.25;
+      margin: .25em 0 0;
+      text-wrap: pretty;
+    }
+
+    /* Offer card: same border and radius as the homepage intro boxes */
+    .adv-offer {
+      position: sticky;
+      top: 7em;
+      border: 2px solid #000;
+      border-radius: .66em;
+      padding: 1.4em 1.2em 1.2em;
+    }
+    .adv-offer dl { margin: 0; }
+    .adv-offer .row { padding: .7em 0; }
+    .adv-offer .row + .row { border-top: 1px solid #000; }
+    .adv-offer dt {
+      text-transform: uppercase;
+      font-size: 1em;
+      letter-spacing: .04em;
+      margin: 0 0 .35em;
+    }
+    .adv-offer dd {
+      font-family: "ITC Garamond Std", sans-serif;
+      font-size: 2.4em;
       line-height: 1.05;
-      text-decoration: underline;
-      text-decoration-thickness: .04em;
-      text-underline-offset: .12em;
+      margin: 0;
+      text-wrap: pretty;
+    }
+    .adv-offer .rate dd { font-size: 3.2em; }
+
+    /* ---- CTA: same pairing as the homepage contact section ---- */
+    .adv-cta {
+      margin-top: 6em;
+      padding-top: 1.4em;
+      border-top: 2px solid #000;
+    }
+    .adv-cta h2 {
+      font-family: "Larish Alte", sans-serif;
+      font-size: 6em;
+      font-weight: 600;
+      line-height: .91;
+      margin: 0 0 .25em;
+    }
+    .adv-cta a {
+      font-size: 4em;
+      line-height: 1;
       word-break: break-all;
     }
-    .adv-cta-link:hover { font-style: italic; }
-    .adv-cta-note {
-      font-size: 1.35em;
+    .adv-cta a:hover { text-decoration: underline; }
+    .adv-cta p {
+      font-size: 1.6em;
       line-height: 1.25;
-      margin: 1.6em 0 0;
-      max-width: 32em;
+      margin: 1em 0 0;
+      max-width: 28em;
     }
 
     /* ---- Responsive ---- */
     @media screen and (max-width: 991px) {
       html, body { font-size: 1.25vw; }
+      .adv-sheet { grid-template-columns: 1fr; gap: 3em; }
+      .adv-offer { position: static; }
     }
     @media screen and (max-width: 767px) {
       html, body { font-size: 2vw; }
       #lb-desktop-nav { grid-template-columns: 1fr auto 1fr; }
       .lb-nav-left, .lb-nav-right { display: none; }
       .nav-logo-svg-little, .nav-logo-svg-business { height: 2em; }
-      .advisory-page { padding: 10em 2.5em 7em; }
-      .adv-section { grid-template-columns: 1fr; gap: 1.2em; }
-      .adv-headline { font-size: 6.4em; max-width: none; }
-      .adv-lede { font-size: 2.5em; }
-      .adv-term-row { grid-template-columns: 1fr; gap: .3em; }
-      .adv-term-row dt { padding-top: 0; }
+      .advisory-page { padding: 7em 2.5em 5em; }
+      .adv-word { font-size: 8em; }
+      .adv-statement { font-size: 4.4em; }
+      .adv-lede { font-size: 1.9em; }
+      .adv-scope li { grid-template-columns: 1fr; gap: .2em; }
     }
     @media screen and (max-width: 479px) {
       html, body { font-size: 3.5vw; }
       #lb-desktop-nav { padding: .76em; }
       .nav-logo-svg-little, .nav-logo-svg-business { height: 1.6em; }
-      .advisory-page { padding: 7em 1.5em 6em; }
-      .adv-headline { font-size: 4.6em; }
-      .adv-lede { font-size: 2em; }
-      .adv-item { grid-template-columns: 3em 1fr; gap: .6em; }
-      .adv-item-lead { font-size: 2em; }
-      .adv-item-text, .adv-cta-note { font-size: 1.25em; }
-      .adv-term-row dd { font-size: 1.9em; }
-      .adv-quote p { font-size: 2.1em; }
-      .adv-cta-heading { font-size: 4em; }
-      .adv-cta-link { font-size: 2.4em; }
+      .advisory-page { padding: 5.5em 1.5em 4em; }
+      .adv-word { font-size: 4.6em; }
+      .adv-statement { font-size: 3.2em; }
+      .adv-lede { font-size: 1.5em; }
+      .adv-sheet { margin-top: 3em; gap: 2.5em; }
+      .adv-scope h3 { font-size: 2.4em; }
+      .adv-scope p { font-size: 1.3em; }
+      .adv-offer { padding: 1.2em 1em 1em; }
+      .adv-offer dd { font-size: 1.9em; }
+      .adv-offer .rate dd { font-size: 2.4em; }
+      .adv-cta { margin-top: 4em; }
+      .adv-cta h2 { font-size: 3.6em; }
+      .adv-cta a { font-size: 2.2em; }
+      .adv-cta p { font-size: 1.3em; }
     }
   </style>
 </head>
@@ -289,119 +262,72 @@
 
   <main class="advisory-page">
 
-    <header class="adv-hero">
-      <p class="adv-label">Advisory</p>
-      <h1 class="adv-headline">You make the work. We mind the business.</h1>
-      <p class="adv-lede">Ongoing, hourly advisory for creators and entrepreneurs who want a business producer in their corner. No retainer, no proposal, no minimum. Just a seasoned counterpart, whenever you need one.</p>
+    <header>
+      <p class="adv-word" aria-hidden="true">Advisory</p>
+      <h1 class="adv-statement">A business producer, by the hour.</h1>
+      <p class="adv-lede">Ongoing, on-call partnership for creators and entrepreneurs with a business to run. No retainer, no proposal, no minimum. Bring us in when it&#x2019;s useful, for as long as it&#x2019;s useful.</p>
     </header>
 
-    <section class="adv-section" aria-labelledby="for-label">
-      <h2 class="adv-label" id="for-label">It&#x2019;s for you if</h2>
-      <ol class="adv-items">
-        <li class="adv-item">
-          <span class="adv-label">One</span>
-          <div>
-            <p class="adv-item-lead">You&#x2019;re the creative engine of the business.</p>
-            <p class="adv-item-text">And you want a partner for everything around it: the decisions, the systems, the people, the money.</p>
-          </div>
-        </li>
-        <li class="adv-item">
-          <span class="adv-label">Two</span>
-          <div>
-            <p class="adv-item-lead">You have decisions piling up.</p>
-            <p class="adv-item-text">Each one deserves a second, seasoned perspective before you commit. None of them needs a six-week engagement.</p>
-          </div>
-        </li>
-        <li class="adv-item">
-          <span class="adv-label">Three</span>
-          <div>
-            <p class="adv-item-lead">You&#x2019;d rather start this week.</p>
-            <p class="adv-item-text">An hour now beats a proposal next quarter. Bring someone in when it&#x2019;s useful, and only when it&#x2019;s useful.</p>
-          </div>
-        </li>
-      </ol>
-    </section>
+    <div class="adv-sheet">
 
-    <section class="adv-section" aria-labelledby="work-label">
-      <h2 class="adv-label" id="work-label">What we work on</h2>
-      <ul class="adv-items no-number">
-        <li class="adv-item">
-          <div>
-            <p class="adv-item-lead">Strategy and thought partnership.</p>
-            <p class="adv-item-text">The tough calls, the next move, and all the noise in between.</p>
-          </div>
-        </li>
-        <li class="adv-item">
-          <div>
-            <p class="adv-item-lead">Positioning and offerings.</p>
-            <p class="adv-item-text">What you sell, who it&#x2019;s for, what it&#x2019;s worth, and how you say it.</p>
-          </div>
-        </li>
-        <li class="adv-item">
-          <div>
-            <p class="adv-item-lead">Systems and process.</p>
-            <p class="adv-item-text">Operating principles, workflows, and infrastructure that lighten the load and hold up over time.</p>
-          </div>
-        </li>
-        <li class="adv-item">
-          <div>
-            <p class="adv-item-lead">Team and vendors.</p>
-            <p class="adv-item-text">Who does what, what it costs, and whether the model still fits where you&#x2019;re headed.</p>
-          </div>
-        </li>
-        <li class="adv-item">
-          <div>
-            <p class="adv-item-lead">A second read.</p>
-            <p class="adv-item-text">Proposals, decks, pitches, and client emails, reviewed before they go out the door.</p>
-          </div>
-        </li>
-        <li class="adv-item">
-          <div>
-            <p class="adv-item-lead">Workshops and exercises.</p>
-            <p class="adv-item-text">Facilitated sessions, written feedback, and prompts to think with between conversations.</p>
-          </div>
-        </li>
-      </ul>
-    </section>
+      <section aria-labelledby="scope-kicker">
+        <h2 class="adv-kicker" id="scope-kicker">What we work on</h2>
+        <ul class="adv-scope">
+          <li>
+            <h3>Decisions</h3>
+            <p>The tough calls and the next move, thought through with a seasoned second opinion.</p>
+          </li>
+          <li>
+            <h3>Positioning</h3>
+            <p>What you sell, who it&#x2019;s for, what it&#x2019;s worth, and how you say it.</p>
+          </li>
+          <li>
+            <h3>Operations</h3>
+            <p>The principles, workflows, and infrastructure behind the work.</p>
+          </li>
+          <li>
+            <h3>Team</h3>
+            <p>Who does what, what it costs, and whether the model still fits.</p>
+          </li>
+          <li>
+            <h3>Materials</h3>
+            <p>Proposals, decks, and client emails, read closely before they go out.</p>
+          </li>
+        </ul>
+      </section>
 
-    <section class="adv-section" aria-labelledby="how-label">
-      <h2 class="adv-label" id="how-label">How it works</h2>
-      <dl class="adv-terms">
-        <div class="adv-term-row">
-          <dt class="adv-label">Rate</dt>
-          <dd>$250 per hour, billed in 15-minute increments.<small>Live sessions, prep, async review, and email all count. Nothing is padded.</small></dd>
-        </div>
-        <div class="adv-term-row">
-          <dt class="adv-label">Rhythm</dt>
-          <dd>You set it.<small>A standing weekly call, a monthly check-in, or a text-free email when something comes up. The format can change as the work does.</small></dd>
-        </div>
-        <div class="adv-term-row">
-          <dt class="adv-label">Billing</dt>
-          <dd>One invoice a month, with an itemized log.<small>No retainer, no minimum, no unused hours.</small></dd>
-        </div>
-        <div class="adv-term-row">
-          <dt class="adv-label">Commitment</dt>
-          <dd>Ongoing until it isn&#x2019;t.<small>Either of us can end it with fifteen days&#x2019; notice. A simple agreement covers the rest.</small></dd>
-        </div>
-        <div class="adv-term-row">
-          <dt class="adv-label">Ownership</dt>
-          <dd>Everything we make together is yours.</dd>
-        </div>
-      </dl>
-    </section>
+      <section class="adv-offer" aria-labelledby="offer-kicker">
+        <h2 class="adv-kicker" id="offer-kicker">How it works</h2>
+        <dl>
+          <div class="row rate">
+            <dt>Rate</dt>
+            <dd>$250 an hour, in 15-minute increments.</dd>
+          </div>
+          <div class="row">
+            <dt>Format</dt>
+            <dd>Live sessions, workshops, async review, and email. You set the rhythm.</dd>
+          </div>
+          <div class="row">
+            <dt>Billing</dt>
+            <dd>Monthly and itemized. No retainer, no minimum.</dd>
+          </div>
+          <div class="row">
+            <dt>Term</dt>
+            <dd>Ongoing. Either of us can end it with 15 days&#x2019; notice.</dd>
+          </div>
+          <div class="row">
+            <dt>Ownership</dt>
+            <dd>The work is yours.</dd>
+          </div>
+        </dl>
+      </section>
 
-    <section class="adv-section" aria-labelledby="quote-label">
-      <h2 class="adv-label" id="quote-label">In practice</h2>
-      <blockquote class="adv-quote">
-        <p>&#x201C;As a thinking partner, his creative problem-solving and critical thinking level-up every conversation; it&#x2019;s a relief and joy to have his insight and perspective.&#x201D;</p>
-        <cite>Kate Barnett, President, Man Repeller</cite>
-      </blockquote>
-    </section>
+    </div>
 
     <section class="adv-cta" aria-labelledby="cta-heading">
-      <h2 class="adv-cta-heading" id="cta-heading">Have something going on?</h2>
-      <a class="adv-cta-link" href="mailto:matt@littlebusiness.co?subject=Advisory">matt@littlebusiness.co</a>
-      <p class="adv-cta-note">Tell us what you&#x2019;re working on and what&#x2019;s in the way. You&#x2019;ll hear back within 36 hours, and we can usually start the same week.</p>
+      <h2 id="cta-heading">Ready when you are.</h2>
+      <a href="mailto:matt@littlebusiness.co?subject=Advisory">matt@littlebusiness.co</a>
+      <p>Send a few lines on what you&#x2019;re working on. You&#x2019;ll hear back within 36 hours, and we can usually start the same week.</p>
     </section>
 
   </main>
