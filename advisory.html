@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Advisory — Little Business</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta name="description" content="Ongoing, hourly advisory for creators and entrepreneurs who want a business producer in their corner. No retainer, no proposal, no minimum.">
+  <meta property="og:title" content="Advisory — Little Business">
+  <meta property="og:description" content="You make the work. We mind the business. Hourly advisory from a business producer, whenever you need one.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://littlebusiness.co/advisory">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/little-business-2.webflow.css" rel="stylesheet" type="text/css">
+  <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon">
+  <link href="images/webclip.png" rel="apple-touch-icon">
+  <style>
+    html { scroll-behavior: smooth; }
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      -webkit-tap-highlight-color: transparent;
+    }
+    a { color: inherit; text-decoration: inherit; font-size: inherit; }
+    .w-webflow-badge { display: none !important; }
+    *::selection { color: #f7f0cb; background: #000; }
+
+    /* Same viewport-scaled type system as notes.html, so sizes track the homepage */
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #f7f0cb;
+      min-height: 100vh;
+      font-size: 1vw;
+      font-family: TeX Gyre Heros Condensed, sans-serif;
+      line-height: 1.1;
+      color: #000;
+    }
+
+    /* ---- Nav (mirrors index.html) ---- */
+    #lb-desktop-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      display: grid;
+      grid-template-columns: 1fr 20.2em 1fr;
+      align-items: center;
+      padding: 1.32em;
+      background: transparent;
+    }
+    .lb-nav-left, .lb-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 5em;
+    }
+    .lb-nav-left { justify-content: flex-start; }
+    .lb-nav-right { justify-content: flex-end; }
+    #lb-desktop-nav .nav-logo-center { justify-self: center; }
+    .lb-nav-link {
+      text-transform: uppercase;
+      font-family: "TeX Gyre Heros Condensed", sans-serif;
+      font-size: .99em;
+      line-height: 1.13;
+      color: #000;
+      text-decoration: none;
+      display: block;
+    }
+    .nav-logo-center {
+      display: flex;
+      align-items: center;
+      gap: 0.84em;
+      color: #000;
+    }
+    .nav-logo-svg-little, .nav-logo-svg-business {
+      display: block;
+      height: 2.621em;
+      width: auto;
+      color: #000;
+      flex-shrink: 0;
+    }
+
+    /* ---- Page frame ---- */
+    .advisory-page {
+      padding: 12em 3em 8em;
+      box-sizing: border-box;
+      max-width: 100%;
+    }
+
+    /* Small uppercase label used for section names and numbering */
+    .adv-label {
+      font-family: "TeX Gyre Heros Condensed", sans-serif;
+      text-transform: uppercase;
+      font-size: 1.1em;
+      letter-spacing: .04em;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    /* ---- Hero ---- */
+    .adv-hero { margin-bottom: 5em; }
+    .adv-hero .adv-label { margin-bottom: 2em; }
+    .adv-headline {
+      font-family: "Larish Alte", serif;
+      font-weight: 600;
+      font-size: 7.4em;
+      line-height: .95;
+      letter-spacing: -.01em;
+      margin: 0 0 .35em;
+      max-width: 9.5em;
+    }
+    .adv-lede {
+      font-family: "ITC Garamond Std", serif;
+      font-weight: 400;
+      font-size: 2.6em;
+      line-height: 1.15;
+      margin: 0;
+      max-width: 22em;
+    }
+
+    /* ---- Sections: label column left, content right ---- */
+    .adv-section {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2em;
+      border-top: 2px solid #000;
+      padding: 1.6em 0 3em;
+    }
+    .adv-section:last-of-type { border-bottom: 2px solid #000; }
+
+    /* Item lists: a Garamond statement followed by a plainer explanation */
+    .adv-items { list-style: none; margin: 0; padding: 0; }
+    .adv-item {
+      display: grid;
+      grid-template-columns: 4em 1fr;
+      gap: 1em;
+      padding: .6em 0 1.2em;
+    }
+    .adv-item + .adv-item { border-top: 1px solid rgba(0,0,0,.35); padding-top: 1.2em; }
+    .adv-item-lead {
+      font-family: "ITC Garamond Std", serif;
+      font-size: 2.4em;
+      line-height: 1.05;
+      margin: 0 0 .25em;
+    }
+    .adv-item-text {
+      font-size: 1.35em;
+      line-height: 1.25;
+      margin: 0;
+      max-width: 34em;
+    }
+    /* Items without a leading number */
+    .adv-items.no-number .adv-item { grid-template-columns: 1fr; }
+
+    /* ---- Terms: key/value rows ---- */
+    .adv-terms { margin: 0; }
+    .adv-term-row {
+      display: grid;
+      grid-template-columns: 9em 1fr;
+      gap: 1em;
+      padding: .9em 0;
+    }
+    .adv-term-row + .adv-term-row { border-top: 1px solid rgba(0,0,0,.35); }
+    .adv-term-row dt { margin: 0; padding-top: .55em; }
+    .adv-term-row dd {
+      font-family: "ITC Garamond Std", serif;
+      font-size: 2.2em;
+      line-height: 1.1;
+      margin: 0;
+      max-width: 20em;
+    }
+    .adv-term-row dd small {
+      display: block;
+      font-family: "TeX Gyre Heros Condensed", sans-serif;
+      font-size: .58em;
+      line-height: 1.25;
+      margin-top: .35em;
+      opacity: .75;
+    }
+
+    /* ---- Quote ---- */
+    .adv-quote { margin: 0; }
+    .adv-quote p {
+      font-family: "ITC Garamond Std", serif;
+      font-size: 2.6em;
+      line-height: 1.12;
+      margin: 0 0 .6em;
+      max-width: 20em;
+    }
+    .adv-quote cite {
+      font-style: normal;
+      font-size: 1.2em;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    /* ---- Call to action ---- */
+    .adv-cta { padding: 5em 0 0; }
+    .adv-cta-heading {
+      font-family: "Larish Alte", serif;
+      font-weight: 600;
+      font-size: 5.6em;
+      line-height: .95;
+      margin: 0 0 .4em;
+    }
+    .adv-cta-link {
+      display: inline-block;
+      font-family: "ITC Garamond Std", serif;
+      font-size: 3.6em;
+      line-height: 1.05;
+      text-decoration: underline;
+      text-decoration-thickness: .04em;
+      text-underline-offset: .12em;
+      word-break: break-all;
+    }
+    .adv-cta-link:hover { font-style: italic; }
+    .adv-cta-note {
+      font-size: 1.35em;
+      line-height: 1.25;
+      margin: 1.6em 0 0;
+      max-width: 32em;
+    }
+
+    /* ---- Responsive ---- */
+    @media screen and (max-width: 991px) {
+      html, body { font-size: 1.25vw; }
+    }
+    @media screen and (max-width: 767px) {
+      html, body { font-size: 2vw; }
+      #lb-desktop-nav { grid-template-columns: 1fr auto 1fr; }
+      .lb-nav-left, .lb-nav-right { display: none; }
+      .nav-logo-svg-little, .nav-logo-svg-business { height: 2em; }
+      .advisory-page { padding: 10em 2.5em 7em; }
+      .adv-section { grid-template-columns: 1fr; gap: 1.2em; }
+      .adv-headline { font-size: 6.4em; max-width: none; }
+      .adv-lede { font-size: 2.5em; }
+      .adv-term-row { grid-template-columns: 1fr; gap: .3em; }
+      .adv-term-row dt { padding-top: 0; }
+    }
+    @media screen and (max-width: 479px) {
+      html, body { font-size: 3.5vw; }
+      #lb-desktop-nav { padding: .76em; }
+      .nav-logo-svg-little, .nav-logo-svg-business { height: 1.6em; }
+      .advisory-page { padding: 7em 1.5em 6em; }
+      .adv-headline { font-size: 4.6em; }
+      .adv-lede { font-size: 2em; }
+      .adv-item { grid-template-columns: 3em 1fr; gap: .6em; }
+      .adv-item-lead { font-size: 2em; }
+      .adv-item-text, .adv-cta-note { font-size: 1.25em; }
+      .adv-term-row dd { font-size: 1.9em; }
+      .adv-quote p { font-size: 2.1em; }
+      .adv-cta-heading { font-size: 4em; }
+      .adv-cta-link { font-size: 2.4em; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="lb-desktop-nav" aria-label="Main navigation">
+    <div class="lb-nav-left">
+      <a href="/#capabilities" class="lb-nav-link">Capabilities</a>
+      <a href="/#about-section" class="lb-nav-link">About</a>
+    </div>
+    <a href="/" class="nav-logo-center" aria-label="Little Business home">
+      <svg class="nav-logo-svg-little" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 447 154" fill="none" aria-hidden="true">
+        <path d="M0 0.27002H37.4V128.33H71.4V153.26H0V0.27002Z" fill="currentColor"></path>
+        <path d="M78.5701 0.27002H115.97V153.26H78.5701V0.27002Z" fill="currentColor"></path>
+        <path d="M143.73 28.03H121.44V0.27002H203.41V28.03H181.31V153.25H143.72V28.03H143.73Z" fill="currentColor"></path>
+        <path d="M231.18 28.03H208.89V0.27002H290.86V28.03H268.76V153.25H231.17V28.03H231.18Z" fill="currentColor"></path>
+        <path d="M296.35 0.27002H333.75V128.33H367.75V153.26H296.36V0.27002H296.35Z" fill="currentColor"></path>
+        <path d="M374.92 0.27002H446.5V25.39H412.31V59.58H437.81V85.64H412.31V128.33H446.69V153.26H374.92V0.27002Z" fill="currentColor"></path>
+      </svg>
+      <svg class="nav-logo-svg-business" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 708 158" fill="none" aria-hidden="true">
+        <path d="M0.370117 2.27002H41.7301C67.4201 2.27002 92.5401 6.61002 92.5401 42.88C92.5401 61.2 83.6601 70.46 70.0601 73.1C87.6201 74.8 97.4501 87.83 97.4501 109.36C97.4501 142.6 79.3201 155.26 49.2901 155.26H0.370117V2.27002ZM42.6701 62.71C57.2101 62.71 59.8601 55.34 59.8601 44.01C59.8601 34.57 53.8201 27.01 43.9901 27.01H37.7601V62.71H42.6701ZM42.8601 129.19C56.6501 129.19 61.3701 122.01 61.3701 108.6C61.3701 92.17 56.8401 86.69 43.0501 86.69H37.7601V129.19H42.8601Z" fill="currentColor"></path>
+        <path d="M106.52 108.98V2.27002H143.73V115.41C143.73 122.02 144.3 131.09 152.98 131.09C161.66 131.09 162.23 122.02 162.23 115.41V2.27002H199.63V108.98C199.63 141.09 188.67 157.71 152.98 157.71C117.29 157.71 106.52 141.09 106.52 108.98Z" fill="currentColor"></path>
+        <path d="M210.4 108.04L242.13 103.88C242.32 124.66 247.04 129.38 253.08 129.38C259.12 129.38 259.31 123.71 259.31 120.31C259.31 107.84 253.08 100.29 242.31 91.22L232.68 83.1C220.59 72.9 210.39 60.81 210.39 41.36C210.39 14.54 227.77 0 255.34 0C290.47 0 293.11 29.28 293.3 44.57L260.81 47.78C260.81 34.56 260.62 27 254.01 27C248.91 27 247.02 33.99 247.02 37.58C247.02 49.48 253.82 55.71 263.26 64.02L272.14 71.76C285.74 83.47 296.32 96.88 296.32 118.6C296.32 140.32 280.64 157.7 255.33 157.7C225.68 157.7 211.32 144.29 210.38 108.03L210.4 108.04Z" fill="currentColor"></path>
+        <path d="M305.21 2.27002H342.61V155.26H305.21V2.27002Z" fill="currentColor"></path>
+        <path d="M357.34 2.27002H383.78L411.73 67.81V2.27002H442.71V155.26H417.02L389.44 83.3V155.26H357.33V2.27002H357.34Z" fill="currentColor"></path>
+        <path d="M457.45 2.27002H529.03V27.39H494.84V61.58H520.34V87.64H494.84V130.33H529.21V155.26H457.44V2.27002H457.45Z" fill="currentColor"></path>
+        <path d="M533.57 108.04L565.3 103.88C565.49 124.66 570.21 129.38 576.25 129.38C582.29 129.38 582.48 123.71 582.48 120.31C582.48 107.84 576.25 100.29 565.48 91.22L555.85 83.1C543.76 72.9 533.56 60.81 533.56 41.36C533.56 14.54 550.94 0 578.51 0C613.64 0 616.28 29.28 616.47 44.57L583.98 47.78C583.98 34.56 583.79 27 577.18 27C572.08 27 570.19 33.99 570.19 37.58C570.19 49.48 576.99 55.71 586.43 64.02L595.31 71.76C608.91 83.47 619.49 96.88 619.49 118.6C619.49 140.32 603.81 157.7 578.5 157.7C548.85 157.7 534.49 144.29 533.55 108.03L533.57 108.04Z" fill="currentColor"></path>
+        <path d="M621.58 108.04L653.31 103.88C653.5 124.66 658.22 129.38 664.26 129.38C670.3 129.38 670.49 123.71 670.49 120.31C670.49 107.84 664.26 100.29 653.49 91.22L643.86 83.1C631.77 72.9 621.57 60.81 621.57 41.36C621.57 14.54 638.95 0 666.52 0C701.65 0 704.29 29.28 704.48 44.57L671.99 47.78C671.99 34.56 671.8 27 665.19 27C660.09 27 658.2 33.99 658.2 37.58C658.2 49.48 665 55.71 674.44 64.02L683.32 71.76C696.92 83.47 707.5 96.88 707.5 118.6C707.5 140.32 691.82 157.7 666.51 157.7C636.86 157.7 622.5 144.29 621.56 108.03L621.58 108.04Z" fill="currentColor"></path>
+      </svg>
+    </a>
+    <div class="lb-nav-right">
+      <a href="https://knocktwice.studio" class="lb-nav-link">Knock Twice</a>
+      <a href="/#Contact" class="lb-nav-link">Contact</a>
+    </div>
+  </nav>
+
+  <main class="advisory-page">
+
+    <header class="adv-hero">
+      <p class="adv-label">Advisory</p>
+      <h1 class="adv-headline">You make the work. We mind the business.</h1>
+      <p class="adv-lede">Ongoing, hourly advisory for creators and entrepreneurs who want a business producer in their corner. No retainer, no proposal, no minimum. Just a seasoned counterpart, whenever you need one.</p>
+    </header>
+
+    <section class="adv-section" aria-labelledby="for-label">
+      <h2 class="adv-label" id="for-label">It&#x2019;s for you if</h2>
+      <ol class="adv-items">
+        <li class="adv-item">
+          <span class="adv-label">One</span>
+          <div>
+            <p class="adv-item-lead">You&#x2019;re the creative engine of the business.</p>
+            <p class="adv-item-text">And you want a partner for everything around it: the decisions, the systems, the people, the money.</p>
+          </div>
+        </li>
+        <li class="adv-item">
+          <span class="adv-label">Two</span>
+          <div>
+            <p class="adv-item-lead">You have decisions piling up.</p>
+            <p class="adv-item-text">Each one deserves a second, seasoned perspective before you commit. None of them needs a six-week engagement.</p>
+          </div>
+        </li>
+        <li class="adv-item">
+          <span class="adv-label">Three</span>
+          <div>
+            <p class="adv-item-lead">You&#x2019;d rather start this week.</p>
+            <p class="adv-item-text">An hour now beats a proposal next quarter. Bring someone in when it&#x2019;s useful, and only when it&#x2019;s useful.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="adv-section" aria-labelledby="work-label">
+      <h2 class="adv-label" id="work-label">What we work on</h2>
+      <ul class="adv-items no-number">
+        <li class="adv-item">
+          <div>
+            <p class="adv-item-lead">Strategy and thought partnership.</p>
+            <p class="adv-item-text">The tough calls, the next move, and all the noise in between.</p>
+          </div>
+        </li>
+        <li class="adv-item">
+          <div>
+            <p class="adv-item-lead">Positioning and offerings.</p>
+            <p class="adv-item-text">What you sell, who it&#x2019;s for, what it&#x2019;s worth, and how you say it.</p>
+          </div>
+        </li>
+        <li class="adv-item">
+          <div>
+            <p class="adv-item-lead">Systems and process.</p>
+            <p class="adv-item-text">Operating principles, workflows, and infrastructure that lighten the load and hold up over time.</p>
+          </div>
+        </li>
+        <li class="adv-item">
+          <div>
+            <p class="adv-item-lead">Team and vendors.</p>
+            <p class="adv-item-text">Who does what, what it costs, and whether the model still fits where you&#x2019;re headed.</p>
+          </div>
+        </li>
+        <li class="adv-item">
+          <div>
+            <p class="adv-item-lead">A second read.</p>
+            <p class="adv-item-text">Proposals, decks, pitches, and client emails, reviewed before they go out the door.</p>
+          </div>
+        </li>
+        <li class="adv-item">
+          <div>
+            <p class="adv-item-lead">Workshops and exercises.</p>
+            <p class="adv-item-text">Facilitated sessions, written feedback, and prompts to think with between conversations.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="adv-section" aria-labelledby="how-label">
+      <h2 class="adv-label" id="how-label">How it works</h2>
+      <dl class="adv-terms">
+        <div class="adv-term-row">
+          <dt class="adv-label">Rate</dt>
+          <dd>$250 per hour, billed in 15-minute increments.<small>Live sessions, prep, async review, and email all count. Nothing is padded.</small></dd>
+        </div>
+        <div class="adv-term-row">
+          <dt class="adv-label">Rhythm</dt>
+          <dd>You set it.<small>A standing weekly call, a monthly check-in, or a text-free email when something comes up. The format can change as the work does.</small></dd>
+        </div>
+        <div class="adv-term-row">
+          <dt class="adv-label">Billing</dt>
+          <dd>One invoice a month, with an itemized log.<small>No retainer, no minimum, no unused hours.</small></dd>
+        </div>
+        <div class="adv-term-row">
+          <dt class="adv-label">Commitment</dt>
+          <dd>Ongoing until it isn&#x2019;t.<small>Either of us can end it with fifteen days&#x2019; notice. A simple agreement covers the rest.</small></dd>
+        </div>
+        <div class="adv-term-row">
+          <dt class="adv-label">Ownership</dt>
+          <dd>Everything we make together is yours.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="adv-section" aria-labelledby="quote-label">
+      <h2 class="adv-label" id="quote-label">In practice</h2>
+      <blockquote class="adv-quote">
+        <p>&#x201C;As a thinking partner, his creative problem-solving and critical thinking level-up every conversation; it&#x2019;s a relief and joy to have his insight and perspective.&#x201D;</p>
+        <cite>Kate Barnett, President, Man Repeller</cite>
+      </blockquote>
+    </section>
+
+    <section class="adv-cta" aria-labelledby="cta-heading">
+      <h2 class="adv-cta-heading" id="cta-heading">Have something going on?</h2>
+      <a class="adv-cta-link" href="mailto:matt@littlebusiness.co?subject=Advisory">matt@littlebusiness.co</a>
+      <p class="adv-cta-note">Tell us what you&#x2019;re working on and what&#x2019;s in the way. You&#x2019;ll hear back within 36 hours, and we can usually start the same week.</p>
+    </section>
+
+  </main>
+
+  <script defer>document.addEventListener('load', function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "https://widget.prod.equally.ai/equally-widget.min.js";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'equallyWidget'));!window.EQUALLY_AI_API_KEY&&(window.EQUALLY_AI_API_KEY="va4amcvjsjh7f14yljjsds1waneztpir",intervalId=setInterval(function(){window.EquallyAi&&(clearInterval(intervalId),window.EquallyAi=new EquallyAi)},500));</script>
+</body>
+</html>
