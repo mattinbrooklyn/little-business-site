@@ -122,6 +122,14 @@
       margin: 0;
     }
     .adv-kicker { margin-bottom: .8em; }
+    /* The box gets a heading in the homepage intro-box style, not a list label */
+    .adv-offer .adv-kicker {
+      font-family: "ITC Garamond Std", sans-serif;
+      text-transform: none;
+      font-size: 3.2em;
+      line-height: 1;
+      margin-bottom: .35em;
+    }
 
     /* Scope rows: same heading/paragraph pairing as the homepage capabilities list */
     .adv-scope { list-style: none; margin: 0; padding: 0; border-top: 2px solid #000; }
@@ -148,18 +156,19 @@
       text-wrap: pretty;
     }
 
-    /* Offer: same ruled-row system as the scope list, label left and value right */
-    .adv-offer { position: sticky; top: 7em; }
-    .adv-offer dl { margin: 0; border-top: 2px solid #000; }
-    .adv-offer .row {
-      display: grid;
-      grid-template-columns: 7em 1fr;
-      gap: 1em;
-      align-items: baseline;
-      border-bottom: 2px solid #000;
-      padding: .8em 0;
+    /* Offer card: same border and radius as the homepage intro boxes */
+    .adv-offer {
+      position: sticky;
+      top: 7em;
+      border: 2px solid #000;
+      border-radius: .66em;
+      padding: 1.1em 1em 1.2em;
     }
-    .adv-offer dt { padding-top: .1em; }
+    .adv-offer dl { margin: 0; }
+    .adv-offer .row { padding: .7em 0; }
+    .adv-offer .row:last-child { padding-bottom: 0; }
+    .adv-offer .row + .row { border-top: 1px solid #000; }
+    .adv-offer dt { margin-bottom: .3em; }
     .adv-offer dd {
       font-family: "ITC Garamond Std", sans-serif;
       font-size: 2.4em;
@@ -167,6 +176,7 @@
       margin: 0;
       text-wrap: pretty;
     }
+    .adv-offer .rate dd { font-size: 3.2em; }
 
     /* ---- CTA: same pairing as the homepage contact section ---- */
     .adv-cta {
@@ -223,8 +233,10 @@
       .adv-sheet { margin-top: 3em; gap: 2.5em; }
       .adv-scope h3 { font-size: 2.4em; }
       .adv-scope p { font-size: 1.3em; }
-      .adv-offer .row { grid-template-columns: 1fr; gap: .2em; }
+      .adv-offer { padding: 1em .9em 1em; }
+      .adv-offer .adv-kicker { font-size: 2.6em; }
       .adv-offer dd { font-size: 1.9em; }
+      .adv-offer .rate dd { font-size: 2.4em; }
       .adv-cta { margin-top: 4em; }
       .adv-cta h2 { font-size: 3.6em; }
       .adv-cta a { font-size: 2.2em; }
@@ -304,7 +316,7 @@
       <section class="adv-offer" aria-labelledby="offer-kicker">
         <h2 class="adv-kicker" id="offer-kicker">How it works</h2>
         <dl>
-          <div class="row">
+          <div class="row rate">
             <dt>Rate</dt>
             <dd>$250 an hour, in 15-minute increments.</dd>
           </div>
