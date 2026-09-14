@@ -239,6 +239,11 @@ font-size: inherit;
       text-decoration: none;
     }
     .lb-card-link:hover { text-decoration: underline; }
+    /* Taller tap target on phones; the negative margin keeps the card layout unchanged.
+       .7em stays inside the card's .8em gap, so taps on the paragraph never hit the link. */
+    @media screen and (max-width: 479px) {
+      .lb-card-link { padding: .7em 0; margin: -.7em 0; }
+    }
   </style>
 </head>
 <body data-scroll-time="0" class="body">

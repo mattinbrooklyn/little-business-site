@@ -65,25 +65,27 @@ html, body {
   box-sizing: border-box;
 }
 
-/* Oversized title, same treatment as the About label and Notes ticker.
+/* Oversized title in the About label's face, set a step below its size.
    1.02 clears the descenders in "Project" and "Integrated" when titles stack onto
    two lines. The margins offset the extra leading so the block sits where .85 put it. */
 .sheet-word {
   font-family: "Larish Alte", sans-serif;
-  font-size: 16.53em;
+  font-size: 12.4em;
   font-weight: 600;
   line-height: 1.02;
   margin: -.085em 0 .035em -.04em;
 }
 
-/* Statement + lede: same sizes as the homepage hero heading and capability paragraphs */
+/* Statement in the homepage hero heading's face, a step smaller; lede matches the capability paragraphs */
 .sheet-statement {
   font-family: "ITC Garamond Std", sans-serif;
-  font-size: 5.5em;
+  font-size: 4.4em;
   font-weight: 400;
   line-height: 1.05;
   margin: 0 0 .35em;
   max-width: 11em;
+  /* Even line lengths, so a short last word never sits alone */
+  text-wrap: balance;
 }
 .sheet-lede {
   font-size: 2.2em;
@@ -175,13 +177,14 @@ html, body {
 }
 .sheet-cta h2 {
   font-family: "Larish Alte", sans-serif;
-  font-size: 6em;
+  font-size: 4.8em;
   font-weight: 600;
   line-height: .91;
   margin: 0 0 .25em;
+  text-wrap: balance;
 }
 .sheet-cta a {
-  font-size: 4em;
+  font-size: 3.2em;
   line-height: 1;
   word-break: break-all;
 }
@@ -210,41 +213,54 @@ html, body {
 .sheet-more span { opacity: .6; }
 .sheet-more a:hover { text-decoration: underline; }
 
-/* ---- Responsive ---- */
+/* ---- Responsive ----
+   The viewport-scaled base shrinks at each breakpoint, so headings step down with it
+   while small copy and labels step up to stay readable. */
 @media screen and (max-width: 991px) {
   html, body { font-size: 1.25vw; }
-  .sheet-word { font-size: 12.5em; }
+  .sheet-page { padding-top: 9em; }
+  .sheet-word { font-size: 9.4em; }
   .sheet-columns { grid-template-columns: 1fr; gap: 3em; }
   .sheet-scope li { grid-template-columns: 1fr; gap: .2em; }
   .sheet-offer { position: static; }
+  .sheet-kicker, .sheet-offer dt, .sheet-more { font-size: 1.4em; }
+  .sheet-scope p, .sheet-cta p { font-size: 1.9em; }
 }
 @media screen and (max-width: 767px) {
   html, body { font-size: 2vw; }
   #lb-desktop-nav { grid-template-columns: 1fr auto 1fr; }
   .lb-nav-left, .lb-nav-right { display: none; }
   .nav-logo-svg-little, .nav-logo-svg-business { height: 2em; }
-  .sheet-page { padding: 7em 2.5em 5em; }
-  .sheet-word { font-size: 8em; }
-  .sheet-statement { font-size: 4.4em; }
-  .sheet-lede { font-size: 1.9em; }
+  .sheet-page { padding: 8.5em 2.5em 5em; }
+  .sheet-word { font-size: 6em; }
+  .sheet-statement { font-size: 3.5em; }
+  .sheet-lede, .sheet-offer dd { font-size: 1.9em; }
+  .sheet-scope p, .sheet-cta p { font-size: 1.7em; }
+  .sheet-kicker, .sheet-offer dt, .sheet-more { font-size: 1.3em; }
+  .sheet-offer .sheet-kicker { font-size: 2.8em; }
+  .sheet-cta h2 { font-size: 3.8em; }
+  .sheet-cta a { font-size: 2.6em; }
 }
 @media screen and (max-width: 479px) {
   html, body { font-size: 3.5vw; }
   #lb-desktop-nav { padding: .76em; }
   .nav-logo-svg-little, .nav-logo-svg-business { height: 1.6em; }
-  .sheet-page { padding: 5.5em 1.5em 4em; }
-  .sheet-word { font-size: 4.6em; }
-  .sheet-statement { font-size: 3.2em; }
-  .sheet-lede { font-size: 1.5em; }
+  .sheet-page { padding: 6.5em 1.75em 4em; }
+  .sheet-word { font-size: 3.7em; }
+  .sheet-statement { font-size: 2.6em; }
+  /* One size for everything a lead actually reads on a phone */
+  .sheet-lede, .sheet-scope p, .sheet-offer dd, .sheet-cta p { font-size: 1.5em; }
+  .sheet-kicker, .sheet-offer dt, .sheet-more { font-size: 1.2em; }
   .sheet-columns { margin-top: 3em; gap: 2.5em; }
+  .sheet-scope li { padding: 1em 0; gap: .3em; }
   .sheet-scope h3 { font-size: 2em; }
-  .sheet-scope p { font-size: 1.3em; }
-  .sheet-offer { padding: 1em .9em 1em; }
-  .sheet-offer .sheet-kicker { font-size: 2.6em; }
-  .sheet-offer dd { font-size: 1.5em; }
+  .sheet-offer { padding: 1.2em 1.1em; }
+  .sheet-offer .sheet-kicker { font-size: 2.2em; }
   .sheet-cta { margin-top: 4em; }
-  .sheet-cta h2 { font-size: 3.6em; }
-  .sheet-cta a { font-size: 2.2em; }
-  .sheet-cta p { font-size: 1.3em; }
-  .sheet-more { margin-top: 3.5em; gap: .5em 1.5em; }
+  .sheet-cta h2 { font-size: 2.9em; }
+  /* Taller tap target; the negative margin keeps the text where it was */
+  .sheet-cta a { font-size: 2.2em; display: inline-block; padding: .3em 0; margin: -.3em 0; }
+  /* Footer stacks into thumb-sized rows instead of wrapping mid-line */
+  .sheet-more { flex-direction: column; gap: 0; margin-top: 3.5em; padding-top: .3em; }
+  .sheet-more span, .sheet-more a { padding: 1em 0; }
 }
