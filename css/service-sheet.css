@@ -73,7 +73,7 @@ html, body {
   font-size: 12.4em;
   font-weight: 600;
   line-height: 1.02;
-  margin: -.085em 0 .035em -.04em;
+  margin: -.085em 0 0 -.04em;
 }
 
 /* Statement in the homepage hero heading's face, a step smaller; lede matches the capability paragraphs */
@@ -82,9 +82,10 @@ html, body {
   font-size: 4.4em;
   font-weight: 400;
   line-height: 1.05;
-  margin: 0 0 .35em;
-  max-width: 11em;
-  /* Even line lengths, so a short last word never sits alone */
+  /* Equal space above and below, centering it between the title and the body */
+  margin: .35em 0;
+  /* No max-width: each statement runs on a single line. Sizes below are set so the
+     longest one fits; without a width cap it would wrap rather than overflow. */
   text-wrap: balance;
 }
 .sheet-lede {
@@ -233,7 +234,7 @@ html, body {
   .nav-logo-svg-little, .nav-logo-svg-business { height: 2em; }
   .sheet-page { padding: 8.5em 2.5em 5em; }
   .sheet-word { font-size: 6em; }
-  .sheet-statement { font-size: 3.5em; }
+  .sheet-statement { font-size: 3.2em; margin: .5em 0; }
   .sheet-lede, .sheet-offer dd { font-size: 1.9em; }
   .sheet-scope p, .sheet-cta p { font-size: 1.7em; }
   .sheet-kicker, .sheet-offer dt, .sheet-more { font-size: 1.3em; }
@@ -247,7 +248,7 @@ html, body {
   .nav-logo-svg-little, .nav-logo-svg-business { height: 1.6em; }
   .sheet-page { padding: 6.5em 1.75em 4em; }
   .sheet-word { font-size: 3.7em; }
-  .sheet-statement { font-size: 2.6em; }
+  .sheet-statement { font-size: 1.9em; margin: .8em 0; }
   /* One size for everything a lead actually reads on a phone */
   .sheet-lede, .sheet-scope p, .sheet-offer dd, .sheet-cta p { font-size: 1.5em; }
   .sheet-kicker, .sheet-offer dt, .sheet-more { font-size: 1.2em; }
