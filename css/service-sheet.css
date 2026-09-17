@@ -254,13 +254,13 @@ html, body {
   .sheet-kicker, .sheet-offer dt, .sheet-more { font-size: 1.2em; }
   .sheet-columns { margin-top: 3em; gap: 2.5em; }
   .sheet-scope li { padding: 1em 0; gap: .3em; }
-  .sheet-scope h3 { font-size: 2em; }
+  .sheet-scope h3 { font-size: 1.7em; }
   .sheet-offer { padding: 1.2em 1.1em; }
-  .sheet-offer .sheet-kicker { font-size: 2.2em; }
+  .sheet-offer .sheet-kicker { font-size: 1.8em; }
   .sheet-cta { margin-top: 4em; }
   .sheet-cta h2 { font-size: 2.9em; }
   /* Taller tap target; the negative margin keeps the text where it was */
-  .sheet-cta a { font-size: 2.2em; display: inline-block; padding: .3em 0; margin: -.3em 0; }
+  .sheet-cta a { font-size: 2.2em; display: inline-block; padding: .45em 0; margin: -.45em 0; }
   /* Footer stacks into thumb-sized rows instead of wrapping mid-line */
   .sheet-more { flex-direction: column; gap: 0; margin-top: 3.5em; padding-top: .3em; }
   .sheet-more span, .sheet-more a { padding: 1em 0; }
